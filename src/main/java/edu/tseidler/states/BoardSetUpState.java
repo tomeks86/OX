@@ -1,10 +1,13 @@
-package edu.tseidler;
+package edu.tseidler.states;
+
+import edu.tseidler.Board;
+import edu.tseidler.InputParser;
 
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class BoardSetUpState implements GameState {
+public class BoardSetUpState implements GameState {
     private final Map<String, String> lang;
 
     BoardSetUpState(Map<String, String> lang) {

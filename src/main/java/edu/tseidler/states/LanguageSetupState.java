@@ -1,10 +1,12 @@
-package edu.tseidler;
+package edu.tseidler.states;
+
+import edu.tseidler.LanguageSelector;
 
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class LanguageSetupState implements GameState {
+public class LanguageSetupState implements GameState {
     private Map<String, String> lang;
 
     public LanguageSetupState(Map<String, String> lang) {

@@ -1,4 +1,6 @@
-package edu.tseidler;
+package edu.tseidler.states;
+
+import edu.tseidler.LanguageSelector;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -9,6 +11,7 @@ public class OXGame {
     private Consumer<String> output;
     private GameState currentState;
     private Map<String, String> lang;
+    public static int gamesPlayed = 0;
 
     public OXGame(Supplier<String> inputSupplier, Consumer<String> output, String selLang) {
         this.inputSupplier = inputSupplier;
@@ -18,7 +21,7 @@ public class OXGame {
     }
 
     public void start() {
-        while (GameOverState.gamesPlayed < 3) {
+        while (gamesPlayed < 3) {
             doOneCycle();
         }
     }

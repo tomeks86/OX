@@ -1,10 +1,13 @@
-package edu.tseidler;
+package edu.tseidler.states;
+
+import edu.tseidler.Board;
+import edu.tseidler.PlayerList;
 
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class SetupSummaryState implements GameState {
+public class SetupSummaryState implements GameState {
     private final Map<String, String> lang;
     private final Board board;
     private final PlayerList playerList;

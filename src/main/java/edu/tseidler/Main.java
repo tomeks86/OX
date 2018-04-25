@@ -1,5 +1,7 @@
 package edu.tseidler;
 
+import edu.tseidler.states.OXGame;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Consumer;

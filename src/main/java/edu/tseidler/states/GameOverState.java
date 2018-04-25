@@ -1,11 +1,10 @@
-package edu.tseidler;
+package edu.tseidler.states;
 
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class GameOverState implements GameState {
-    static int gamesPlayed = 0;
+public class GameOverState implements GameState {
 
     @Override
     public void printTo(Consumer<String> output, Map<String, String> lang) {
@@ -14,7 +13,7 @@ class GameOverState implements GameState {
 
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-        gamesPlayed = 3;
+        OXGame.gamesPlayed = 3;
         return this;
     }
 }

@@ -1,10 +1,13 @@
-package edu.tseidler;
+package edu.tseidler.states;
+
+import edu.tseidler.Board;
+import edu.tseidler.PlayerList;
 
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class PlayerSetUpState implements GameState {
+public class PlayerSetUpState implements GameState {
     private final Map<String, String> lang;
     private final Board board;
     private PlayerList playerList;
@@ -21,7 +24,7 @@ class PlayerSetUpState implements GameState {
 
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-        return new SetupSummaryState(this.lang, this.board, this.playerList);
+        return new SetupSummaryState(this.lang, this.board, new PlayerList());
     }
 
 }

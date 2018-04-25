@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.states;
 
 import java.util.Map;
 import java.util.function.Consumer;
