@@ -17,6 +17,6 @@ public class Main {
 
         Consumer<String> output = System.out::println;
 
-        new OXGame(inputSupplier, output).start();
+        new OXGame(inputSupplier, output, "en").start();
     }
 }
