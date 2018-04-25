@@ -1,1 +1,12 @@
-WELCOME "hello to the OXGame"
+WELCOME hello to the OXGame, enter setup or leave defaults
+SETUP enter setup? yes/[no]
+YES yes
+NO no
+CHOOSE_LANGUAGE choose language:
+BOARD_SETUP chose board size:
+SIGNS_NUMBER number of winning signs:
+BOARD_SIZE size of board
+GAME_OVER game finished
+BOARD_SIZE_FORMAT provide board size in format: "[n, m]"
+PLAYER_SETUP enter name of the first player:
+PLAYER_NAME player name
