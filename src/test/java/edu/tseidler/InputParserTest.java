@@ -28,6 +28,7 @@ public class InputParserTest {
     private static final Object[][] dataForIncorrectBoardSize() {
         return new Object[][] {
                 {"[ 1, 1]"},
+                {"[ 1, 1, 1]"},
                 {"[ 1, 2]"},
                 {"[ 2, 2]"},
                 {"[-2,-4  ]"},

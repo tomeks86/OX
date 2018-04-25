@@ -19,23 +19,7 @@ class LanguageSetupState implements GameState {
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
         lang = switchLang(inputSupplier.get());
-        return new GameState() {
-            @Override
-            public void printTo(Consumer<String> output, Map<String, String> lang) {
-                output.accept(lang.get("BOARD_SETUP"));
-            }
-
-            @Override
-            public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-                int[] boardDimensions = new int[2];
-                try {
-//                    boardDimensions = InputParser.parseBoardSize(inputSupplier.get());
-                } catch (IllegalStateException e) {
-                    boardDimensions = new int[] {3, 3};
-                }
-                return null;
-            }
-        };
+        return new BoardSetUpState();
     }
 
     private Map<String,String> switchLang(String s) {
@@ -43,4 +27,5 @@ class LanguageSetupState implements GameState {
             return LanguageSelector.selectLanguage(s);
         return lang;
     }
+
 }
