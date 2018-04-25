@@ -4,19 +4,22 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class StartState implements GameState {
+class PlayerSetUpState implements GameState {
+    private final Map<String, String> lang;
+    private final Board board;
+
+    PlayerSetUpState(Map<String, String> lang, Board board) {
+        this.lang = lang;
+        this.board = board;
+    }
+
     @Override
     public void printTo(Consumer<String> output, Map<String, String> lang) {
-        output.accept(lang.get("WELCOME"));
-        output.accept(lang.get("SETUP"));
+//        output.accept(lang.get);
     }
 
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-        if (inputSupplier.get().equalsIgnoreCase(lang.get("YES")))
-            return new LanguageSetupState(lang);
-        else
-            return new GameOverState(); // todo running state
+        return new GameOverState();
     }
-
 }

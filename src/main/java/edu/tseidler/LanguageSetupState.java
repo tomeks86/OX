@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 class LanguageSetupState implements GameState {
-    private final Map<String, String> lang;
+    private Map<String, String> lang;
 
     public LanguageSetupState(Map<String, String> lang) {
         this.lang = lang;
@@ -18,8 +18,8 @@ class LanguageSetupState implements GameState {
 
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-        lang = switchLang(inputSupplier.get());
-        return new BoardSetUpState();
+        this.lang = switchLang(inputSupplier.get());
+        return new BoardSetUpState(lang);
     }
 
     private Map<String,String> switchLang(String s) {

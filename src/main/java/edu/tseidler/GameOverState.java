@@ -9,22 +9,12 @@ class GameOverState implements GameState {
 
     @Override
     public void printTo(Consumer<String> output, Map<String, String> lang) {
-        output.accept(lang.get(""));
+        output.accept(lang.get("GAME_OVER"));
     }
 
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-        return new GameState() {
-            @Override
-            public void printTo(Consumer<String> output, Map<String, String> lang) {
-                output.accept(lang.get("GAME_OVER"));
-            }
-
-            @Override
-            public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-                gamesPlayed = 3;
-                return null;
-            }
-        };
+        gamesPlayed = 3;
+        return this;
     }
 }

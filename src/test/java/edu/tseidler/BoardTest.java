@@ -55,9 +55,9 @@ public class BoardTest {
         assertThat(board.get(coords)).isEqualTo(BoardField.X);
     }
 
-    @DataProvider
-
-    public void setBoardWinningNumber() {
-
-    }
+//    @DataProvider
+//
+//    public void setBoardWinningNumber() {
+//
+//    }
 }
