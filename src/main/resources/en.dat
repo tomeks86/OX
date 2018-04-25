@@ -7,3 +7,4 @@ BOARD_SETUP chose board size:
 SIGNS_NUMBER number of winning signs:
 PLAYER_NAME player name
 BOARD_SIZE size of board
+GAME_OVER game finished

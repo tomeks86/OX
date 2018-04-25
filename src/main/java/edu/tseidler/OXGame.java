@@ -18,7 +18,7 @@ public class OXGame {
     }
 
     public void start() {
-        while (true) {
+        while (GameOverState.gamesPlayed < 3) {
             doOneCycle();
         }
     }

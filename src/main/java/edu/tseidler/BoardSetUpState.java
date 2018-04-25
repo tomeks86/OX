@@ -18,6 +18,7 @@ class BoardSetUpState implements GameState {
         } catch (IllegalStateException e) {
             boardDimensions = new int[] {3, 3};
         }
-        return null;
+        return new GameOverState();
     }
+
 }
