@@ -1,6 +1,6 @@
 package edu.tseidler.states;
 
-import edu.tseidler.LanguageSelector;
+import edu.tseidler.service.LanguageSelector;
 
 import java.util.Map;
 import java.util.function.Consumer;

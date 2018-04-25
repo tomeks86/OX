@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.model;
 
 public class Coordinates {
     public final int row;

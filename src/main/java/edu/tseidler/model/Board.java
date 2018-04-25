@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,5 +45,17 @@ public class Board {
         sb.append(", winningNumber=").append(winningNumber);
         sb.append('}');
         return sb.toString();
+    }
+
+    public int getWinningNumber() {
+        return winningNumber;
+    }
+
+    public int getMaxRows() {
+        return maxRow;
+    }
+
+    public int getMaxCols() {
+        return maxCol;
     }
 }

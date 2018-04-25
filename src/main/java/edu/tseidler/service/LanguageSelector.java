@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.service;
 
 import java.io.IOException;
 import java.nio.file.Files;

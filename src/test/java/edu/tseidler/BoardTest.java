@@ -1,7 +1,12 @@
 package edu.tseidler;
 
+import edu.tseidler.model.Board;
+import edu.tseidler.model.BoardField;
+import edu.tseidler.model.Coordinates;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Test
@@ -55,9 +60,24 @@ public class BoardTest {
         assertThat(board.get(coords)).isEqualTo(BoardField.X);
     }
 
-//    @DataProvider
-//
-//    public void setBoardWinningNumber() {
-//
-//    }
+    @DataProvider
+    private static Object[][] parametersForBoardInitializationWithNumberOfWinningFields() {
+        return new Object[][] {
+                {new int[] {5, 3}, 2},
+                {new int[] {3, 3}, 3},
+                {new int[] {3, 6}, 2},
+                {new int[] {30, 10}, 5},
+        };
+    }
+
+    @Test(dataProvider = "parametersForBoardInitializationWithNumberOfWinningFields")
+    public void setBoardWinningNumber(int[] dimensions, int winningNumber) {
+        board = new Board(dimensions, winningNumber);
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(board.getMaxRows(), dimensions[0]);
+        sa.assertEquals(board.getMaxCols(), dimensions[1]);
+        sa.assertEquals(board.getWinningNumber(), winningNumber);
+        sa.assertAll();
+    }
 }

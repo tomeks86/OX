@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.service;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

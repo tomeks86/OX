@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.model;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,11 +1,11 @@
-package edu.tseidler;
+package edu.tseidler.model;
 
 import java.util.Objects;
 
 public class Player {
-    final String name;
-    final BoardField mark;
-    final boolean first;
+    public final String name;
+    public final BoardField mark;
+    public final boolean first;
 
     private Player(String name, BoardField mark, boolean first) {
         this.name = name;

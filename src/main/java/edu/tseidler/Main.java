@@ -1,5 +1,6 @@
 package edu.tseidler;
 
+import edu.tseidler.service.CommandLineSupplier;
 import edu.tseidler.states.OXGame;
 
 import java.util.Arrays;

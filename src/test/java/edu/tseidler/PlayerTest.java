@@ -1,5 +1,8 @@
 package edu.tseidler;
 
+import edu.tseidler.model.BoardField;
+import edu.tseidler.model.Player;
+import edu.tseidler.model.PlayerList;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;

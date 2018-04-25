@@ -1,11 +1,8 @@
 package edu.tseidler.states;
 
-import edu.tseidler.Board;
-import edu.tseidler.LanguageSelector;
-import edu.tseidler.PlayerList;
-import edu.tseidler.states.GameState;
-import edu.tseidler.states.LanguageSetupState;
-import edu.tseidler.states.SetupSummaryState;
+import edu.tseidler.model.Board;
+import edu.tseidler.service.LanguageSelector;
+import edu.tseidler.model.PlayerList;
 
 import java.util.Map;
 import java.util.function.Consumer;

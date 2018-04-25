@@ -1,7 +1,7 @@
 package edu.tseidler.states;
 
-import edu.tseidler.Board;
-import edu.tseidler.PlayerList;
+import edu.tseidler.model.Board;
+import edu.tseidler.model.PlayerList;
 
 import java.util.Map;
 import java.util.function.Consumer;

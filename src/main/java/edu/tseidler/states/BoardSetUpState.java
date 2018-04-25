@@ -1,7 +1,7 @@
 package edu.tseidler.states;
 
-import edu.tseidler.Board;
-import edu.tseidler.InputParser;
+import edu.tseidler.model.Board;
+import edu.tseidler.service.InputParser;
 
 import java.util.Map;
 import java.util.function.Consumer;
