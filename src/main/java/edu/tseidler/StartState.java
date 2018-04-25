@@ -16,7 +16,7 @@ public class StartState implements GameState {
         if (inputSupplier.get().equalsIgnoreCase(lang.get("YES")))
             return new LanguageSetupState(lang);
         else
-            return new GameOverState(); // todo running state
+            return new SetupSummaryState(LanguageSelector.selectLanguage("en"), new Board(new int[] {3, 3}, 3), new PlayerList()); // todo running state
     }
 
 }

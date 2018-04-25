@@ -4,24 +4,27 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class PlayerSetUpState implements GameState {
+class SetupSummaryState implements GameState {
     private final Map<String, String> lang;
     private final Board board;
-    private PlayerList playerList;
+    private final PlayerList playerList;
 
-    PlayerSetUpState(Map<String, String> lang, Board board) {
+    public SetupSummaryState(Map<String,String> lang, Board board, PlayerList playerList) {
         this.lang = lang;
         this.board = board;
+        this.playerList = playerList;
     }
 
     @Override
     public void printTo(Consumer<String> output, Map<String, String> lang) {
-//        output.accept(lang.get);
+        output.accept(lang.getOrDefault("SUMMARY", "no message provided"));
+        output.accept("en");
+        output.accept(board.toString());
+        output.accept(playerList.toString());
     }
 
     @Override
     public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
-        return new SetupSummaryState(this.lang, this.board, this.playerList);
+        return new GameOverState();
     }
-
 }

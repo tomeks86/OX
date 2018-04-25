@@ -36,4 +36,14 @@ public class Board {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Board{");
+        sb.append("maxRow=").append(maxRow);
+        sb.append(", maxCol=").append(maxCol);
+        sb.append(", winningNumber=").append(winningNumber);
+        sb.append('}');
+        return sb.toString();
+    }
 }
