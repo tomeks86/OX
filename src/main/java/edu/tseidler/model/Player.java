@@ -16,9 +16,9 @@ public class Player {
     }
 
     public String present(Language lang) {
-        StringBuilder sb = new StringBuilder(lang.get("PLAYER_NAME"))
+        StringBuilder sb = new StringBuilder(lang.get("PLAYER") + " " + lang.get("NAME"))
                 .append(": " + name +"\n")
-                .append(lang.get("PLAYER_MARK"))
+                .append(lang.get("PLAYER") + " " + lang.get("MARK"))
                 .append(": " + mark);
         if (first)
             sb.append(" (" + lang.get("FIRST") + ")");

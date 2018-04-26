@@ -35,7 +35,7 @@ public class PlayerList {
     }
 
     public String present(Language lang) {
-        StringBuilder sb = new StringBuilder(lang.get("PLAYERS_PRESENTATION"))
+        StringBuilder sb = new StringBuilder(lang.get("PLAYERS"))
                 .append("\n" + lang.get("PLAYER") + " 1:\n")
                 .append(getNext().present(lang))
                 .append("\n" + lang.get("PLAYER") + " 2:\n")
