@@ -1,33 +1,32 @@
 package edu.tseidler.states;
 
-import edu.tseidler.service.LanguageSelector;
+import edu.tseidler.model.Language;
 
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class LanguageSetupState implements GameState {
-    private Map<String, String> lang;
+    private Language lang;
 
-    public LanguageSetupState(Map<String, String> lang) {
+    public LanguageSetupState(Language lang) {
         this.lang = lang;
     }
 
     @Override
-    public void printTo(Consumer<String> output, Map<String, String> lang) {
+    public void printTo(Consumer<String> output, Language lang) {
         output.accept(lang.get("CHOOSE_LANGUAGE"));
     }
 
     @Override
-    public GameState getNextState(Supplier<String> inputSupplier, Map<String, String> lang) {
+    public GameState getNextState(Supplier<String> inputSupplier, Language lang) {
         this.lang = switchLang(inputSupplier.get());
-        return new BoardSetUpState(lang);
+        return new BoardSetUpState(this.lang);
     }
 
-    private Map<String,String> switchLang(String s) {
-        if ("en pl".contains(s))
-            return LanguageSelector.selectLanguage(s);
-        return lang;
+    private Language switchLang(String languageShort) {
+        if ("pl".contains(languageShort))
+            return new Language(languageShort);
+        return this.lang;
     }
-
 }

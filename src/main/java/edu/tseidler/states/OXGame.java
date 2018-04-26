@@ -1,6 +1,6 @@
 package edu.tseidler.states;
 
-import edu.tseidler.service.LanguageSelector;
+import edu.tseidler.model.Language;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -10,13 +10,13 @@ public class OXGame {
     private Supplier<String> inputSupplier;
     private Consumer<String> output;
     private GameState currentState;
-    private Map<String, String> lang;
+    private Language lang;
     public static int gamesPlayed = 0;
 
     public OXGame(Supplier<String> inputSupplier, Consumer<String> output, String selLang) {
         this.inputSupplier = inputSupplier;
         this.output = output;
-        this.lang = LanguageSelector.selectLanguage(selLang);
+        this.lang = new Language("en");
         this.currentState = new StartState();
     }
 

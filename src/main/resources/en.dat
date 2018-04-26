@@ -10,3 +10,4 @@ GAME_OVER game finished
 BOARD_SIZE_FORMAT provide board size in format: "[n, m]"
 PLAYER_SETUP enter name of the first player:
 PLAYER_NAME player name
+SUMMARY overview of the settings:
