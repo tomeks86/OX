@@ -11,11 +11,9 @@ public class InputParser {
         String pattern = "\\s*(?:\\[?)\\s*(?<maxRows>\\d+)\\s*,\\s*(?<maxCols>\\d+)\\s*(?:]?)\\s*(?<winning>\\d+)?\\s*";
         Matcher m = Pattern.compile(pattern).matcher(input);
         if (m.matches()) {
-            dimensionsAndWinningNumber[0] = Math.max(3, Integer.valueOf(m.group("maxRows")));
-            dimensionsAndWinningNumber[1] = Math.max(3, Integer.valueOf(m.group("maxCols")));
-            dimensionsAndWinningNumber[2] = Math.min(
-                    Math.min(dimensionsAndWinningNumber[0], dimensionsAndWinningNumber[1]),
-                    Integer.valueOf(Optional.ofNullable(m.group("winning")).orElse("3")));
+            dimensionsAndWinningNumber[0] = Integer.valueOf(m.group("maxRows"));
+            dimensionsAndWinningNumber[1] = Integer.valueOf(m.group("maxCols"));
+            dimensionsAndWinningNumber[2] = Integer.valueOf(Optional.ofNullable(m.group("winning")).orElse("3"));
         }
         return dimensionsAndWinningNumber;
     }
