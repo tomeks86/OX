@@ -7,18 +7,14 @@ public class Player {
     public final BoardField mark;
     public final boolean first;
 
-    private Player(String name, BoardField mark, boolean first) {
+    public Player(String name, BoardField mark, boolean first) {
         this.name = name;
         this.mark = mark;
         this.first = first;
     }
 
-    public static Player first(String name, BoardField mark) {
-        return new Player(name, mark, true);
-    }
-
     public static Player second(Player player, String name) {
-        return new Player(name, player.mark.other(), false);
+        return new Player(name, player.mark.other(), !player.first);
     }
 
     @Override

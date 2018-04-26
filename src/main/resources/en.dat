@@ -1,5 +1,6 @@
 WELCOME hello to the OXGame, enter setup or leave defaults
 SETUP enter setup? yes/[no]
+YESORNO yes/no
 YES yes
 NO no
 CHOOSE_LANGUAGE choose language:
@@ -12,3 +13,4 @@ PLAYER_SETUP enter name of the first player:
 PLAYER_NAME player name
 SUMMARY overview of the settings:
 LANGUAGE language
+START? shall you start?

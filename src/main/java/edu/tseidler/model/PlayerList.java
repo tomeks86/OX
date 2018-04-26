@@ -8,16 +8,16 @@ public class PlayerList {
 
 
     public PlayerList() {
-        Player first = Player.first("jacek", BoardField.X);
+        Player first = new Player("jacek", BoardField.X, true);
         this.playersList = new LinkedList<Player>() {{
-            add(Player.first("jacek", BoardField.X));
+            add(first);
             add(Player.second(first, "placek"));
         }};
     }
 
     public void add(Player player) {
         int index = player.first ? 0 : 1;
-        playersList.add(index, player);
+        playersList.set(index, player);
     }
 
     public Player getNext() {

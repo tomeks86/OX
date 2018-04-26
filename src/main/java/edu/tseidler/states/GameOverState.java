@@ -15,7 +15,7 @@ public class GameOverState extends GameState {
     @Override
     public GameState getNextState() {
         output.accept(lang.get("GAME_OVER"));
-        OXGame.gamesPlayed = 3;
+        GameState.gamesPlayed = 3;
         return this;
     }
 }

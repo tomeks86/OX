@@ -12,3 +12,5 @@ PLAYER_SETUP enter name of the first player:
 PLAYER_NAME player name
 SUMMARY podsumowanie ustawień:
 LANGUAGE język
+CHOOSE_INPUT wybierz metodę wprowadzania (domyślna - interaktywnie z klawiatury)
+CHOOSE_OUTPUT wybierz wyjście (domyślnie - konsola)

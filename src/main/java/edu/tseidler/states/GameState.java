@@ -14,6 +14,8 @@ public abstract class GameState {
     Board board;
     PlayerList players;
 
+    public static int gamesPlayed = 0;
+
     GameState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
         this.output = output;
         this.input = input;

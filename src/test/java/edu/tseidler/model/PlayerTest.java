@@ -15,7 +15,7 @@ public class PlayerTest {
 
     @BeforeMethod
     public void setUpPlayers() {
-        player1 = Player.first("stefan", BoardField.O);
+        player1 = new Player("stefan", BoardField.O, true);
         player2 = Player.second(player1, "franek");
     }
 
