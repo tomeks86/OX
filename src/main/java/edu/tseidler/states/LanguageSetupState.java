@@ -16,7 +16,7 @@ public class LanguageSetupState extends GameState {
     public GameState getNextState() {
         output.accept(lang.get("CHOOSE_LANGUAGE"));
         lang = switchLang(input.get());
-        return new BoardSetUpState(output, input, lang, board, players);
+        return new InputSetupState(output, input, lang, board, players);
     }
 
     private Language switchLang(String languageShort) {

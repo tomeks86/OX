@@ -1,14 +1,11 @@
 package edu.tseidler.service;
 
-import edu.tseidler.service.InputParser;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InputParserTest {
-    private InputParser inputParser = new InputParser();
-
     @DataProvider
     private static final Object[][] dimensionsOnlyToParse() {
         return new Object[][]{
@@ -22,7 +19,7 @@ public class InputParserTest {
 
     @Test(dataProvider = "dimensionsOnlyToParse")
     public void shouldParseBoardSize(String input, int[] expectedDimensions) {
-        assertThat(expectedDimensions).isEqualTo(inputParser.parseBoardSize(input));
+        assertThat(expectedDimensions).isEqualTo(InputParser.parseBoardSize(input));
     }
 
     @DataProvider
@@ -42,7 +39,7 @@ public class InputParserTest {
 
     @Test(dataProvider = "dataForIncorrectBoardSize")
     public void shouldReturnDefaultBoardSize(String input) {
-        assertThat(new int[] {3, 3, 3}).isEqualTo(inputParser.parseBoardSize(input));
+        assertThat(new int[] {3, 3, 3}).isEqualTo(InputParser.parseBoardSize(input));
     }
 
     @DataProvider
@@ -59,6 +56,6 @@ public class InputParserTest {
 
     @Test(dataProvider = "dimensionsAndWinningNumberToParse")
     public void shouldParseBoardSizeWithWinningNumber(String input, int[] expectedDimensions) {
-        assertThat(expectedDimensions).isEqualTo(inputParser.parseBoardSize(input));
+        assertThat(expectedDimensions).isEqualTo(InputParser.parseBoardSize(input));
     }
 }

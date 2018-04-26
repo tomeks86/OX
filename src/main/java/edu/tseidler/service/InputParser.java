@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputParser {
-    public int[] parseBoardSize(String input) {
+    public static int[] parseBoardSize(String input) {
         input = input.trim();
         int[] dimensionsAndWinningNumber = new int[] {3, 3, 3};
         String pattern = "\\s*(?:\\[?)\\s*(?<maxRows>\\d+)\\s*,\\s*(?<maxCols>\\d+)\\s*(?:]?)\\s*(?<winning>\\d+)?\\s*";

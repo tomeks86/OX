@@ -9,12 +9,12 @@ import java.util.stream.Stream;
 
 public class Language {
     final String name;
-    Map<String,String> wordMap;
+    Map<String, String> wordMap;
 
     public Language(String name) {
         this.name = name;
         this.wordMap = new HashMap<>();
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/"+ name + ".dat"))) {
+        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/" + name + ".dat"))) {
 //        try (Stream<String> lines = Files.lines(Paths.get(getClass().getResource("en.dat").getPath()))) {
             lines.forEach(line -> wordMap.putIfAbsent(line.split("\\s+")[0], line.split("\\s+", 2)[1]));
         } catch (IOException e) {
