@@ -17,10 +17,10 @@ public class BoardTest {
     @DataProvider
     private static final Object[][] goodInitializationParameters() {
         return new Object[][] {
-                {new int[] {1, 3}},
-                {new int[] {3, 3}},
-                {new int[] {3, 1}},
-                {new int[] {30, 10}},
+                {new int[] {10, 3, 3}},
+                {new int[] {3, 3, 3}},
+                {new int[] {3, 10, 3}},
+                {new int[] {30, 10, 4}},
         };
     }
 
@@ -43,7 +43,7 @@ public class BoardTest {
 
     @Test(dataProvider = "coordinatesForBoardPut")
     public void shouldPutXOrOOnBoard(int row, int col) {
-        board = new Board(new int[] {3, 3});
+        board = new Board(new int[] {3, 3, 3});
 
         boolean put = board.put(new Coordinates(row, col), BoardField.X);
 
@@ -52,7 +52,7 @@ public class BoardTest {
 
     @Test
     public void shouldFindXOnBoard() {
-        board = new Board(new int[] {3, 3});
+        board = new Board(new int[] {3, 3, 3});
         Coordinates coords = new Coordinates(2, 3);
 
         board.put(coords, BoardField.X);
@@ -63,10 +63,10 @@ public class BoardTest {
     @DataProvider
     private static Object[][] parametersForBoardInitializationWithNumberOfWinningFields() {
         return new Object[][] {
-                {new int[] {5, 3}, 2},
-                {new int[] {3, 3}, 3},
-                {new int[] {3, 6}, 2},
-                {new int[] {30, 10}, 5},
+                {new int[] {5, 3, 3}},
+                {new int[] {3, 3, 3}},
+                {new int[] {3, 6, 3}},
+                {new int[] {30, 10, 3}},
         };
     }
 
