@@ -1,13 +1,11 @@
 package edu.tseidler.states;
 
-import edu.tseidler.model.*;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import edu.tseidler.model.BoardField;
+import edu.tseidler.model.Player;
 
 public class PlayerSetUpState extends GameState {
-    PlayerSetUpState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
-        super(output, input, lang, board, players);
+    PlayerSetUpState(GameState previousState) {
+        super(previousState);
     }
 
     @Override
@@ -26,7 +24,7 @@ public class PlayerSetUpState extends GameState {
         Player player2 = Player.second(player1, player2_name);
         players.add(player1);
         players.add(player2);
-        return new SetupSummaryState(output, input, lang, board, players);
+        return new SetupSummaryState(this);
     }
 
     private String getPlayerName(int n) {

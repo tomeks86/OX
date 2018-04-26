@@ -24,5 +24,13 @@ public abstract class GameState {
         this.players = players;
     }
 
+    GameState(GameState previousState) {
+        this.output = previousState.output;
+        this.input = previousState.input;
+        this.lang = previousState.lang;
+        this.board = previousState.board;
+        this.players = previousState.players;
+    }
+
     abstract GameState getNextState();
 }
