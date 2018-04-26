@@ -1,17 +1,21 @@
 package edu.tseidler.service;
 
+import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CommandLineSupplier implements Supplier<String> {
-    private final Stream<String> supplier;
+    List<String> lines;
 
     public CommandLineSupplier(Stream<String> supplier) {
-        this.supplier = supplier;
+        lines = supplier.collect(Collectors.toList());
     }
 
     @Override
     public String get() {
-        return supplier.findFirst().orElseThrow(IllegalArgumentException::new);
+        if (!lines.isEmpty())
+            return lines.remove(0);
+        else return "";
     }
 }
