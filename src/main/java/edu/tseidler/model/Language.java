@@ -28,6 +28,6 @@ public class Language {
 
     @Override
     public String toString() {
-        return "language: " + name;
+        return get("LANGUAGE") + ": " + name;
     }
 }

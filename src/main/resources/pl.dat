@@ -11,3 +11,4 @@ BOARD_SIZE_FORMAT podaj rozmiar w formacie: "[n, m] o" n - wiersze, m - kolumny,
 PLAYER_SETUP enter name of the first player:
 PLAYER_NAME player name
 SUMMARY podsumowanie ustawień:
+LANGUAGE język
