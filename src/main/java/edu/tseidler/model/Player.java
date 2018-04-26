@@ -39,4 +39,14 @@ public class Player {
         sb.append('}');
         return sb.toString();
     }
+
+    public String present(Language lang) {
+        StringBuilder sb = new StringBuilder(lang.get("PLAYER_NAME"))
+                .append(": " + name +"\n")
+                .append(lang.get("PLAYER_MARK"))
+                .append(": " + mark);
+        if (first)
+            sb.append(" (" + lang.get("FIRST") + ")");
+        return sb.toString();
+    }
 }

@@ -16,8 +16,8 @@ public class SetupSummaryState extends GameState {
     public GameState getNextState() {
         output.accept(lang.get("SUMMARY"));
         output.accept(lang.toString());
-        output.accept(board.toString());
-        output.accept(players.toString());
+        output.accept(board.present(lang));
+        output.accept(players.present(lang));
         return new GameOverState(output, input, lang, board, players);
     }
 }
