@@ -1,15 +1,8 @@
 package edu.tseidler.states;
 
-import edu.tseidler.model.Board;
-import edu.tseidler.model.Language;
-import edu.tseidler.model.PlayerList;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 public class SetupSummaryState extends GameState {
-    SetupSummaryState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
-        super(output, input, lang, board, players);
+    SetupSummaryState(GameState previousState) {
+        super(previousState);
     }
 
     @Override
@@ -18,6 +11,7 @@ public class SetupSummaryState extends GameState {
         output.accept(lang.toString());
         output.accept(board.present(lang));
         output.accept(players.present(lang));
-        return new GameOverState(output, input, lang, board, players);
+        return new Running(this);
     }
+
 }

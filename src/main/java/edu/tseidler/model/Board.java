@@ -57,4 +57,32 @@ public class Board {
                 .append(": " + winningNumber);
         return sb.toString();
     }
+
+    public String draw() {
+        StringBuilder sb = new StringBuilder();
+        drawHorizontalLine(sb);
+        for (int i = 0; i < maxRow; i++) {
+            sb.append("|");
+            for (int j = 0; j < maxCol; j++) {
+                drawSign(i, j, sb);
+            }
+            sb.append("\n");
+            drawHorizontalLine(sb);
+        }
+        return sb.toString();
+    }
+
+    private void drawSign(int i, int j, StringBuilder sb) {
+        BoardField current = get(new Coordinates(i+1, j+1));
+        String sign = current == BoardField.EMPTY ? " " : current.toString();
+        sb.append(sign + "|");
+    }
+
+    private void drawHorizontalLine(StringBuilder sb) {
+        sb.append("-");
+        for (int i = 0; i < maxRow; i++) {
+            sb.append("--");
+        }
+        sb.append("\n");
+    }
 }

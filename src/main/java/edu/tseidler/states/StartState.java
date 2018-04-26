@@ -17,9 +17,9 @@ public class StartState extends GameState {
         output.accept(lang.get("WELCOME"));
         output.accept(lang.get("SETUP"));
         if (input.get().equalsIgnoreCase(lang.get("YES")))
-            return new LanguageSetupState(output, input, lang, board, players);
+            return new LanguageSetupState(this);
         else
-            return new SetupSummaryState(output, input, lang, board, players); // todo running state
+            return new SetupSummaryState(this); // todo running state
     }
 
 }
