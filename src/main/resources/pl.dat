@@ -1,0 +1,16 @@
+WELCOME witaj w grze OXGame, wejdź w ustawienia lub skorzystaj z domyślnych
+SETUP ustawienia? tak/[nie]
+YES tak
+NO nie
+CHOOSE_LANGUAGE wybierz język:
+BOARD_SETUP rozmiar planszy
+SIGNS_NUMBER number of winning signs:
+BOARD_SIZE size of board
+GAME_OVER koniec gry
+BOARD_SIZE_FORMAT podaj rozmiar w formacie: "[n, m] o" n - wiersze, m - kolumny, o - liczba wygrywających
+PLAYER_SETUP enter name of the first player:
+PLAYER_NAME player name
+SUMMARY podsumowanie ustawień:
+LANGUAGE język
+CHOOSE_INPUT wybierz metodę wprowadzania (domyślna - interaktywnie z klawiatury)
+CHOOSE_OUTPUT wybierz wyjście (domyślnie - konsola)

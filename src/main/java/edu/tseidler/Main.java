@@ -1,5 +1,8 @@
 package edu.tseidler;
 
+import edu.tseidler.service.CommandLineSupplier;
+import edu.tseidler.states.OXGame;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -17,6 +20,6 @@ public class Main {
 
         Consumer<String> output = System.out::println;
 
-        new OXGame(inputSupplier, output).start();
+        new OXGame(inputSupplier, output, "en").start();
     }
 }

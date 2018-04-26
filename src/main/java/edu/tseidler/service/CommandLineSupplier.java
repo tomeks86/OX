@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.service;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;

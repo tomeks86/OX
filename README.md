@@ -4,5 +4,10 @@
 #### running:
 ```bash
 mvn clean install
-java -jar target/OXProject-{version}.jar {parameters} 
+java -jar target/OXProject-{version}.jar {parameters}
+```
+
+for interactive run add -i as first parameter
+```bash
+java -jar target/OXProject-{version}.jar -i
 ```
