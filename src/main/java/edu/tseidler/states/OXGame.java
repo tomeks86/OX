@@ -1,8 +1,9 @@
 package edu.tseidler.states;
 
+import edu.tseidler.model.Board;
 import edu.tseidler.model.Language;
+import edu.tseidler.model.PlayerList;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -17,7 +18,7 @@ public class OXGame {
         this.inputSupplier = inputSupplier;
         this.output = output;
         this.lang = new Language("en");
-        this.currentState = new StartState();
+        this.currentState = new StartState(output, inputSupplier, new Language("en"), new Board(new int[]{3, 3, 3}), new PlayerList());
     }
 
     public void start() {
@@ -27,8 +28,7 @@ public class OXGame {
     }
 
     private void doOneCycle() {
-        currentState.printTo(output, lang);
-        this.currentState = currentState.getNextState(inputSupplier, lang);
+        this.currentState = currentState.getNextState();
     }
 
 

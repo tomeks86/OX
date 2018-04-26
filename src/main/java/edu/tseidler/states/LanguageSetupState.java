@@ -1,27 +1,22 @@
 package edu.tseidler.states;
 
+import edu.tseidler.model.Board;
 import edu.tseidler.model.Language;
+import edu.tseidler.model.PlayerList;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class LanguageSetupState implements GameState {
-    private Language lang;
-
-    public LanguageSetupState(Language lang) {
-        this.lang = lang;
+public class LanguageSetupState extends GameState {
+    protected LanguageSetupState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
+        super(output, input, lang, board, players);
     }
 
     @Override
-    public void printTo(Consumer<String> output, Language lang) {
+    public GameState getNextState() {
         output.accept(lang.get("CHOOSE_LANGUAGE"));
-    }
-
-    @Override
-    public GameState getNextState(Supplier<String> inputSupplier, Language lang) {
-        this.lang = switchLang(inputSupplier.get());
-        return new BoardSetUpState(this.lang);
+        lang = switchLang(input.get());
+        return new BoardSetUpState(output, input, lang, board, players);
     }
 
     private Language switchLang(String languageShort) {

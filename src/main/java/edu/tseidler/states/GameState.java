@@ -1,13 +1,26 @@
 package edu.tseidler.states;
 
+import edu.tseidler.model.Board;
 import edu.tseidler.model.Language;
+import edu.tseidler.model.PlayerList;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public interface GameState {
-    void printTo(Consumer<String> output, Language lang);
+public abstract class GameState {
+    Consumer<String> output;
+    Supplier<String> input;
+    Language lang;
+    Board board;
+    PlayerList players;
 
-    GameState getNextState(Supplier<String> inputSupplier, Language lang);
+    GameState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
+        this.output = output;
+        this.input = input;
+        this.lang = lang;
+        this.board = board;
+        this.players = players;
+    }
+
+    abstract GameState getNextState();
 }
