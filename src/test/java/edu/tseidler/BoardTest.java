@@ -71,13 +71,13 @@ public class BoardTest {
     }
 
     @Test(dataProvider = "parametersForBoardInitializationWithNumberOfWinningFields")
-    public void setBoardWinningNumber(int[] dimensions, int winningNumber) {
-        board = new Board(dimensions, winningNumber);
+    public void setBoardWinningNumber(int[] dimensionsAndWinningNumber) {
+        board = new Board(dimensionsAndWinningNumber);
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(board.getMaxRows(), dimensions[0]);
-        sa.assertEquals(board.getMaxCols(), dimensions[1]);
-        sa.assertEquals(board.getWinningNumber(), winningNumber);
+        sa.assertEquals(board.getMaxRows(), dimensionsAndWinningNumber[0]);
+        sa.assertEquals(board.getMaxCols(), dimensionsAndWinningNumber[1]);
+        sa.assertEquals(board.getWinningNumber(), dimensionsAndWinningNumber[2]);
         sa.assertAll();
     }
 }

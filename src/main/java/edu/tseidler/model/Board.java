@@ -9,17 +9,10 @@ public class Board {
     final int winningNumber;
     private Map<Coordinates, BoardField> fields;
 
-    public Board(int[] dimensions, int winningNumber) {
-        maxRow = dimensions[0];
-        maxCol = dimensions[1];
-        this.winningNumber = winningNumber;
-        fields = new HashMap<>(maxRow * maxCol);
-    }
-
-    public Board(int[] dimensions) {
-        maxRow = dimensions[0];
-        maxCol = dimensions[1];
-        this.winningNumber = 3;
+    public Board(int[] dimensionsAndWinningNumber) {
+        maxRow = dimensionsAndWinningNumber[0];
+        maxCol = dimensionsAndWinningNumber[1];
+        this.winningNumber = dimensionsAndWinningNumber[2];
         fields = new HashMap<>(maxRow * maxCol);
     }
 
