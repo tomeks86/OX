@@ -55,4 +55,16 @@ public class Board {
     public int getMaxCols() {
         return maxCol;
     }
+
+    public String present(Language lang) {
+        StringBuilder sb = new StringBuilder(lang.get("BOARD"))
+                .append(":\n")
+                .append(lang.get("MAX_ROWS"))
+                .append(": " + maxRow + "\n")
+                .append(lang.get("MAX_COLS"))
+                .append(": " + maxCol + "\n")
+                .append(lang.get("WINNING_NUMBER"))
+                .append(": " + winningNumber);
+        return sb.toString();
+    }
 }

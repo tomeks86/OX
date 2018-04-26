@@ -5,12 +5,20 @@ YES yes
 NO no
 CHOOSE_LANGUAGE choose language:
 BOARD_SETUP chose board size:
+BOARD board settings
+MAX_ROWS rows number
+MAX_COLS columns number
+WINNING_NUMBER number of winning fields
+PLAYERS_PRESENTATION players
+PLAYER player
+FIRST begining
 SIGNS_NUMBER number of winning signs:
 BOARD_SIZE size of board
 GAME_OVER game finished
 BOARD_SIZE_FORMAT provide board size in format: "[n, m]"
 PLAYER_SETUP enter name of the first player:
 PLAYER_NAME player name
+PLAYER_MARK player mark
 SUMMARY overview of the settings:
 LANGUAGE language
 START? shall you start?
