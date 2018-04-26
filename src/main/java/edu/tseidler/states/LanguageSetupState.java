@@ -20,7 +20,7 @@ public class LanguageSetupState extends GameState {
     }
 
     private Language switchLang(String languageShort) {
-        if ("pl".contains(languageShort))
+        if (!languageShort.isEmpty() && "plen".contains(languageShort))
             return new Language(languageShort);
         return this.lang;
     }
