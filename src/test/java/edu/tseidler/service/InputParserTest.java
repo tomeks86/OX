@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.service;
 
 import edu.tseidler.service.InputParser;
 import org.testng.annotations.DataProvider;

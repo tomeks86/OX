@@ -1,4 +1,4 @@
-package edu.tseidler;
+package edu.tseidler.model;
 
 import edu.tseidler.model.BoardField;
 import edu.tseidler.model.Player;
