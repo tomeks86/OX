@@ -38,6 +38,8 @@ public class PlayerTest {
         SoftAssert sa = new SoftAssert();
         sa.assertEquals(playerList.getNext(), player1);
         sa.assertEquals(playerList.getNext(), player2);
+        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertEquals(playerList.getNext(), player2);
         sa.assertAll();
     }
 }
