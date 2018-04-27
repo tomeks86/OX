@@ -49,7 +49,7 @@ public class Drawer {
     }
 
     private void drawSign(int i, int j) {
-        BoardField current = fields.get(new Coordinates(i + 1, j + 1));
+        BoardField current = fields.get(new Coordinates(i, j));
         String sign = current == BoardField.EMPTY ? " " : current.toString();
         sign += "|";
         sb.append(adjustWidthToCol(sign));
