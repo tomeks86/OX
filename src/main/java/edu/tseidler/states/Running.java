@@ -23,7 +23,7 @@ class Running extends GameState {
             choice = InputParser.parsePlayerMarkInput(input.get());
             marked = board.put(choice, currentPlayer.mark);
         }
-        output.accept(lang.get("PLAYER" + " " + lang.get("PUT") + " " + currentPlayer.mark + " " + lang.get("ON") + " " + lang.get("FIELD") + ": " + choice));
+        output.accept(lang.get("PLAYER") + " " + lang.get("PUT") + " " + currentPlayer.mark + " " + lang.get("ON") + " " + lang.get("FIELD") + ": " + choice);
         if (!board.ifFull())
             return new Running(this);
         else
