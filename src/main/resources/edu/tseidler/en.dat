@@ -25,3 +25,6 @@ SUMMARY overview of the settings:
 LANGUAGE language
 START? shall you start?
 DEFAULT default value
+PUT put
+ON on
+NEXT_MOVE next move
