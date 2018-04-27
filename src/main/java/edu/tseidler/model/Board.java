@@ -1,13 +1,13 @@
 package edu.tseidler.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import edu.tseidler.service.Drawer;
 
 public class Board {
-    private final int maxRow;
-    private final int maxCol;
-    final int winningNumber;
-    private Map<Coordinates, BoardField> fields;
+    public final int maxRow;
+    public final int maxCol;
+    public final int winningNumber;
+    private Fields fields;
+    final Drawer drawer;
 
     public Board(int[] dimensionsAndWinningNumber) {
         maxRow = Math.max(3, dimensionsAndWinningNumber[0]);
@@ -17,33 +17,24 @@ public class Board {
                 Math.min(
                         Math.min(maxRow, maxCol),
                         dimensionsAndWinningNumber[2]));
-        fields = new HashMap<>(maxRow * maxCol);
+        fields = new Fields();
+        drawer = new Drawer(this);
     }
 
     public BoardField get(Coordinates coordinate) {
         if (coordinate.row <= maxRow && coordinate.col <= maxCol)
-            return fields.getOrDefault(coordinate, BoardField.EMPTY);
+            return fields.get(coordinate);
         return null;
     }
 
     public boolean put(Coordinates coords, BoardField sign) {
-        if (get(coords) == BoardField.EMPTY) {
-            fields.put(coords, sign);
-            return true;
-        }
+        if (areCoordsValid(coords))
+            return fields.put(coords, sign);
         return false;
     }
 
-    public int getWinningNumber() {
-        return winningNumber;
-    }
-
-    public int getMaxRows() {
-        return maxRow;
-    }
-
-    public int getMaxCols() {
-        return maxCol;
+    private boolean areCoordsValid(Coordinates coords) {
+        return coords.row > 0 && coords.row <= maxRow && coords.col > 0 && coords.col <= maxCol;
     }
 
     public String present(Language lang) {
@@ -59,30 +50,6 @@ public class Board {
     }
 
     public String draw() {
-        StringBuilder sb = new StringBuilder();
-        drawHorizontalLine(sb);
-        for (int i = 0; i < maxRow; i++) {
-            sb.append("|");
-            for (int j = 0; j < maxCol; j++) {
-                drawSign(i, j, sb);
-            }
-            sb.append("\n");
-            drawHorizontalLine(sb);
-        }
-        return sb.toString();
-    }
-
-    private void drawSign(int i, int j, StringBuilder sb) {
-        BoardField current = get(new Coordinates(i+1, j+1));
-        String sign = current == BoardField.EMPTY ? " " : current.toString();
-        sb.append(sign + "|");
-    }
-
-    private void drawHorizontalLine(StringBuilder sb) {
-        sb.append("-");
-        for (int i = 0; i < maxRow; i++) {
-            sb.append("--");
-        }
-        sb.append("\n");
+        return drawer.draw(fields);
     }
 }

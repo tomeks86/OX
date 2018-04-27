@@ -44,9 +44,9 @@ public class BoardTest {
         board = new Board(dimensions);
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(board.getMaxRows(), expected[0], "wrong maxRows");
-        sa.assertEquals(board.getMaxCols(), expected[1], "wrong maxCols");
-        sa.assertEquals(board.getWinningNumber(), expected[2], "wrong winningNumber");
+        sa.assertEquals(board.maxRow, expected[0], "wrong maxRows");
+        sa.assertEquals(board.maxCol, expected[1], "wrong maxCols");
+        sa.assertEquals(board.winningNumber, expected[2], "wrong winningNumber");
         sa.assertAll();
     }
 
@@ -67,6 +67,39 @@ public class BoardTest {
         boolean put = board.put(new Coordinates(row, col), BoardField.X);
 
         assertThat(put).isTrue();
+    }
+
+    @Test(dataProvider = "coordinatesForBoardPut")
+    public void shouldNotPutXOrOOnBoardAtAlreadyTakenField(int row, int col) {
+        board = new Board(DEFAULT_DIMENSIONS);
+        board.put(new Coordinates(1, 2), BoardField.O);
+        board.put(new Coordinates(1, 3), BoardField.O);
+        board.put(new Coordinates(1, 1), BoardField.O);
+        board.put(new Coordinates(2, 2), BoardField.O);
+
+        boolean put = board.put(new Coordinates(row, col), BoardField.X);
+
+        assertThat(put).isFalse();
+    }
+
+    @DataProvider
+    private static Object[][] coordinatesToShootOutOfBoard() {
+        return new Object[][] {
+                {4, 3},
+                {4, -3},
+                {-4, -3},
+                {1, 5},
+                {3, 4},
+        };
+    }
+
+    @Test(dataProvider = "coordinatesToShootOutOfBoard")
+    public void shouldReturnFalseForOutOfBoundsShootOnTheBoard(int row, int col) {
+        board = new Board(DEFAULT_DIMENSIONS);
+
+        boolean put = board.put(new Coordinates(row, col), BoardField.O);
+
+        assertThat(put).isFalse();
     }
 
     @Test
@@ -94,9 +127,9 @@ public class BoardTest {
         board = new Board(dimensionsAndWinningNumber);
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(board.getMaxRows(), dimensionsAndWinningNumber[0]);
-        sa.assertEquals(board.getMaxCols(), dimensionsAndWinningNumber[1]);
-        sa.assertEquals(board.getWinningNumber(), dimensionsAndWinningNumber[2]);
+        sa.assertEquals(board.maxRow, dimensionsAndWinningNumber[0]);
+        sa.assertEquals(board.maxCol, dimensionsAndWinningNumber[1]);
+        sa.assertEquals(board.winningNumber, dimensionsAndWinningNumber[2]);
         sa.assertAll();
     }
 }
