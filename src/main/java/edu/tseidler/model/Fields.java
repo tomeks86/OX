@@ -21,4 +21,8 @@ public class Fields {
         }
         return false;
     }
+
+    public int getTakenFieldsNumber() {
+        return fields.size();
+    }
 }

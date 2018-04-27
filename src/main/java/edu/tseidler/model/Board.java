@@ -38,8 +38,18 @@ public class Board {
         return false;
     }
 
+    public boolean put(int coord, BoardField sign) {
+        coord -= 1;
+        if (coord >= 0 && coord < maxRow * maxCol) {
+            int row = coord / maxCol;
+            int col = coord % maxCol;
+            return put(new Coordinates(row, col), sign);
+        }
+        return false;
+    }
+
     private boolean areCoordsValid(Coordinates coords) {
-        return coords.row > 0 && coords.row <= maxRow && coords.col > 0 && coords.col <= maxCol;
+        return coords.row >= 0 && coords.row < maxRow && coords.col >= 0 && coords.col < maxCol;
     }
 
     public String present(Language lang) {
@@ -60,5 +70,9 @@ public class Board {
 
     public Fields getFields() {
         return fields;
+    }
+
+    public boolean ifFull() {
+        return maxCol * maxCol == fields.getTakenFieldsNumber();
     }
 }

@@ -4,6 +4,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Test
@@ -53,9 +55,9 @@ public class BoardTest {
     @DataProvider
     private static Object[][] coordinatesForBoardPut() {
         return new Object[][] {
-                {1, 2},
-                {1, 3},
-                {1, 1},
+                {0, 1},
+                {0, 2},
+                {0, 1},
                 {2, 2},
         };
     }
@@ -72,9 +74,9 @@ public class BoardTest {
     @Test(dataProvider = "coordinatesForBoardPut")
     public void shouldNotPutXOrOOnBoardAtAlreadyTakenField(int row, int col) {
         board = new Board(DEFAULT_DIMENSIONS);
-        board.put(new Coordinates(1, 2), BoardField.O);
-        board.put(new Coordinates(1, 3), BoardField.O);
-        board.put(new Coordinates(1, 1), BoardField.O);
+        board.put(new Coordinates(0, 1), BoardField.O);
+        board.put(new Coordinates(0, 2), BoardField.O);
+        board.put(new Coordinates(0, 0), BoardField.O);
         board.put(new Coordinates(2, 2), BoardField.O);
 
         boolean put = board.put(new Coordinates(row, col), BoardField.X);
@@ -105,11 +107,40 @@ public class BoardTest {
     @Test
     public void shouldFindXOnBoard() {
         board = new Board(DEFAULT_DIMENSIONS);
-        Coordinates coords = new Coordinates(2, 3);
+        Coordinates coords = new Coordinates(1, 2);
 
         board.put(coords, BoardField.X);
 
         assertThat(board.get(coords)).isEqualTo(BoardField.X);
+    }
+
+    @Test
+    public void shouldFillAllTheBoardWithX() {
+        board = new Board(DEFAULT_DIMENSIONS);
+        for (int i = 0; i < 10; i++) {
+            board.put(i, BoardField.X);
+        }
+
+        assertThat(board.ifFull()).isTrue();
+    }
+
+    @DataProvider
+    private static Object[][] simplifiedAndFullCoordinatesForBoardMarkingTest() {
+        return new Object[][] {
+                {10, new int[] {1, 4}},
+                {13, new int[] {2, 2}},
+                {3, new int[] {0, 2}},
+                {20, new int[] {3, 4}},
+        };
+    }
+
+    @Test(dataProvider = "simplifiedAndFullCoordinatesForBoardMarkingTest")
+    public void shouldFindMarkAfterPuttingWithSingleCoordinate(int simpleCoord, int[] complexCoord) {
+        board = new Board(new int[]{4, 5, 3});
+
+        board.put(simpleCoord, BoardField.O);
+
+        assertThat(board.get(new Coordinates(complexCoord[0], complexCoord[1]))).isEqualTo(BoardField.O);
     }
 
     @DataProvider

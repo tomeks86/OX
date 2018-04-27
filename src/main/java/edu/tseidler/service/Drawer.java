@@ -10,23 +10,21 @@ import java.util.Collections;
 public class Drawer {
     public static final int MINIUMUM_FIELD_WIDTH = 3;
     private final int maxRow;
-    private final int widthRow;
     private final int maxCol;
-    private final int widthCol;
+    private final int maxWidth;
     private final StringBuilder sb = new StringBuilder();
     private final Fields fields;
 
     public Drawer(Board board) {
         maxRow = board.maxRow;
-        widthRow = getFieldWidth(maxRow);
         maxCol = board.maxCol;
-        widthCol = getFieldWidth(maxCol);
+        maxWidth = getFieldWidth(maxRow * maxCol);
         fields = board.getFields();
     }
 
     private int getFieldWidth(int maxValue) {
         return Math.max(
-                Integer.toString(maxValue).length(),
+                Integer.toString(maxValue).length() + 1,
                 MINIUMUM_FIELD_WIDTH);
     }
 
@@ -49,10 +47,14 @@ public class Drawer {
     }
 
     private void drawSign(int i, int j) {
-        BoardField current = fields.get(new Coordinates(i + 1, j + 1));
-        String sign = current == BoardField.EMPTY ? " " : current.toString();
-        sign += "|";
-        sb.append(adjustWidthToCol(sign));
+        BoardField current = fields.get(new Coordinates(i, j));
+        String sign = current == BoardField.EMPTY ? adjustWidthToCol(String.valueOf(i * maxCol + j + 1) + "|") : adjustWidthToColColored(current.toString() + "|");
+        sb.append(sign);
+    }
+
+    private String adjustWidthToColColored(String content) {
+        String myFormat = " %" + (maxWidth+9) + "s";    // 9 is some kind of magic number... connected with ANSI String coloring
+        return String.format(myFormat, content);
     }
 
     private String repeatSequence(String toBeRepeated, int times) {
@@ -60,7 +62,7 @@ public class Drawer {
     }
 
     private void drawColumnNumbering() {
-        sb.append(repeatSequence(" ", widthRow + 1));
+        sb.append(repeatSequence(" ", maxWidth + 1));
         for (int i = 0; i < maxCol; i++) {
             sb.append(adjustWidthToCol(Integer.toString(i+1)));
         }
@@ -68,14 +70,14 @@ public class Drawer {
     }
 
     private String adjustWidthToCol(String content) {
-        String myFormat = " %" + widthCol + "s";
+        String myFormat = " %" + maxWidth + "s";
         return String.format(myFormat, content);
     }
 
     private void drawHorizontalLine() {
-        sb.append(repeatSequence(" ", (widthRow+1)));
+        sb.append(repeatSequence(" ", (maxWidth+1)));
         for (int i = 0; i < maxCol; i++) {
-            sb.append(repeatSequence("-", (widthCol+1)));
+            sb.append(repeatSequence("-", (maxWidth+1)));
         }
         sb.append("\n");
     }

@@ -4,10 +4,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 
 public class InputParserTest {
 
     public static final int[] DEFAULT_DIMENSIONS = {3, 3, 3};
+    public static final int DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE = -1;
 
     @DataProvider
     private static final Object[][] dimensionsOnlyToParse() {
@@ -49,5 +51,35 @@ public class InputParserTest {
     @Test(dataProvider = "dimensionsAndWinningNumberToParse")
     public void shouldParseBoardSizeWithWinningNumber(String input, int[] expectedDimensions) {
         assertThat(expectedDimensions).isEqualTo(InputParser.parseBoardSize(input));
+    }
+
+    @DataProvider
+    private static final Object[][] exampleCorrectPlayerInputForMark() {
+        return new Object[][] {
+                {"  1 ", 1},
+                {"   10", 10},
+                {"59  ", 59},
+                {"06", 6},
+        };
+    }
+
+    @Test(dataProvider = "exampleCorrectPlayerInputForMark")
+    public void shouldSuccessfullyParsePlayerMarkInput(String input, int coordinate) {
+        assertThat(InputParser.parsePlayerMarkInput(input)).isEqualTo(coordinate);
+    }
+
+    @DataProvider
+    private static final Object[][] exampleIncorrectPlayerInputForMark() {
+        return new Object[][] {
+                {"1 3 5"},
+                {"    d10 13"},
+                {"5   -9  "},
+                {"0 6S"},
+        };
+    }
+
+    @Test(dataProvider = "exampleIncorrectPlayerInputForMark")
+    public void shouldReturnDefaultFailsafeMarkWhenIncorrectInputFromPlayer(String input) {
+        assertThat(InputParser.parsePlayerMarkInput(input)).isEqualTo(DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE);
     }
 }
