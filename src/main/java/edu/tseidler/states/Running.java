@@ -3,6 +3,8 @@ package edu.tseidler.states;
 import edu.tseidler.model.Board;
 import edu.tseidler.model.BoardField;
 import edu.tseidler.model.Coordinates;
+import edu.tseidler.model.Player;
+import edu.tseidler.service.InputParser;
 
 class Running extends GameState {
 
@@ -12,11 +14,19 @@ class Running extends GameState {
 
     @Override
     GameState getNextState() {
-        board = new Board(new int[] {5, 15, 3});
-        board.put(new Coordinates(2, 0), BoardField.X);
-        board.put(new Coordinates(0, 5), BoardField.O);
-        System.out.println((board.put(new Coordinates(6, 5), BoardField.O)));
         output.accept(board.draw());
-        return new GameOverState(this);
+        Player currentPlayer = players.getNext();
+        boolean marked = false;
+        int choice = -1;
+        while (!marked && !board.ifFull()) {
+            output.accept(lang.get("PLAYER") + " " + currentPlayer.name + " " + lang.get("NEXT_MOVE") + " " + currentPlayer.mark);
+            choice = InputParser.parsePlayerMarkInput(input.get());
+            marked = board.put(choice, currentPlayer.mark);
+        }
+        output.accept(lang.get("PLAYER" + " " + lang.get("PUT") + " " + currentPlayer.mark + " " + lang.get("ON") + " " + lang.get("FIELD") + ": " + choice));
+        if (!board.ifFull())
+            return new Running(this);
+        else
+            return new GameOverState(this);
     }
 }
