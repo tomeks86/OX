@@ -3,22 +3,27 @@ package edu.tseidler.model;
 import edu.tseidler.service.Drawer;
 
 public class Board {
+    private static final int MINIMUM_SIZE_AND_WINNING_NUMBER = 3;
     public final int maxRow;
     public final int maxCol;
     public final int winningNumber;
-    private Fields fields;
+    private final Fields fields;
     final Drawer drawer;
 
     public Board(int[] dimensionsAndWinningNumber) {
-        maxRow = Math.max(3, dimensionsAndWinningNumber[0]);
-        maxCol = Math.max(3, dimensionsAndWinningNumber[1]);
+        maxRow = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, dimensionsAndWinningNumber[0]);
+        maxCol = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, dimensionsAndWinningNumber[1]);
         this.winningNumber = Math.max(
-                3,
-                Math.min(
-                        Math.min(maxRow, maxCol),
-                        dimensionsAndWinningNumber[2]));
+                MINIMUM_SIZE_AND_WINNING_NUMBER,
+                getPossibleWinningNumber(dimensionsAndWinningNumber[2]));
         fields = new Fields();
         drawer = new Drawer(this);
+    }
+
+    private int getPossibleWinningNumber(int b) {
+        return Math.min(
+                Math.min(maxRow, maxCol),
+                b);
     }
 
     public BoardField get(Coordinates coordinate) {
@@ -51,5 +56,9 @@ public class Board {
 
     public String draw() {
         return drawer.draw(fields);
+    }
+
+    public Fields getFields() {
+        return fields;
     }
 }
