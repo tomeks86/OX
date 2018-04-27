@@ -19,14 +19,12 @@ public class InputParser {
     }
 
 
-    public static int[] parsePlayerMarkInput(String input) {
-        int[] result = new int[] {-1, -1};
-        input = input.trim();
-        String pattern = "(?<row>\\d+)\\s+(?<col>\\d+)";
-        Matcher m = Pattern.compile(pattern).matcher(input);
-        if (m.matches()) {
-            result[0] = Integer.valueOf(m.group("row"));
-            result[1] = Integer.valueOf(m.group("col"));
+    public static int parsePlayerMarkInput(String input) {
+        int result = -1;
+        try {
+            result = Integer.valueOf(input.trim());
+        } catch (NumberFormatException e) {
+            // OK to continue program gets default value of -1
         }
         return result;
     }

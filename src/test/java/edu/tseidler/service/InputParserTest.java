@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.in;
 public class InputParserTest {
 
     public static final int[] DEFAULT_DIMENSIONS = {3, 3, 3};
-    public static final int[] DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE = {-1, -1};
+    public static final int DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE = -1;
 
     @DataProvider
     private static final Object[][] dimensionsOnlyToParse() {
@@ -56,16 +56,16 @@ public class InputParserTest {
     @DataProvider
     private static final Object[][] exampleCorrectPlayerInputForMark() {
         return new Object[][] {
-                {"1 3", new int[] {1, 3}},
-                {"    10 13", new int[] {10, 13}},
-                {"5   9  ", new int[] {5, 9}},
-                {"0 6", new int[] {0, 6}},
+                {"  1 ", 1},
+                {"   10", 10},
+                {"59  ", 59},
+                {"06", 6},
         };
     }
 
     @Test(dataProvider = "exampleCorrectPlayerInputForMark")
-    public void shouldSuccessfullyParsePlayerMarkInput(String input, int[] coords) {
-        assertThat(InputParser.parsePlayerMarkInput(input)).isEqualTo(coords);
+    public void shouldSuccessfullyParsePlayerMarkInput(String input, int coordinate) {
+        assertThat(InputParser.parsePlayerMarkInput(input)).isEqualTo(coordinate);
     }
 
     @DataProvider
