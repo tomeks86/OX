@@ -14,6 +14,7 @@ public class GameOverState extends GameState {
 
     @Override
     public GameState getNextState() {
+        output.accept(board.draw());
         output.accept(lang.get("GAME_OVER"));
         GameState.gamesPlayed = 3;
         return this;

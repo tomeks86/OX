@@ -29,6 +29,7 @@ public class Drawer {
     }
 
     public String draw() {
+        sb.setLength(0);    // fixme: this class has to be rearranged to get rid of this strange reset...
         drawColumnNumbering();
         drawHorizontalLine();
         drawBoardBody();
