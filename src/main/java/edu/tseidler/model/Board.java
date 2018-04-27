@@ -39,9 +39,10 @@ public class Board {
     }
 
     public boolean put(int coord, BoardField sign) {
+        coord -= 1;
         if (coord >= 0 && coord < maxRow * maxCol) {
             int row = coord / maxCol;
-            int col = coord % maxRow;
+            int col = coord % maxCol;
             return put(new Coordinates(row, col), sign);
         }
         return false;

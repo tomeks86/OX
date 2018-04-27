@@ -4,6 +4,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Test
@@ -113,13 +115,32 @@ public class BoardTest {
     }
 
     @Test
-    public void shoudPutAndFindXOnBoardWithOneNumber() {
+    public void shouldFillAllTheBoardWithX() {
         board = new Board(DEFAULT_DIMENSIONS);
         for (int i = 0; i < 10; i++) {
             board.put(i, BoardField.X);
         }
 
         assertThat(board.ifFull()).isTrue();
+    }
+
+    @DataProvider
+    private static Object[][] simplifiedAndFullCoordinatesForBoardMarkingTest() {
+        return new Object[][] {
+                {10, new int[] {1, 4}},
+                {13, new int[] {2, 2}},
+                {3, new int[] {0, 2}},
+                {20, new int[] {3, 4}},
+        };
+    }
+
+    @Test(dataProvider = "simplifiedAndFullCoordinatesForBoardMarkingTest")
+    public void shouldFindMarkAfterPuttingWithSingleCoordinate(int simpleCoord, int[] complexCoord) {
+        board = new Board(new int[]{4, 5, 3});
+
+        board.put(simpleCoord, BoardField.O);
+
+        assertThat(board.get(new Coordinates(complexCoord[0], complexCoord[1]))).isEqualTo(BoardField.O);
     }
 
     @DataProvider
