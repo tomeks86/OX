@@ -55,7 +55,7 @@ public class Board {
     }
 
     public String draw() {
-        return drawer.draw(fields);
+        return drawer.draw();
     }
 
     public Fields getFields() {
