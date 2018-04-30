@@ -19,7 +19,6 @@ BOARD_SIZE size of board
 GAME_OVER game finished
 BOARD_SIZE_FORMAT provide board size in format: "[n, m] w" (where w is the "winning number")
 PLAYER_SETUP enter name of the first player
-PLAYER player
 NAME name
 MARK mark
 SUMMARY overview of the settings:
