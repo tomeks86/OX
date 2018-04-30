@@ -91,6 +91,14 @@ public class Board {
     public boolean doWeHaveAWinner() {
         Coordinates lastCoords = fields.getLastCoords();
         BoardField lastMark = fields.getLastMark();
+
+        return (checkHorizontalWinner(lastCoords, lastMark) ||
+                checkVerticalWinner(lastCoords, lastMark) ||
+                checkDiagonalWinner(lastCoords, lastMark) ||
+                checkAndiDiagonalWinner(lastCoords, lastMark));
+    }
+
+    private boolean checkHorizontalWinner(Coordinates lastCoords, BoardField lastMark) {
         int currentWinning = 1;
 
         // horizontal
@@ -117,12 +125,16 @@ public class Board {
             if (currentWinning == winningNumber)
                 return true;
         }
+        return false;
+    }
 
+    private boolean checkVerticalWinner(Coordinates lastCoords, BoardField lastMark) {
+        int currentWinning = 1;
         // vertical
         // top
         currentWinning = 1;
-        curRow = lastCoords.getRow();
-        curCol = lastCoords.getCol();
+        int curRow = lastCoords.getRow();
+        int curCol = lastCoords.getCol();
         while (curRow < maxRow - 1) {
             curRow++;
             if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
@@ -143,11 +155,15 @@ public class Board {
             if (currentWinning == winningNumber)
                 return true;
         }
+        return false;
+    }
 
+    private boolean checkDiagonalWinner(Coordinates lastCoords, BoardField lastMark) {
+        int currentWinning = 1;
         // diagonal
         currentWinning = 1;
-        curCol = lastCoords.getCol();
-        curRow = lastCoords.getRow();
+        int curCol = lastCoords.getCol();
+        int curRow = lastCoords.getRow();
         // right up
         while (curRow > 0 && curCol < maxCol - 1) {
             curRow--;
@@ -172,12 +188,16 @@ public class Board {
             if (currentWinning == winningNumber)
                 return true;
         }
+        return false;
+    }
 
+    private boolean checkAndiDiagonalWinner(Coordinates lastCoords, BoardField lastMark) {
+        int currentWinning = 1;
         // anti-diagonal
         // left up
         currentWinning = 1;
-        curRow = lastCoords.getRow();
-        curCol = lastCoords.getCol();
+        int curRow = lastCoords.getRow();
+        int curCol = lastCoords.getCol();
         while (curRow > 0 && curCol > 0) {
             curRow--;
             curCol--;
@@ -201,7 +221,7 @@ public class Board {
             if (currentWinning == winningNumber)
                 return true;
         }
-
         return false;
     }
+
 }
