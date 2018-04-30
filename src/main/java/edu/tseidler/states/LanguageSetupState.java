@@ -14,14 +14,13 @@ public class LanguageSetupState extends GameState {
 
     @Override
     public GameState getNextState() {
-        output.accept(lang.get("CHOOSE_LANGUAGE"));
-        lang = switchLang(input.get());
+        output.accept(Language.get("CHOOSE_LANGUAGE"));
+        switchLang(input.get());
         return new BoardSetUpState(this);
     }
 
-    private Language switchLang(String languageShort) {
-        if (!languageShort.isEmpty() && ("pl".equalsIgnoreCase(languageShort) || "en".equalsIgnoreCase(languageShort)))
-            return new Language(languageShort);
-        return this.lang;
+    private void switchLang(String languageAbbrev) {
+        if (!languageAbbrev.isEmpty() && ("pl".equalsIgnoreCase(languageAbbrev) || "en".equalsIgnoreCase(languageAbbrev)))
+            new Language(languageAbbrev);
     }
 }

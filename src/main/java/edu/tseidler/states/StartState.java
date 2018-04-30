@@ -14,9 +14,9 @@ public class StartState extends GameState {
 
     @Override
     public GameState getNextState() {
-        output.accept(lang.get("WELCOME"));
-        output.accept(lang.get("SETUP"));
-        if (input.get().equalsIgnoreCase(lang.get("YES")))
+        output.accept(Language.get("WELCOME"));
+        output.accept(Language.get("SETUP"));
+        if (input.get().equalsIgnoreCase(Language.get("YES")))
             return new LanguageSetupState(this);
         else
             return new SetupSummaryState(this); // todo running state

@@ -1,6 +1,7 @@
 package edu.tseidler.states;
 
 import edu.tseidler.model.Board;
+import edu.tseidler.model.Language;
 import edu.tseidler.service.InputParser;
 
 public class BoardSetUpState extends GameState {
@@ -10,8 +11,8 @@ public class BoardSetUpState extends GameState {
 
     @Override
     public GameState getNextState() {
-        output.accept(this.lang.get("BOARD_SETUP"));
-        output.accept(this.lang.get("BOARD_SIZE_FORMAT"));
+        output.accept(Language.get("BOARD_SETUP"));
+        output.accept(Language.get("BOARD_SIZE_FORMAT"));
         int[] boardDimensions = InputParser.parseBoardSize(input.get());
         this.board = new Board(boardDimensions);
         return new PlayerSetUpState(this);
