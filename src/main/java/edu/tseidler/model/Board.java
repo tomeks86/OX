@@ -92,21 +92,23 @@ public class Board {
         Coordinates lastCoords = fields.getLastCoords();
         BoardField lastMark = fields.getLastMark();
 
-        return (checkHorizontalWinner(lastCoords, lastMark) ||
-                checkVerticalWinner(lastCoords, lastMark) ||
-                checkDiagonalWinner(lastCoords, lastMark) ||
-                checkAndiDiagonalWinner(lastCoords, lastMark));
+        return (checkGeneralizedWinner(lastCoords, lastMark, 1, 0)) ||
+                checkGeneralizedWinner(lastCoords, lastMark, 0, 1) ||
+                checkGeneralizedWinner(lastCoords, lastMark, 1, -1) ||
+                checkGeneralizedWinner(lastCoords, lastMark, 1, 1);
     }
 
-    private boolean checkHorizontalWinner(Coordinates lastCoords, BoardField lastMark) {
+
+    private boolean checkGeneralizedWinner(Coordinates lastCoords, BoardField lastMark, int rowInc, int colInc) {
         int currentWinning = 1;
 
-        // horizontal
-        // left
         int curRow = lastCoords.getRow();
         int curCol = lastCoords.getCol();
-        while (curCol > 0) {
-            curCol--;
+        while (true) {
+            curRow += rowInc;
+            curCol += colInc;
+            if (curRow < 0 && curRow >= maxRow && curCol < 0 && curCol >= maxCol)
+                break;
             if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
                 currentWinning++;
             else
@@ -114,106 +116,13 @@ public class Board {
             if (currentWinning == winningNumber)
                 return true;
         }
-        // reset column position
-        curCol = lastCoords.getCol();
-        while (curCol < maxCol - 1) {
-            curCol++;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
-                currentWinning++;
-            else
-                break;
-            if (currentWinning == winningNumber)
-                return true;
-        }
-        return false;
-    }
-
-    private boolean checkVerticalWinner(Coordinates lastCoords, BoardField lastMark) {
-        int currentWinning = 1;
-        // vertical
-        // top
-        currentWinning = 1;
-        int curRow = lastCoords.getRow();
-        int curCol = lastCoords.getCol();
-        while (curRow < maxRow - 1) {
-            curRow++;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
-                currentWinning++;
-            else
-                break;
-            if (currentWinning == winningNumber)
-                return true;
-        }
-        // bottom
-        curRow = lastCoords.getRow();
-        while (curRow > 0) {
-            curRow--;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
-                currentWinning++;
-            else
-                break;
-            if (currentWinning == winningNumber)
-                return true;
-        }
-        return false;
-    }
-
-    private boolean checkDiagonalWinner(Coordinates lastCoords, BoardField lastMark) {
-        int currentWinning = 1;
-        // diagonal
-        currentWinning = 1;
-        int curCol = lastCoords.getCol();
-        int curRow = lastCoords.getRow();
-        // right up
-        while (curRow > 0 && curCol < maxCol - 1) {
-            curRow--;
-            curCol++;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
-                currentWinning++;
-            else
-                break;
-            if (currentWinning == winningNumber)
-                return true;
-        }
-        // left down
-        curCol = lastCoords.getCol();
-        curRow = lastCoords.getRow();
-        while (curRow < maxRow - 1 && curCol > 0) {
-            curRow++;
-            curCol--;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
-                currentWinning++;
-            else
-                break;
-            if (currentWinning == winningNumber)
-                return true;
-        }
-        return false;
-    }
-
-    private boolean checkAndiDiagonalWinner(Coordinates lastCoords, BoardField lastMark) {
-        int currentWinning = 1;
-        // anti-diagonal
-        // left up
-        currentWinning = 1;
-        int curRow = lastCoords.getRow();
-        int curCol = lastCoords.getCol();
-        while (curRow > 0 && curCol > 0) {
-            curRow--;
-            curCol--;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
-                currentWinning++;
-            else
-                break;
-            if (currentWinning == winningNumber)
-                return true;
-        }
-        // right down
         curRow = lastCoords.getRow();
         curCol = lastCoords.getCol();
-        while (curRow < maxRow - 1 && curCol < maxCol - 1) {
-            curRow++;
-            curCol++;
+        while (true) {
+            curRow -= rowInc;
+            curCol -= colInc;
+            if (curRow < 0 && curRow >= maxRow && curCol < 0 && curCol >= maxCol)
+                break;
             if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
                 currentWinning++;
             else
