@@ -27,7 +27,7 @@ public class BoardTest {
 
     @Test(dataProvider = "goodInitializationParameters")
     public void shouldInitializeBoard(int maxRow, int maxCol, int winningNumber) {
-        board = new Board(maxRow, maxCol, winningNumber);
+        board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
 
         assertThat(board.get(new Coordinates(1,1))).isEqualTo(BoardField.EMPTY);
     }
@@ -44,7 +44,7 @@ public class BoardTest {
 
     @Test(dataProvider = "poorInitializationParameters")
     public void shouldInitializeWithCorrectedParameters(int maxRow, int maxCol, int winningNumber, int maxRowExptd, int maxColExptd, int winningNumberExptd) {
-        board = new Board(maxRow, maxCol, winningNumber);
+        board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
 
         SoftAssert sa = new SoftAssert();
         sa.assertEquals(board.getMaxRow(), maxRowExptd, "wrong maxRows");
@@ -65,7 +65,7 @@ public class BoardTest {
 
     @Test(dataProvider = "coordinatesForBoardPut")
     public void shouldPutXOrOOnBoard(int row, int col) {
-        board = new Board(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER);
+        board = new Board(new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
 
         boolean put = board.put(new Coordinates(row, col), BoardField.X);
 
@@ -74,7 +74,7 @@ public class BoardTest {
 
     @Test(dataProvider = "coordinatesForBoardPut")
     public void shouldNotPutXOrOOnBoardAtAlreadyTakenField(int row, int col) {
-        board = new Board(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER);
+        board = new Board( new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
         board.put(new Coordinates(0, 1), BoardField.O);
         board.put(new Coordinates(0, 2), BoardField.O);
         board.put(new Coordinates(0, 0), BoardField.O);
@@ -98,7 +98,7 @@ public class BoardTest {
 
     @Test(dataProvider = "coordinatesToShootOutOfBoard")
     public void shouldReturnFalseForOutOfBoundsShootOnTheBoard(int row, int col) {
-        board = new Board(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER);
+        board = new Board( new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
 
         boolean put = board.put(new Coordinates(row, col), BoardField.O);
 
@@ -107,7 +107,7 @@ public class BoardTest {
 
     @Test
     public void shouldFindXOnBoard() {
-        board = new Board(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER);
+        board = new Board(new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
         Coordinates coords = new Coordinates(1, 2);
 
         board.put(coords, BoardField.X);
@@ -117,7 +117,7 @@ public class BoardTest {
 
     @Test
     public void shouldFillAllTheBoardWithX() {
-        board = new Board(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER);
+        board = new Board(new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
         for (int i = 0; i < 10; i++) {
             board.put(i, BoardField.X);
         }
@@ -137,7 +137,7 @@ public class BoardTest {
 
     @Test(dataProvider = "simplifiedAndFullCoordinatesForBoardMarkingTest")
     public void shouldFindMarkAfterPuttingWithSingleCoordinate(int simpleCoord, int[] complexCoord) {
-        board = new Board(4, 5, 3);
+        board = new Board(new BoardParameters(4, 5, 3));
 
         board.put(simpleCoord, BoardField.O);
 
@@ -156,7 +156,7 @@ public class BoardTest {
 
     @Test(dataProvider = "parametersForBoardInitializationWithNumberOfWinningFields")
     public void setBoardWinningNumber(int maxRow, int maxCol, int winningNumber) {
-        board = new Board(maxRow, maxCol, winningNumber);
+        board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
 
         SoftAssert sa = new SoftAssert();
         sa.assertEquals(board.getMaxRow(), maxRow);
