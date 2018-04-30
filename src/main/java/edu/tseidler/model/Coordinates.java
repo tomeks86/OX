@@ -1,8 +1,10 @@
 package edu.tseidler.model;
 
+import java.util.Objects;
+
 public class Coordinates {
-    public final int row;
-    public final int col;
+    private final int row;
+    private final int col;
 
     public Coordinates(int row, int col) {
         this.row = row;
@@ -20,6 +22,15 @@ public class Coordinates {
 
     @Override
     public int hashCode() {
-        return row * col + col;
+
+        return Objects.hash(row, col);
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
     }
 }

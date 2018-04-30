@@ -16,8 +16,8 @@ public class Drawer {
     private final Fields fields;
 
     public Drawer(Board board) {
-        maxRow = board.maxRow;
-        maxCol = board.maxCol;
+        maxRow = board.getMaxRow();
+        maxCol = board.getMaxCol();
         maxWidth = getFieldWidth(maxRow * maxCol);
         fields = board.getFields();
     }
