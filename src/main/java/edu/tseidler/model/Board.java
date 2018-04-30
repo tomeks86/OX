@@ -37,10 +37,8 @@ public class Board {
                 proposedWinningNumber);
     }
 
-    public BoardField get(Coordinates coordinate) {
-        if (coordinate.getRow() <= getMaxRow() && coordinate.getCol() <= getMaxCol())
-            return fields.get(coordinate);
-        return null;
+    public BoardField get(Coordinates coordinates) {
+        return fields.get(coordinates);
     }
 
     boolean put(Coordinates coords, BoardField sign) {
@@ -63,14 +61,15 @@ public class Board {
         return coords.getRow() >= 0 && coords.getRow() < getMaxRow() && coords.getCol() >= 0 && coords.getCol() < getMaxCol();
     }
 
-    public String present(Language lang) {
-        StringBuilder sb = new StringBuilder(lang.get("BOARD"))
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(Language.get("BOARD"))
                 .append(":\n")
-                .append(lang.get("MAX_ROWS"))
+                .append(Language.get("MAX_ROWS"))
                 .append(": " + getMaxRow() + "\n")
-                .append(lang.get("MAX_COLS"))
+                .append(Language.get("MAX_COLS"))
                 .append(": " + getMaxCol() + "\n")
-                .append(lang.get("WINNING_NUMBER"))
+                .append(Language.get("WINNING_NUMBER"))
                 .append(": " + getWinningNumber());
         return sb.toString();
     }

@@ -28,18 +28,11 @@ public class PlayerList {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("PlayerList{");
-        sb.append("playersList=").append(playersList);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    public String present(Language lang) {
-        StringBuilder sb = new StringBuilder(lang.get("PLAYERS"))
-                .append("\n" + lang.get("PLAYER") + " 1:\n")
-                .append(getNext().present(lang))
-                .append("\n" + lang.get("PLAYER") + " 2:\n")
-                .append(getNext().present(lang));
+        StringBuilder sb = new StringBuilder(Language.get("PLAYERS"))
+                .append("\n" + Language.get("PLAYER") + " 1:\n")
+                .append(getNext().toString())
+                .append("\n" + Language.get("PLAYER") + " 2:\n")
+                .append(getNext().toString());
         return sb.toString();
     }
 }
