@@ -1,3 +1,4 @@
+UNDEFINED [not defined in the language file]
 WELCOME hello to the OXGame, enter setup or leave defaults
 SETUP enter setup? yes/[no]
 YESORNO yes/no
@@ -11,13 +12,13 @@ MAX_COLS columns number
 WINNING_NUMBER number of winning fields
 PLAYERS players
 PLAYER player
-FIRST begining
+FIRST beginning
 SIGNS_NUMBER number of winning signs:
 SIGN sign
 BOARD_SIZE size of board
 GAME_OVER game finished
 BOARD_SIZE_FORMAT provide board size in format: "[n, m] w" (where w is the "winning number")
-PLAYER_SETUP enter name of the first player:
+PLAYER_SETUP enter name of the first player
 PLAYER player
 NAME name
 MARK mark
