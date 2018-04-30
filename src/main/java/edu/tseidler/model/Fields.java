@@ -37,4 +37,8 @@ public class Fields {
     public BoardField getLastMark() {
         return lastMark;
     }
+
+    public void clear() {
+        fields.clear();
+    }
 }

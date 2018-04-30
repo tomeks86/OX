@@ -29,7 +29,7 @@ public class PlayerSetUpState extends GameState {
     }
 
     private String getPlayerName(String n) {
-        String pl_default = players.getNext().name;
+        String pl_default = players.getNext().getName();
         output.accept(Language.build("PLAYER " + n + " DEFAULT : " + pl_default));
         String player_name = input.get();
         return player_name.isEmpty() ? pl_default : player_name;

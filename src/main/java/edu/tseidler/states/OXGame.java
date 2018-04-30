@@ -22,7 +22,7 @@ public class OXGame {
     }
 
     public void start() {
-        while (GameState.gamesPlayed < 3) {
+        while (GameState.gamesPlayed < 4) {
             doOneCycle();
         }
     }

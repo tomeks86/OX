@@ -121,4 +121,8 @@ public class Board {
         return false;
     }
 
+    public void clear() {
+        fields.clear();
+    }
+
 }

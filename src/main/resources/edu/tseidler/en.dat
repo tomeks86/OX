@@ -29,3 +29,10 @@ PUT put
 ON on
 NEXT_MOVE next move
 FIELD field
+WON won
+GAME the game
+DRAW draw!
+MATCH match ended in
+WINNER winner
+LOOSER loser
+SCORE score

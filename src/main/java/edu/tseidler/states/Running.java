@@ -1,10 +1,8 @@
 package edu.tseidler.states;
 
-import edu.tseidler.model.Board;
-import edu.tseidler.model.BoardField;
-import edu.tseidler.model.Coordinates;
-import edu.tseidler.model.Player;
+import edu.tseidler.model.*;
 import edu.tseidler.service.InputParser;
+import edu.tseidler.service.WinnerValidator;
 
 class Running extends GameState {
 
@@ -18,15 +16,19 @@ class Running extends GameState {
         Player currentPlayer = players.getNext();
         boolean marked = false;
         int choice = -1;
+        if (GameState.gamesPlayed == 3)
+            return new GameOverState(this);
         while (!marked && !board.ifFull()) {
-            output.accept(lang.get("PLAYER") + " " + currentPlayer.name + " " + lang.get("NEXT_MOVE") + " " + currentPlayer.mark);
+            output.accept(Language.build("PLAYER " + currentPlayer.getName() + " NEXT_MOVE " + currentPlayer.getMark()));
             choice = InputParser.parsePlayerMarkInput(input.get());
-            marked = board.put(choice, currentPlayer.mark);
+            marked = board.put(choice, currentPlayer.getMark());
+            if (board.doWeHaveAWinner())
+                return new WinnerState(this, currentPlayer);
         }
-        output.accept(lang.get("PLAYER") + " " + lang.get("PUT") + " " + currentPlayer.mark + " " + lang.get("ON") + " " + lang.get("FIELD") + ": " + choice);
+        output.accept(Language.build("PLAYER PUT " + currentPlayer.getMark() + " ON FIELD") + " : " + choice);
         if (!board.ifFull())
             return new Running(this);
         else
-            return new GameOverState(this);
+            return new DrawState(this);
     }
 }

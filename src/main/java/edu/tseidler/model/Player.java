@@ -1,14 +1,40 @@
 package edu.tseidler.model;
 
 public class Player {
-    public final String name;
-    public final BoardField mark;
-    public final boolean first;
+    private final String name;
+    private final BoardField mark;
+    private final boolean first;
+    private int score;
 
     public Player(String name, BoardField mark, boolean first) {
         this.name = name;
         this.mark = mark;
         this.first = first;
+        score = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public BoardField getMark() {
+        return mark;
+    }
+
+    public boolean isFirst() {
+        return first;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void win() {
+        score += 3;
+    }
+
+    public void draw() {
+        score += 1;
     }
 
     public static Player second(Player player, String name) {
