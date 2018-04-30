@@ -44,9 +44,9 @@ public class BoardTest {
         board = new Board(dimensions);
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(board.maxRow, expected[0], "wrong maxRows");
-        sa.assertEquals(board.maxCol, expected[1], "wrong maxCols");
-        sa.assertEquals(board.winningNumber, expected[2], "wrong winningNumber");
+        sa.assertEquals(board.getMaxRow(), expected[0], "wrong maxRows");
+        sa.assertEquals(board.getMaxCol(), expected[1], "wrong maxCols");
+        sa.assertEquals(board.getWinningNumber(), expected[2], "wrong winningNumber");
         sa.assertAll();
     }
 
@@ -156,9 +156,9 @@ public class BoardTest {
         board = new Board(dimensionsAndWinningNumber);
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(board.maxRow, dimensionsAndWinningNumber[0]);
-        sa.assertEquals(board.maxCol, dimensionsAndWinningNumber[1]);
-        sa.assertEquals(board.winningNumber, dimensionsAndWinningNumber[2]);
+        sa.assertEquals(board.getMaxRow(), dimensionsAndWinningNumber[0]);
+        sa.assertEquals(board.getMaxCol(), dimensionsAndWinningNumber[1]);
+        sa.assertEquals(board.getWinningNumber(), dimensionsAndWinningNumber[2]);
         sa.assertAll();
     }
 }

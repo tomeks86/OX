@@ -44,34 +44,34 @@ public class WinnerValidatorTest {
     public void shouldBeNoWinner(int position) {
         board.put(position, BoardField.O);
 
-        assertFalse(WinnerValidator.test(board, position));
+        assertFalse(WinnerValidator.test(board));
     }
 
     @Test
     public void shouldFindWinnerOnHorizontal() {
         board.put(2, BoardField.O);
 
-        assertTrue(WinnerValidator.test(board, 2));
+        assertTrue(WinnerValidator.test(board));
     }
 
     @Test
     public void shouldFindWinnerOnVertical() {
         board.put(8, BoardField.O);
 
-        assertTrue(WinnerValidator.test(board, 8));
+        assertTrue(WinnerValidator.test(board));
     }
 
     @Test
     private void shouldFindWinnerOnDiagonal() {
         board.put(7, BoardField.O);
 
-        assertTrue(WinnerValidator.test(board, 7));
+        assertTrue(WinnerValidator.test(board));
     }
 
     @Test
     private void shouldFindWinnerOnAntiDiagonal() {
         board.put(9, BoardField.O);
 
-        assertTrue(WinnerValidator.test(board, 9));
+        assertTrue(WinnerValidator.test(board));
     }
 }

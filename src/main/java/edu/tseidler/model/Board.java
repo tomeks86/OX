@@ -4,9 +4,9 @@ import edu.tseidler.service.Drawer;
 
 public class Board {
     private static final int MINIMUM_SIZE_AND_WINNING_NUMBER = 3;
-    public final int maxRow;
-    public final int maxCol;
-    public final int winningNumber;
+    private final int maxRow;
+    private final int maxCol;
+    private final int winningNumber;
     private final Fields fields;
     final Drawer drawer;
 
@@ -20,6 +20,18 @@ public class Board {
         drawer = new Drawer(this);
     }
 
+    public int getMaxRow() {
+        return maxRow;
+    }
+
+    public int getMaxCol() {
+        return maxCol;
+    }
+
+    public int getWinningNumber() {
+        return winningNumber;
+    }
+
     private int getPossibleWinningNumber(int b) {
         return Math.min(
                 Math.min(maxRow, maxCol),
@@ -27,7 +39,7 @@ public class Board {
     }
 
     public BoardField get(Coordinates coordinate) {
-        if (coordinate.row <= maxRow && coordinate.col <= maxCol)
+        if (coordinate.getRow() <= maxRow && coordinate.getCol() <= maxCol)
             return fields.get(coordinate);
         return null;
     }
@@ -49,7 +61,7 @@ public class Board {
     }
 
     private boolean areCoordsValid(Coordinates coords) {
-        return coords.row >= 0 && coords.row < maxRow && coords.col >= 0 && coords.col < maxCol;
+        return coords.getRow() >= 0 && coords.getRow() < maxRow && coords.getCol() >= 0 && coords.getCol() < maxCol;
     }
 
     public String present(Language lang) {
@@ -74,5 +86,122 @@ public class Board {
 
     public boolean ifFull() {
         return maxCol * maxCol == fields.getTakenFieldsNumber();
+    }
+
+    public boolean doWeHaveAWinner() {
+        Coordinates lastCoords = fields.getLastCoords();
+        BoardField lastMark = fields.getLastMark();
+        int currentWinning = 1;
+
+        // horizontal
+        // left
+        int curRow = lastCoords.getRow();
+        int curCol = lastCoords.getCol();
+        while (curCol > 0) {
+            curCol--;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+        // reset column position
+        curCol = lastCoords.getCol();
+        while (curCol < maxCol - 1) {
+            curCol++;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+
+        // vertical
+        // top
+        currentWinning = 1;
+        curRow = lastCoords.getRow();
+        curCol = lastCoords.getCol();
+        while (curRow < maxRow - 1) {
+            curRow++;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+        // bottom
+        curRow = lastCoords.getRow();
+        while (curRow > 0) {
+            curRow--;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+
+        // diagonal
+        currentWinning = 1;
+        curCol = lastCoords.getCol();
+        curRow = lastCoords.getRow();
+        // right up
+        while (curRow > 0 && curCol < maxCol - 1) {
+            curRow--;
+            curCol++;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+        // left down
+        curCol = lastCoords.getCol();
+        curRow = lastCoords.getRow();
+        while (curRow < maxRow - 1 && curCol > 0) {
+            curRow++;
+            curCol--;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+
+        // anti-diagonal
+        // left up
+        currentWinning = 1;
+        curRow = lastCoords.getRow();
+        curCol = lastCoords.getCol();
+        while (curRow > 0 && curCol > 0) {
+            curRow--;
+            curCol--;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+        // right down
+        curRow = lastCoords.getRow();
+        curCol = lastCoords.getCol();
+        while (curRow < maxRow - 1 && curCol < maxCol - 1) {
+            curRow++;
+            curCol++;
+            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+                currentWinning++;
+            else
+                break;
+            if (currentWinning == winningNumber)
+                return true;
+        }
+
+        return false;
     }
 }
