@@ -10,17 +10,35 @@ import java.util.stream.Stream;
 
 public class Language {
     final String name;
-    Map<String, String> wordMap;
+    static Map<String, String> wordMap;
 
     public Language(String name) {
         this.name = name;
-        this.wordMap = new HashMap<>();
+        wordMap = new HashMap<>();
         Stream<String> lines = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream(name + ".dat"))).lines();
         lines.forEach(line -> wordMap.putIfAbsent(line.split("\\s+")[0], line.split("\\s+", 2)[1]));
     }
 
-    public String get(String command) {
-        return this.wordMap.getOrDefault(command, command + " [not defined in the language file]");
+    public static String get(String command) {
+        String undefined = wordMap.getOrDefault("UNDEFINED", "[UNDEFINED] not found in dictionary");
+        return wordMap.getOrDefault(command, command + " " + undefined);
+    }
+
+    public static String build(String input) {
+        StringBuilder sb = new StringBuilder();
+        for (String token : input.split("\\s+")) {
+            if (isUpper(token)) {
+                sb.append(Language.get(token));
+            } else {
+                sb.append(token);
+            }
+            sb.append(" ");
+        }
+        return sb.toString().trim();
+    }
+
+    private static boolean isUpper(String token) {
+        return token.toUpperCase().equals(token);
     }
 
     @Override

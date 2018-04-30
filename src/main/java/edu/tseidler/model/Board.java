@@ -3,48 +3,33 @@ package edu.tseidler.model;
 import edu.tseidler.service.Drawer;
 
 public class Board {
-    private static final int MINIMUM_SIZE_AND_WINNING_NUMBER = 3;
-    private final int maxRow;
-    private final int maxCol;
-    private final int winningNumber;
+    private final BoardParameters boardParameters;
     private final Fields fields;
     final Drawer drawer;
 
-    public Board(int[] dimensionsAndWinningNumber) {
-        maxRow = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, dimensionsAndWinningNumber[0]);
-        maxCol = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, dimensionsAndWinningNumber[1]);
-        this.winningNumber = Math.max(
-                MINIMUM_SIZE_AND_WINNING_NUMBER,
-                getPossibleWinningNumber(dimensionsAndWinningNumber[2]));
+    public Board(BoardParameters boardParameters) {
+        this.boardParameters = boardParameters;
         fields = new Fields();
         drawer = new Drawer(this);
     }
 
     public int getMaxRow() {
-        return maxRow;
+        return boardParameters.getMaxRow();
     }
 
     public int getMaxCol() {
-        return maxCol;
+        return boardParameters.getMaxCol();
     }
 
-    public int getWinningNumber() {
-        return winningNumber;
+    int getWinningNumber() {
+        return boardParameters.getWinningNumber();
     }
 
-    private int getPossibleWinningNumber(int b) {
-        return Math.min(
-                Math.min(maxRow, maxCol),
-                b);
+    public BoardField get(Coordinates coordinates) {
+        return fields.get(coordinates);
     }
 
-    public BoardField get(Coordinates coordinate) {
-        if (coordinate.getRow() <= maxRow && coordinate.getCol() <= maxCol)
-            return fields.get(coordinate);
-        return null;
-    }
-
-    public boolean put(Coordinates coords, BoardField sign) {
+    boolean put(Coordinates coords, BoardField sign) {
         if (areCoordsValid(coords))
             return fields.put(coords, sign);
         return false;
@@ -52,27 +37,28 @@ public class Board {
 
     public boolean put(int coord, BoardField sign) {
         coord -= 1;
-        if (coord >= 0 && coord < maxRow * maxCol) {
-            int row = coord / maxCol;
-            int col = coord % maxCol;
+        if (coord >= 0 && coord < getMaxRow() * getMaxCol()) {
+            int row = coord / getMaxCol();
+            int col = coord % getMaxCol();
             return put(new Coordinates(row, col), sign);
         }
         return false;
     }
 
     private boolean areCoordsValid(Coordinates coords) {
-        return coords.getRow() >= 0 && coords.getRow() < maxRow && coords.getCol() >= 0 && coords.getCol() < maxCol;
+        return coords.getRow() >= 0 && coords.getRow() < getMaxRow() && coords.getCol() >= 0 && coords.getCol() < getMaxCol();
     }
 
-    public String present(Language lang) {
-        StringBuilder sb = new StringBuilder(lang.get("BOARD"))
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(Language.get("BOARD"))
                 .append(":\n")
-                .append(lang.get("MAX_ROWS"))
-                .append(": " + maxRow + "\n")
-                .append(lang.get("MAX_COLS"))
-                .append(": " + maxCol + "\n")
-                .append(lang.get("WINNING_NUMBER"))
-                .append(": " + winningNumber);
+                .append(Language.get("MAX_ROWS"))
+                .append(": " + getMaxRow() + "\n")
+                .append(Language.get("MAX_COLS"))
+                .append(": " + getMaxCol() + "\n")
+                .append(Language.get("WINNING_NUMBER"))
+                .append(": " + getWinningNumber());
         return sb.toString();
     }
 
@@ -85,7 +71,7 @@ public class Board {
     }
 
     public boolean ifFull() {
-        return maxCol * maxCol == fields.getTakenFieldsNumber();
+        return getMaxRow() * getMaxCol() == fields.getTakenFieldsNumber();
     }
 
     public boolean doWeHaveAWinner() {
@@ -107,13 +93,14 @@ public class Board {
         while (true) {
             curRow += rowInc;
             curCol += colInc;
-            if (curRow < 0 && curRow >= maxRow && curCol < 0 && curCol >= maxCol)
+            Coordinates coords = new Coordinates(curRow, curCol);
+            if (!areCoordsValid(coords))
                 break;
-            if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
+            if (fields.get(coords) == lastMark)
                 currentWinning++;
             else
                 break;
-            if (currentWinning == winningNumber)
+            if (currentWinning == getWinningNumber())
                 return true;
         }
         curRow = lastCoords.getRow();
@@ -121,13 +108,14 @@ public class Board {
         while (true) {
             curRow -= rowInc;
             curCol -= colInc;
-            if (curRow < 0 && curRow >= maxRow && curCol < 0 && curCol >= maxCol)
+            Coordinates coords = new Coordinates(curRow, curCol);
+            if (!areCoordsValid(coords))
                 break;
             if (fields.get(new Coordinates(curRow, curCol)) == lastMark)
                 currentWinning++;
             else
                 break;
-            if (currentWinning == winningNumber)
+            if (currentWinning == getWinningNumber())
                 return true;
         }
         return false;
