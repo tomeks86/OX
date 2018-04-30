@@ -14,7 +14,7 @@ public class BoardSetUpState extends GameState {
         output.accept(Language.get("BOARD_SETUP"));
         output.accept(Language.get("BOARD_SIZE_FORMAT"));
         int[] boardDimensions = InputParser.parseBoardSize(input.get());
-        this.board = new Board(boardDimensions);
+        this.board = new Board(boardDimensions[0], boardDimensions[1], boardDimensions[2]);
         return new PlayerSetUpState(this);
     }
 

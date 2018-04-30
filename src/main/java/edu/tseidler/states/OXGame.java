@@ -17,7 +17,7 @@ public class OXGame {
         this.inputSupplier = inputSupplier;
         this.output = output;
         this.lang = new Language(selLang);
-        this.currentState = new StartState(output, inputSupplier, new Language("en"), new Board(new int[]{3, 3, 3}), new PlayerList());
+        this.currentState = new StartState(output, inputSupplier, new Language("en"), new Board(3, 3, 3), new PlayerList());
     }
 
     public void start() {

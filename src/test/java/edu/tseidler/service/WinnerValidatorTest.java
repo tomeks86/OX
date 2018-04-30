@@ -18,7 +18,7 @@ public class WinnerValidatorTest {
 
     @BeforeMethod
     public void boardSetUp() {
-        board = new Board(new int[]{4, 5, 3});
+        board = new Board(4, 5, 3);
 
         IntStream.of(1, 3, 5, 13).forEach(i -> board.put(i, BoardField.O));
     }
