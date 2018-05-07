@@ -24,6 +24,6 @@ public class FileLineSupplier implements Supplier<String> {
     public String get() {
         if (!lines.isEmpty())
             return lines.remove(0);
-        else return " ";
+        else return "";
     }
 }
