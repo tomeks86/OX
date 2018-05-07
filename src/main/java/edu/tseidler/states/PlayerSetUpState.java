@@ -29,14 +29,14 @@ public class PlayerSetUpState extends GameState {
     }
 
     private String getPlayerName(String n) {
-        String pl_default = players.getNext().name;
-        output.accept(Language.build("PLAYER " + n + " DEFAULT : " + pl_default));
+        String pl_default = players.getNext().getName();
+        output.accept(Language.build("_PLAYER_ " + n + " _DEFAULT_ : " + pl_default));
         String player_name = input.get();
         return player_name.isEmpty() ? pl_default : player_name;
     }
 
     private BoardField getPlayerMark(BoardField default_mark) {
-        output.accept(Language.build("PLAYER 1 SIGN ( DEFAULT ) : " + default_mark));
+        output.accept(Language.build("_PLAYER_ 1 _SIGN_ ( _DEFAULT_ ) : " + default_mark));
         BoardField player1_mark;
         try {
             player1_mark = BoardField.valueOf(input.get());
@@ -48,7 +48,7 @@ public class PlayerSetUpState extends GameState {
 
     private boolean getPlayer1Start(boolean default_start) {
         boolean start = default_start;
-        output.accept(Language.build("START? YESORNO"));
+        output.accept(Language.build("_START?_ _YESORNO_"));
         if (input.get().equalsIgnoreCase(lang.get("NO"))) {
             start = false;
         }

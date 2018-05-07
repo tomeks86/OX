@@ -1,11 +1,7 @@
 package edu.tseidler.states;
 
-import edu.tseidler.model.Board;
 import edu.tseidler.model.Language;
-import edu.tseidler.model.PlayerList;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import edu.tseidler.model.Player;
 
 public class GameOverState extends GameState {
     GameOverState(GameState previousState) {
@@ -14,9 +10,21 @@ public class GameOverState extends GameState {
 
     @Override
     public GameState getNextState() {
-        output.accept(board.draw());
+//        output.accept(board.draw());
         output.accept(Language.get("GAME_OVER"));
-        GameState.gamesPlayed = 3;
+        output.accept(matchStatistics());
+        GameState.gamesPlayed++;
         return this;
+    }
+
+    private String matchStatistics() {
+        players.sort();
+        Player first = players.getNext();
+        Player second = players.getNext();
+        if (first.getScore() == second.getScore()) {
+            return Language.build("_MATCH_ _DRAW_ _FINAL_ _SCORES_ : " + first.getScore());
+        } else
+            return Language.build(first.toString() + " _WINNER_ _SCORE_") + " " + first.getScore() + "\n" +
+                    Language.build(second.toString() + " _LOOSER_ _SCORE_") + " " + second.getScore();
     }
 }

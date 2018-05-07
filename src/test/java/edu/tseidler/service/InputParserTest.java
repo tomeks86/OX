@@ -27,7 +27,10 @@ public class InputParserTest {
                 {"[  10,-1]", DEFAULT_DIMENSIONS},
                 {"  [-100,50]", DEFAULT_DIMENSIONS},
                 {"[-1 ,   1 ] ", DEFAULT_DIMENSIONS},
-                {"ala ma kota", DEFAULT_DIMENSIONS}
+                {"ala ma kota", DEFAULT_DIMENSIONS},
+                {"3, 4 5", new int[] {3, 4, 5}},
+                {"3, 4, 5", new int[] {3, 4, 5}},
+                {"3  4  5", new int[] {3, 4, 5}},
         };
     }
 

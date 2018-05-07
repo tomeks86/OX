@@ -21,12 +21,12 @@ public class PlayerTest {
 
     public void shouldCreatePlayers() {
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(player1.name, "stefan");
-        sa.assertEquals(player2.name, "franek");
-        sa.assertEquals(player1.mark, BoardField.O);
-        sa.assertEquals(player2.mark, BoardField.X);
-        sa.assertTrue(player1.first);
-        sa.assertFalse(player2.first);
+        sa.assertEquals(player1.getName(), "stefan");
+        sa.assertEquals(player2.getName(), "franek");
+        sa.assertEquals(player1.getMark(), BoardField.O);
+        sa.assertEquals(player2.getMark(), BoardField.X);
+        sa.assertTrue(player1.isFirst());
+        sa.assertFalse(player2.isFirst());
         sa.assertAll();
     }
 

@@ -1,5 +1,6 @@
 package edu.tseidler.model;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class PlayerList {
     }
 
     public void add(Player player) {
-        int index = player.first ? 0 : 1;
+        int index = player.isFirst() ? 0 : 1;
         playersList.set(index, player);
     }
 
@@ -24,6 +25,10 @@ public class PlayerList {
         Player first = playersList.remove(0);
         playersList.add(first);
         return first;
+    }
+
+    public void sort() {
+        playersList.sort(Comparator.comparingInt(Player::getScore).reversed());
     }
 
     @Override

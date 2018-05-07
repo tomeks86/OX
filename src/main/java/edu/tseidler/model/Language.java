@@ -4,8 +4,8 @@ import edu.tseidler.Main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Language {
@@ -14,9 +14,9 @@ public class Language {
 
     public Language(String name) {
         this.name = name;
-        wordMap = new HashMap<>();
         Stream<String> lines = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream(name + ".dat"))).lines();
-        lines.forEach(line -> wordMap.putIfAbsent(line.split("\\s+")[0], line.split("\\s+", 2)[1]));
+        wordMap = lines.map(line -> line.split("\\s+", 2))
+                .collect(Collectors.toMap(l -> l[0], l -> l[1]));
     }
 
     public static String get(String command) {
@@ -27,8 +27,8 @@ public class Language {
     public static String build(String input) {
         StringBuilder sb = new StringBuilder();
         for (String token : input.split("\\s+")) {
-            if (isUpper(token)) {
-                sb.append(Language.get(token));
+            if (isDictionaryWord(token)) {
+                sb.append(Language.get(token.substring(1, token.length() - 1)));
             } else {
                 sb.append(token);
             }
@@ -37,8 +37,8 @@ public class Language {
         return sb.toString().trim();
     }
 
-    private static boolean isUpper(String token) {
-        return token.toUpperCase().equals(token);
+    private static boolean isDictionaryWord(String token) {
+        return (token.startsWith("_") && token.endsWith("_"));
     }
 
     @Override
