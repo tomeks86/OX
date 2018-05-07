@@ -5,14 +5,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerList {
+    public static final String PLAYER1_DEFAULT = "jacek";
+    public static final String PLAYER2_DEFAULT = "placek";
     private final List<Player> playersList;
 
 
     public PlayerList() {
-        Player first = new Player("jacek", BoardField.X, true);
+        Player first = new Player(PLAYER1_DEFAULT, BoardField.X, true);
         this.playersList = new LinkedList<Player>() {{
             add(first);
-            add(Player.second(first, "placek"));
+            add(Player.second(first, PLAYER2_DEFAULT));
         }};
     }
 
