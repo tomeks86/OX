@@ -14,14 +14,14 @@ public class WinnerState extends GameState {
 
     @Override
     GameState getNextState() {
-        output.accept(gameWinnerStatement(winnerPlayer));
         output.accept(board.draw());
+        output.accept(gameWinnerStatement(winnerPlayer) + "\n");
         board.clear();
         GameState.gamesPlayed++;
         return new Running(this);
     }
 
     private String gameWinnerStatement(Player winnerPlayer) {
-        return Language.build("PLAYER " + winnerPlayer.getName() + " WON GAME");
+        return Language.build("_PLAYER_ " + winnerPlayer.getName() + " _WON_ _GAME_");
     }
 }

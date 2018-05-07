@@ -1,10 +1,12 @@
 package edu.tseidler.states;
 
 import edu.tseidler.model.*;
+import edu.tseidler.service.GameQuitException;
 import edu.tseidler.service.InputParser;
-import edu.tseidler.service.WinnerValidator;
 
 class Running extends GameState {
+
+    public static final int MAXIMUM_ROUNDS_PLAYED = 3;
 
     public Running(GameState previousState) {
         super(previousState);
@@ -16,19 +18,28 @@ class Running extends GameState {
         Player currentPlayer = players.getNext();
         boolean marked = false;
         int choice = -1;
-        if (GameState.gamesPlayed == 3)
+        if (GameState.gamesPlayed == MAXIMUM_ROUNDS_PLAYED)
             return new GameOverState(this);
-        while (!marked && !board.ifFull()) {
-            output.accept(Language.build("PLAYER " + currentPlayer.getName() + " NEXT_MOVE " + currentPlayer.getMark()));
-            choice = InputParser.parsePlayerMarkInput(input.get());
-            marked = board.put(choice, currentPlayer.getMark());
-            if (board.doWeHaveAWinner())
-                return new WinnerState(this, currentPlayer);
+        try {
+            while (!marked && !board.ifFull()) {
+                output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _NEXT_MOVE_ " + currentPlayer.getMark()));
+                choice = InputParser.parsePlayerMarkInput(input.get());
+                marked = board.put(choice, currentPlayer.getMark());
+                if (marked && board.doWeHaveAWinner())
+                    return new WinnerState(this, currentPlayer);
+                else
+                    output.accept(Language.build("( _TRY_ _AGAIN_ )"));
+            }
+            output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice);
+            output.accept("\n");
+        } catch (GameQuitException e) {
+            GameState.gamesPlayed = MAXIMUM_ROUNDS_PLAYED;
+            return new GameOverState(this);
         }
-        output.accept(Language.build("PLAYER PUT " + currentPlayer.getMark() + " ON FIELD") + " : " + choice);
         if (!board.ifFull())
             return new Running(this);
         else
             return new DrawState(this);
+
     }
 }

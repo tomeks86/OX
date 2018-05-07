@@ -10,7 +10,7 @@ public class GameOverState extends GameState {
 
     @Override
     public GameState getNextState() {
-        output.accept(board.draw());
+//        output.accept(board.draw());
         output.accept(Language.get("GAME_OVER"));
         output.accept(matchStatistics());
         GameState.gamesPlayed++;
@@ -22,9 +22,9 @@ public class GameOverState extends GameState {
         Player first = players.getNext();
         Player second = players.getNext();
         if (first.getScore() == second.getScore()) {
-            return Language.build("MATCH DRAW");
+            return Language.build("_MATCH_ _DRAW_ _FINAL_ _SCORES_ : " + first.getScore());
         } else
-            return Language.build(first.toString() + " WINNER SCORE") + " " + first.getScore() + "\n" +
-                    Language.build(second.toString() + " LOOSER SCORE") + " " + second.getScore();
+            return Language.build(first.toString() + " _WINNER_ _SCORE_") + " " + first.getScore() + "\n" +
+                    Language.build(second.toString() + " _LOOSER_ _SCORE_") + " " + second.getScore();
     }
 }

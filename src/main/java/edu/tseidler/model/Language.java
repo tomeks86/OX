@@ -27,8 +27,8 @@ public class Language {
     public static String build(String input) {
         StringBuilder sb = new StringBuilder();
         for (String token : input.split("\\s+")) {
-            if (isUpper(token)) {
-                sb.append(Language.get(token));
+            if (isDictionaryWord(token)) {
+                sb.append(Language.get(token.substring(1, token.length() - 1)));
             } else {
                 sb.append(token);
             }
@@ -37,8 +37,8 @@ public class Language {
         return sb.toString().trim();
     }
 
-    private static boolean isUpper(String token) {
-        return token.toUpperCase().equals(token);
+    private static boolean isDictionaryWord(String token) {
+        return (token.startsWith("_") && token.endsWith("_"));
     }
 
     @Override

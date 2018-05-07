@@ -4,7 +4,7 @@ SETUP enter setup? yes/[no]
 YESORNO yes/no
 YES yes
 NO no
-CHOOSE_LANGUAGE choose language:
+CHOOSE_LANGUAGE choose language: ([en]/pl)
 BOARD_SETUP chose board size:
 BOARD board settings
 MAX_ROWS rows number
@@ -13,7 +13,6 @@ WINNING_NUMBER number of winning fields
 PLAYERS players
 PLAYER player
 FIRST beginning
-SIGNS_NUMBER number of winning signs:
 SIGN sign
 BOARD_SIZE size of board
 GAME_OVER game finished
@@ -36,3 +35,12 @@ MATCH match ended in
 WINNER winner
 LOOSER loser
 SCORE score
+SCORES scores
+FINAL final
+SELECTED selected
+UNDERSTOOD understood
+TO to
+QUIT quit
+ENTER enter
+TRY try
+AGAIN again

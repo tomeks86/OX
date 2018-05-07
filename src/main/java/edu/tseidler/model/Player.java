@@ -43,9 +43,9 @@ public class Player {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(Language.build("PLAYER NAME"))
+        StringBuilder sb = new StringBuilder(Language.build("_PLAYER_ _NAME_"))
                 .append(": " + name +"\n")
-                .append(Language.build("PLAYER MARK"))
+                .append(Language.build("_PLAYER_ _MARK_"))
                 .append(": " + mark);
         if (first)
             sb.append(" (" + Language.get("FIRST") + ")");

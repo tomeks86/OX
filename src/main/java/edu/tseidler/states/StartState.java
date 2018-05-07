@@ -19,7 +19,7 @@ public class StartState extends GameState {
         if (input.get().equalsIgnoreCase(Language.get("YES")))
             return new LanguageSetupState(this);
         else
-            return new SetupSummaryState(this); // todo running state
+            return new SetupSummaryState(this);
     }
 
 }

@@ -1,11 +1,6 @@
 package edu.tseidler.states;
 
-import edu.tseidler.model.Board;
 import edu.tseidler.model.Language;
-import edu.tseidler.model.PlayerList;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class LanguageSetupState extends GameState {
     protected LanguageSetupState(GameState previousState) {
@@ -16,11 +11,12 @@ public class LanguageSetupState extends GameState {
     public GameState getNextState() {
         output.accept(Language.get("CHOOSE_LANGUAGE"));
         switchLang(input.get());
+        output.accept(lang.toString() + " (" + Language.get("SELECTED") +")\n");
         return new BoardSetUpState(this);
     }
 
     private void switchLang(String languageAbbrev) {
         if (!languageAbbrev.isEmpty() && ("pl".equalsIgnoreCase(languageAbbrev) || "en".equalsIgnoreCase(languageAbbrev)))
-            new Language(languageAbbrev);
+            lang = new Language(languageAbbrev);
     }
 }
