@@ -13,6 +13,7 @@ public class DrawState extends GameState {
         board.clear();
         players.getNext().draw();
         players.getNext().draw();
+        players.switchStarting();
         GameState.gamesPlayed++;
         return new Running(this);
     }

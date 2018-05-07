@@ -42,4 +42,16 @@ public class PlayerList {
                 .append(getNext().toString());
         return sb.toString();
     }
+
+    public void switchStarting() {
+        Player player1 = getNext();
+        Player player2 = getNext();
+
+        if (player1.isFirst()) {
+            player1.unsetFirst();
+            player2.setFirst();
+            add(player2);
+            add(player1);
+        }
+    }
 }

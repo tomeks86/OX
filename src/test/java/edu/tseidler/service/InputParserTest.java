@@ -1,5 +1,6 @@
 package edu.tseidler.service;
 
+import edu.tseidler.model.Language;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -8,8 +9,9 @@ import static org.assertj.core.api.Assertions.in;
 
 public class InputParserTest {
 
-    public static final int[] DEFAULT_DIMENSIONS = {3, 3, 3};
-    public static final int DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE = -1;
+    private static final int[] DEFAULT_DIMENSIONS = {3, 3, 3};
+    private static final int DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE = -1;
+    private Language lang = new Language("en");
 
     @DataProvider
     private static final Object[][] dimensionsOnlyToParse() {
@@ -84,5 +86,10 @@ public class InputParserTest {
     @Test(dataProvider = "exampleIncorrectPlayerInputForMark")
     public void shouldReturnDefaultFailsafeMarkWhenIncorrectInputFromPlayer(String input) {
         assertThat(InputParser.parsePlayerMarkInput(input)).isEqualTo(DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE);
+    }
+
+    @Test(expectedExceptions = GameQuitException.class)
+    public void shouldThrowGameQuitExceptionWhenQuit() {
+        InputParser.parsePlayerMarkInput("quit");
     }
 }
