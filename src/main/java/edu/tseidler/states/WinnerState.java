@@ -10,6 +10,7 @@ public class WinnerState extends GameState {
         super(gameState);
         winnerPlayer = currentPlayer;
         currentPlayer.win();
+        players.switchStarting();
     }
 
     @Override

@@ -41,4 +41,30 @@ public class PlayerTest {
         sa.assertEquals(playerList.getNext(), player2);
         sa.assertAll();
     }
+
+    public void shouldSwitchBeginingPlayer() {
+        playerList = new PlayerList();
+        playerList.add(player1);
+        playerList.add(player2);
+
+        playerList.switchStarting();
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(playerList.getNext(), player2);
+        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertAll();
+    }
+
+    public void shouldNotSwitchBeginningPlayer() {
+        playerList = new PlayerList();
+        playerList.add(player2);
+        playerList.add(player1);
+
+        playerList.switchStarting();
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(playerList.getNext(), player2);
+        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertAll();
+    }
 }
