@@ -48,10 +48,14 @@ public class PlayerTest {
         playerList.add(player2);
 
         playerList.switchStarting();
+        Player newPlayer1 = playerList.getNext();
+        Player newPlayer2 = playerList.getNext();
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(playerList.getNext(), player2);
-        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertEquals(newPlayer1, player2);
+        sa.assertEquals(newPlayer1.isFirst(), true);
+        sa.assertEquals(newPlayer2, player1);
+        sa.assertEquals(newPlayer2.isFirst(), false);
         sa.assertAll();
     }
 
@@ -61,10 +65,46 @@ public class PlayerTest {
         playerList.add(player1);
 
         playerList.switchStarting();
+        Player newPlayer1 = playerList.getNext();
+        Player newPlayer2 = playerList.getNext();
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(playerList.getNext(), player2);
-        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertEquals(newPlayer1, player2);
+        sa.assertEquals(newPlayer1.isFirst(), true);
+        sa.assertEquals(newPlayer2, player1);
+        sa.assertEquals(newPlayer2.isFirst(), false);
+        sa.assertAll();
+    }
+
+    public void shouldNotSwitchBeginingPlayerAfterUsingSwitchTwice() {
+        playerList = new PlayerList();
+        playerList.add(player1);
+        playerList.add(player2);
+
+        playerList.switchStarting();
+        playerList.switchStarting();
+        Player newPlayer1 = playerList.getNext();
+        Player newPlayer2 = playerList.getNext();
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(newPlayer1, player1);
+        sa.assertEquals(newPlayer1.isFirst(), true);
+        sa.assertEquals(newPlayer2, player2);
+        sa.assertEquals(newPlayer2.isFirst(), false);
+        sa.assertAll();
+    }
+
+    public void shouldSwitchFirstAfterUsingSwitchWithNotFirstFirstSequence() {
+        playerList = new PlayerList();
+        playerList.add(player1);
+        playerList.add(player2);
+        playerList.getNext();
+
+        playerList.switchStarting();
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(player2.isFirst(), true);
+        sa.assertEquals(player1.isFirst(), false);
         sa.assertAll();
     }
 }

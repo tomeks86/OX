@@ -16,7 +16,7 @@ FIRST zaczyna
 SIGN znak
 BOARD_SIZE rozmiar planszy
 GAME_OVER koniec gry
-BOARD_SIZE_FORMAT podaj rozmiar w formacie: "[n, m] o" n - wiersze, m - kolumny, o - liczba wygrywających
+BOARD_SIZE_FORMAT podaj rozmiar w formacie: "m n o" m - liczba wierszy, n - liczba kolumn, o - liczba wygrywających
 PLAYER_SETUP podaj nazwę pierwszego gracza
 NAME nazwa
 MARK znak

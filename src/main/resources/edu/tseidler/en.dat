@@ -16,7 +16,7 @@ FIRST beginning
 SIGN sign
 BOARD_SIZE size of board
 GAME_OVER game finished
-BOARD_SIZE_FORMAT provide board size in format: "[n, m] w" (where w is the "winning number")
+BOARD_SIZE_FORMAT provide board size in format: "m n w" (where m - number of rows, n - number of columns and w is the "winning number")
 PLAYER_SETUP enter name of the first player
 NAME name
 MARK mark

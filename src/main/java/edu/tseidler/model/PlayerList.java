@@ -50,8 +50,12 @@ public class PlayerList {
         if (player1.isFirst()) {
             player1.unsetFirst();
             player2.setFirst();
-            add(player2);
-            add(player1);
+            playersList.clear();
+            playersList.add(player2);
+            playersList.add(player1);
+        } else {
+            player1.setFirst();
+            player2.unsetFirst();
         }
     }
 }

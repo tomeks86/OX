@@ -5,6 +5,7 @@ public class BoardParameters {
     private final int maxCol;
     private final int winningNumber;
     private static final int MINIMUM_SIZE_AND_WINNING_NUMBER = 3;
+    private boolean changed = false;
 
     public BoardParameters(int maxRow, int maxCol, int winningNumber) {
         int maxRowValidated = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, maxRow);
@@ -15,6 +16,8 @@ public class BoardParameters {
         this.maxRow = maxRowValidated;
         this.maxCol = maxColValidated;
         this.winningNumber = winningNumberValidated;
+        if (maxRowValidated != maxRow || maxColValidated != maxCol || winningNumberValidated != winningNumber)
+            changed = true;
     }
 
     private int getPossibleWinningNumber(int maxRow, int maxCol, int proposedWinningNumber) {
@@ -33,5 +36,9 @@ public class BoardParameters {
 
     int getWinningNumber() {
         return winningNumber;
+    }
+
+    public boolean isChanged() {
+        return changed;
     }
 }

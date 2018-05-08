@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class InputParser {
     public static int[] parseBoardSize(String input) {
         input = input.trim();
-        int[] dimensionsAndWinningNumber = new int[] {3, 3, 3};
+        int[] dimensionsAndWinningNumber = new int[]{3, 3, 3};
         String pattern = "(?:\\[?)\\s*(?<maxRows>\\d+)\\s*,?\\s*(?<maxCols>\\d+)\\s*(?:]?),?\\s*(?<winning>\\d+)?";
         Matcher m = Pattern.compile(pattern).matcher(input);
         if (m.matches()) {
@@ -32,5 +32,12 @@ public class InputParser {
             // otherwise OK to continue program gets default value of -1
         }
         return result;
+    }
+
+    public static boolean acceptanceInput(String input) {
+        if (Language.get("YES").equalsIgnoreCase(input))
+            return true;
+        else
+            return false;
     }
 }

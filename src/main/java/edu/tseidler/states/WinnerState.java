@@ -10,7 +10,6 @@ public class WinnerState extends GameState {
         super(gameState);
         winnerPlayer = currentPlayer;
         currentPlayer.win();
-        players.switchStarting();
     }
 
     @Override
@@ -18,6 +17,7 @@ public class WinnerState extends GameState {
         output.accept(board.draw());
         output.accept(gameWinnerStatement(winnerPlayer) + "\n");
         board.clear();
+        players.switchStarting();
         GameState.gamesPlayed++;
         return new Running(this);
     }
