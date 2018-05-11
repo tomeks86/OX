@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileLineSupplier implements Supplier<String> {
-    List<String> lines = new LinkedList<>();
-    Scanner scanner;
-    boolean finished = false;
+    private List<String> lines = new LinkedList<>();
+    private Scanner scanner;
+    private boolean finished = false;
     private static final Logger logger = Logger.getLogger(Main.class);
 
     public FileLineSupplier(String path) {
