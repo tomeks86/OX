@@ -1,5 +1,6 @@
 package edu.tseidler;
 
+import edu.tseidler.model.*;
 import edu.tseidler.service.FileLineConsumer;
 import edu.tseidler.service.FileLineSupplier;
 import edu.tseidler.states.OXGame;
@@ -23,31 +24,90 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final Properties defaultProperties = new Properties();
-        defaultProperties.setProperty("input", "stdin");
-        defaultProperties.setProperty("output", "stdout");
-        defaultProperties.setProperty("language", "en");
-        defaultProperties.setProperty("player1_name", "Jacek");
-        defaultProperties.setProperty("player1_mark", "X");
-        defaultProperties.setProperty("player1_first", "true");
-        defaultProperties.setProperty("player2_name", "Placek");
-        defaultProperties.setProperty("player2_mark", "O");
-        defaultProperties.setProperty("player2_first", "false");
-        defaultProperties.setProperty("board_rows", "3");
-        defaultProperties.setProperty("board_cols", "3");
-        defaultProperties.setProperty("board_winn", "3");
+        Supplier<String> inputSupplier = getStringSupplier();
 
+        Consumer<String> output = getStringConsumer();
 
-        Properties properties = readProperties();
+        Language lang = loadLanguage();
 
-        Supplier<String> inputSupplier = getStringSupplier(properties);
+        Board board = getBoard();
 
-        Consumer<String> output = getStringConsumer(properties);
+        PlayerList playerList = getPlayerList();
+        System.out.println(playerList);
+        System.exit(1);
 
         new OXGame(inputSupplier, output, "en").start();
     }
 
-    private static Consumer<String> getStringConsumer(Map<Object, Object> properties) {
+    private static PlayerList getPlayerList() {
+        PlayerList playerList = new PlayerList();
+        String player1Name = (String) properties.getOrDefault("player1_name",
+                defaultProperties.get("player1_name"));
+        BoardField player1Mark = BoardField.valueOf((String) properties.getOrDefault("player1_mark",
+                defaultProperties.get("player1_mark")));
+        boolean player1First = Boolean.valueOf((String) properties.getOrDefault("player1_first",
+                defaultProperties.get("player1_first")));
+        String player2Name = (String) properties.getOrDefault("player2_name",
+                defaultProperties.get("player2_name"));
+        BoardField player2Mark = BoardField.valueOf((String) properties.getOrDefault("player2_mark",
+                defaultProperties.get("player2_mark")));
+        boolean player2First = Boolean.valueOf((String) properties.getOrDefault("player2_first",
+                defaultProperties.get("player2_first")));
+        if (player1Mark == player2Mark) {
+            player2Mark = player1Mark.other();
+            logger.log(Level.WARN, "player 2 mark adjusted to the opposite of player 1");
+        }
+        if (player1First == player2First) {
+            player2First = !player1First;
+            logger.log(Level.WARN, "player 2 starting adjusted to opposite of player 1");
+        }
+        playerList.add(new Player(player1Name, player1Mark, player1First));
+        playerList.add(new Player(player2Name, player2Mark, player2First));
+        return playerList;
+    }
+
+    private static Language loadLanguage() {
+        String langShort = (String) properties.getOrDefault("language", "en");
+        Set<String> available = new HashSet<String>() {{
+            add("en");
+            add("pl");
+        }};
+        if (!available.contains(langShort))
+            langShort = (String) defaultProperties.get("language");
+        return new Language(langShort);
+    }
+
+    private static Properties defaultProperties = new Properties() {{
+        setProperty("input", "stdin");
+        setProperty("output", "stdout");
+        setProperty("language", "en");
+        setProperty("player1_name", "Jacek");
+        setProperty("player1_mark", "X");
+        setProperty("player1_first", "true");
+        setProperty("player2_name", "Placek");
+        setProperty("player2_mark", "O");
+        setProperty("player2_first", "false");
+        setProperty("board_rows", "3");
+        setProperty("board_cols", "3");
+        setProperty("board_winn", "3");
+    }};
+
+    private static Board getBoard() {
+        int board_rows = Integer.valueOf((String) defaultProperties.get("board_rows"));
+        int board_cols = Integer.valueOf((String) defaultProperties.get("board_cols"));
+        int board_winn = Integer.valueOf((String) defaultProperties.get("board_winn"));
+        try {
+            board_rows = Integer.valueOf((String) properties.get("board_rows"));
+            board_cols = Integer.valueOf((String) properties.get("board_cols"));
+            board_winn = Integer.valueOf((String) properties.get("board_winn"));
+        } catch (Exception e) {
+            logger.log(Level.ERROR, "error parsing board parameters from settings file");
+        }
+        BoardParameters parameters = new BoardParameters(board_rows, board_cols, board_winn);
+        return new Board(parameters);
+    }
+
+    private static Consumer<String> getStringConsumer() {
         Map<String, Consumer<String>> consumerMap = new HashMap<String, Consumer<String>>() {{
             put("stdout", DEFAULT_STRING_CONSUMER);
             put("stderr", ERROR_CONSUMER);
@@ -63,7 +123,7 @@ public class Main {
         return consumerMap.get(properties.get("output"));
     }
 
-    private static Supplier<String> getStringSupplier(Properties properties) {
+    private static Supplier<String> getStringSupplier() {
         Map<String, Supplier<String>> supplierMap = new HashMap<String, Supplier<String>>() {{
             put("stdin", DEFAULT_STRING_SUPPLIER);
             try {
@@ -76,15 +136,11 @@ public class Main {
         return supplierMap.getOrDefault(properties.get("input"), DEFAULT_STRING_SUPPLIER);
     }
 
-    private static Properties readProperties() {
-        Properties properties = new Properties();
-
+    private static Properties properties = new Properties() {{
         try (InputStream inputStream = Main.class.getResourceAsStream("settings.properties")) {
-            properties.load(inputStream);
+            load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return properties;
-    }
+    }};
 }
