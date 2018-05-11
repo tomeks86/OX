@@ -1,5 +1,6 @@
 package edu.tseidler.model;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -106,5 +107,21 @@ public class PlayerTest {
         sa.assertEquals(player2.isFirst(), true);
         sa.assertEquals(player1.isFirst(), false);
         sa.assertAll();
+    }
+
+    public void shouldChangeScoreWhenWin() {
+        int startScore = player1.getScore();
+
+        player1.win();
+
+        Assert.assertEquals(player1.getScore() - startScore, 3);
+    }
+
+    public void shouldChangeScoreWhenDraw() {
+        int startScore = player1.getScore();
+
+        player1.draw();
+
+        Assert.assertEquals(player1.getScore() - startScore, 1);
     }
 }
