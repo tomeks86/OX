@@ -73,29 +73,29 @@ public class Main {
             add("pl");
         }};
         if (!available.contains(langShort))
-            langShort = (String) defaultProperties.get("language");
+            langShort = defaultProperties.get("language");
         return new Language(langShort);
     }
 
-    private static Properties defaultProperties = new Properties() {{
-        setProperty("input", "stdin");
-        setProperty("output", "stdout");
-        setProperty("language", "en");
-        setProperty("player1_name", "Jacek");
-        setProperty("player1_mark", "X");
-        setProperty("player1_first", "true");
-        setProperty("player2_name", "Placek");
-        setProperty("player2_mark", "O");
-        setProperty("player2_first", "false");
-        setProperty("board_rows", "3");
-        setProperty("board_cols", "3");
-        setProperty("board_winn", "3");
+    private static Map<String, String> defaultProperties = new HashMap<String, String>() {{
+        put("input", "stdin");
+        put("output", "stdout");
+        put("language", "en");
+        put("player1_name", "Jacek");
+        put("player1_mark", "X");
+        put("player1_first", "true");
+        put("player2_name", "Placek");
+        put("player2_mark", "O");
+        put("player2_first", "false");
+        put("board_rows", "3");
+        put("board_cols", "3");
+        put("board_winn", "3");
     }};
 
     private static Board getBoard() {
-        int board_rows = Integer.valueOf((String) defaultProperties.get("board_rows"));
-        int board_cols = Integer.valueOf((String) defaultProperties.get("board_cols"));
-        int board_winn = Integer.valueOf((String) defaultProperties.get("board_winn"));
+        int board_rows = Integer.valueOf(defaultProperties.get("board_rows"));
+        int board_cols = Integer.valueOf(defaultProperties.get("board_cols"));
+        int board_winn = Integer.valueOf(defaultProperties.get("board_winn"));
         try {
             board_rows = Integer.valueOf((String) properties.get("board_rows"));
             board_cols = Integer.valueOf((String) properties.get("board_cols"));
