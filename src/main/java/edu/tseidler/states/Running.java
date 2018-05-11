@@ -14,12 +14,12 @@ class Running extends GameState {
 
     @Override
     GameState getNextState() {
+        if (GameState.gamesPlayed == MAXIMUM_ROUNDS_PLAYED)
+            return new GameOverState(this);
         output.accept(board.draw());
         Player currentPlayer = players.getNext();
         boolean marked = false;
         int choice = -1;
-        if (GameState.gamesPlayed == MAXIMUM_ROUNDS_PLAYED)
-            return new GameOverState(this);
         try {
             while (!marked && !board.ifFull()) {
                 output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _NEXT_MOVE_ " + currentPlayer.getMark()));
