@@ -7,8 +7,8 @@ import edu.tseidler.model.PlayerList;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class StartState extends GameState {
-    StartState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
+public class SetupState extends GameState {
+    SetupState(Consumer<String> output, Supplier<String> input, Language lang, Board board, PlayerList players) {
         super(output, input, lang, board, players);
     }
 
