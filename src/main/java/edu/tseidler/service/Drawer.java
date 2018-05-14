@@ -29,8 +29,7 @@ public class Drawer {
     }
 
     public String draw() {
-        sb.setLength(0);    // fixme: this class has to be rearranged to get rid of this strange reset...
-        drawColumnNumbering();
+        sb.setLength(0);
         drawHorizontalLine();
         drawBoardBody();
         return sb.toString();
@@ -38,7 +37,6 @@ public class Drawer {
 
     private void drawBoardBody() {
         for (int i = 0; i < maxRow; i++) {
-            sb.append(adjustWidthToCol((i+1) + "|"));
             for (int j = 0; j < maxCol; j++) {
                 drawSign(i, j);
             }
@@ -62,21 +60,12 @@ public class Drawer {
         return String.join("", Collections.nCopies(times, toBeRepeated));
     }
 
-    private void drawColumnNumbering() {
-        sb.append(repeatSequence(" ", maxWidth + 1));
-        for (int i = 0; i < maxCol; i++) {
-            sb.append(adjustWidthToCol(Integer.toString(i+1)));
-        }
-        sb.append("\n");
-    }
-
     private String adjustWidthToCol(String content) {
         String myFormat = " %" + maxWidth + "s";
         return String.format(myFormat, content);
     }
 
     private void drawHorizontalLine() {
-        sb.append(repeatSequence(" ", (maxWidth+1)));
         for (int i = 0; i < maxCol; i++) {
             sb.append(repeatSequence("-", (maxWidth+1)));
         }
