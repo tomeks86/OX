@@ -5,6 +5,10 @@ import edu.tseidler.states.OXGame;
 public class Main {
 
     public static void main(String[] args) {
-        new OXGame().start();
+        if (args.length > 0) {
+            new OXGame(args[0]).start();
+        } else {
+            new OXGame(Main.class.getResource("settings.properties").getPath()).start();
+        }
     }
 }

@@ -4,7 +4,10 @@ import edu.tseidler.Main;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
@@ -20,12 +23,8 @@ public class FileLineSupplier implements Supplier<String> {
     private boolean finished = false;
     private static final Logger logger = Logger.getLogger(Main.class);
 
-    public FileLineSupplier(String path) {
-        try (Stream<String> file_lines = Files.lines(Paths.get(path))) {
-            lines = file_lines.collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public FileLineSupplier(InputStream input_file) {
+        lines = new BufferedReader(new InputStreamReader(input_file)).lines().collect(Collectors.toList());
     }
 
     @Override

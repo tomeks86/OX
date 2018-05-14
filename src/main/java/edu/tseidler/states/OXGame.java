@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -22,6 +23,7 @@ public class OXGame {
 
 
     private static final Logger logger = Logger.getLogger(Main.class);
+    private final Properties properties;
     private final Supplier<String> inputSupplier;
     private final Consumer<String> output;
     private final Board board;
@@ -29,7 +31,8 @@ public class OXGame {
     private final PlayerList playerList;
     private GameState currentState;
 
-    public OXGame() {
+    public OXGame(String settings_file) {
+        properties = readProperties(settings_file);
         inputSupplier = getStringSupplier();
         output = getStringConsumer();
         lang = loadLanguage();
@@ -49,7 +52,7 @@ public class OXGame {
         this.currentState = currentState.getNextState();
     }
 
-    private static PlayerList getPlayerList() {
+    private PlayerList getPlayerList() {
         PlayerList playerList = new PlayerList();
         String player1Name = (String) properties.getOrDefault("player1_name",
                 defaultProperties.get("player1_name"));
@@ -71,7 +74,7 @@ public class OXGame {
         return playerList;
     }
 
-    private static Language loadLanguage() {
+    private Language loadLanguage() {
         String langShort = (String) properties.getOrDefault("language", "en");
         Set<String> available = new HashSet<String>() {{
             add("en");
@@ -95,7 +98,7 @@ public class OXGame {
         put("board_winn", "3");
     }};
 
-    private static Board getBoard() {
+    private Board getBoard() {
         int board_rows = Integer.valueOf(defaultProperties.get("board_rows"));
         int board_cols = Integer.valueOf(defaultProperties.get("board_cols"));
         int board_winn = Integer.valueOf(defaultProperties.get("board_winn"));
@@ -110,7 +113,7 @@ public class OXGame {
         return new Board(parameters);
     }
 
-    private static Consumer<String> getStringConsumer() {
+    private Consumer<String> getStringConsumer() {
         Map<String, Consumer<String>> consumerMap = new HashMap<String, Consumer<String>>() {{
             put("stdout", DEFAULT_STRING_CONSUMER);
             put("stderr", ERROR_CONSUMER);
@@ -126,11 +129,11 @@ public class OXGame {
         return consumerMap.get(properties.get("output"));
     }
 
-    private static Supplier<String> getStringSupplier() {
+    private Supplier<String> getStringSupplier() {
         Map<String, Supplier<String>> supplierMap = new HashMap<String, Supplier<String>>() {{
             put("stdin", DEFAULT_STRING_SUPPLIER);
             try {
-                put("file", new FileLineSupplier(Main.class.getResource((String) properties.getOrDefault("input_file", "scenarios/error")).getPath()));
+                put("file", new FileLineSupplier(Main.class.getResourceAsStream((String) properties.getOrDefault("input_file", "scenarios/error"))));
             } catch (NullPointerException e) {
                 logger.log(Level.WARN, "input file in settings.properties doesn't exist - falling back to console input");
                 put("file", DEFAULT_STRING_SUPPLIER);
@@ -139,13 +142,13 @@ public class OXGame {
         return supplierMap.getOrDefault(properties.get("input"), DEFAULT_STRING_SUPPLIER);
     }
 
-    private static Properties properties = new Properties() {{
-        try (InputStream inputStream = Main.class.getResourceAsStream("settings.properties")) {
-            load(inputStream);
+    private Properties readProperties(String settings_file) {
+        Properties properties = new Properties();
+        try (InputStream inputStream = Files.newInputStream(Paths.get(settings_file))) {
+            properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }};
-
+        return properties;
+    }
 }
-
