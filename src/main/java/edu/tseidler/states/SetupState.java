@@ -16,10 +16,23 @@ public class SetupState extends GameState {
     public GameState getNextState() {
         output.accept(Language.get("WELCOME"));
         output.accept(Language.get("SETUP"));
-        if (input.get().equalsIgnoreCase(Language.get("YES")))
+        String choice = input.get();
+        while (isNotYesOrNo(choice)) {
+            if (choice.isEmpty()) {
+                choice = Language.get("NO");
+                continue;
+            }
+            output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+            choice = input.get();
+        }
+        if (choice.equalsIgnoreCase(Language.get("YES")))
             return new LanguageSetupState(this);
         else
             return new PlayerSetUpState(this);
+    }
+
+    private boolean isNotYesOrNo(String resp) {
+        return !(Language.get("YES").equalsIgnoreCase(resp) || Language.get("NO").equalsIgnoreCase(resp));
     }
 
 }

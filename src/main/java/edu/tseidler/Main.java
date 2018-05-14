@@ -8,7 +8,7 @@ public class Main {
         if (args.length > 0) {
             new OXGame(args[0]).start();
         } else {
-            new OXGame(Main.class.getResource("settings.properties").getPath()).start();
+            new OXGame("").start();
         }
     }
 }

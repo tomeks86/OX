@@ -83,7 +83,7 @@ public class OXGame {
         return new Language(langShort);
     }
 
-    private static Set<String> available = new HashSet<String>() {{
+    static Set<String> available = new HashSet<String>() {{
         add("en");
         add("pl");
     }};
@@ -147,10 +147,20 @@ public class OXGame {
 
     private Properties readProperties(String settings_file) {
         Properties properties = new Properties();
-        try (InputStream inputStream = Files.newInputStream(Paths.get(settings_file))) {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (settings_file.isEmpty()) {
+            try (InputStream inputStream = Main.class.getResourceAsStream("settings.properties")) {
+                properties.load(inputStream);
+            } catch (IOException e) {
+                logger.log(Level.ERROR, e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            try (InputStream inputStream = Files.newInputStream(Paths.get(settings_file))) {
+                properties.load(inputStream);
+            } catch (IOException e) {
+                logger.log(Level.ERROR, e.getMessage());
+                e.printStackTrace();
+            }
         }
         return properties;
     }
