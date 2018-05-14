@@ -37,6 +37,7 @@ public class Drawer {
 
     private void drawBoardBody() {
         for (int i = 0; i < maxRow; i++) {
+            sb.append("|");
             for (int j = 0; j < maxCol; j++) {
                 drawSign(i, j);
             }
@@ -66,6 +67,7 @@ public class Drawer {
     }
 
     private void drawHorizontalLine() {
+        sb.append("-");
         for (int i = 0; i < maxCol; i++) {
             sb.append(repeatSequence("-", (maxWidth+1)));
         }

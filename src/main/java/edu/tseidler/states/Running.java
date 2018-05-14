@@ -25,10 +25,13 @@ class Running extends GameState {
                 output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _NEXT_MOVE_ " + currentPlayer.getMark()));
                 choice = InputParser.parsePlayerMarkInput(input.get());
                 marked = board.put(choice, currentPlayer.getMark());
+                while (!marked) {
+                    output.accept(Language.build("( _TRY_ _AGAIN_ )"));
+                    choice = InputParser.parsePlayerMarkInput(input.get());
+                    marked = board.put(choice, currentPlayer.getMark());
+                }
                 if (marked && board.doWeHaveAWinner())
                     return new WinnerState(this, currentPlayer);
-                else
-                    output.accept(Language.build("( _TRY_ _AGAIN_ )"));
             }
             output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice);
             output.accept("\n");
