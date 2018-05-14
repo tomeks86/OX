@@ -25,21 +25,16 @@ public class BoardSetUpState extends GameState {
             output.accept(board.toString()+ "\n");
             boolean accepted = false;
             while (!accepted) {
-                output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+                promptAcceptance();
                 String resp = input.get();
-                while (Language.get("YES").equalsIgnoreCase(resp) && Language.get("NO").equalsIgnoreCase(resp)) {
-                    output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+                while (isNotYesOrNo(resp)) {
+                    promptAcceptance();
                     resp = input.get();
                 }
                 if (resp.equalsIgnoreCase(Language.get("YES"))) {
                     accepted = true;
                 } else if (resp.equalsIgnoreCase(Language.get("NO"))) {
-                    output.accept(Language.get("BOARD_SIZE_FORMAT"));
-                    boardDimensions = InputParser.parseBoardSize(input.get());
-                    output.accept(Language.get("UNDERSTOOD") + " " + Arrays.toString(boardDimensions));
-                    parameters = new BoardParameters(boardDimensions[0], boardDimensions[1], boardDimensions[2]);
-                    board = new Board(parameters);
-                    output.accept(board.toString() + "\n");
+                    parameters = getBoardParametersAgain();
                     if (!parameters.isChanged())
                         accepted = true;
                 }
@@ -47,6 +42,26 @@ public class BoardSetUpState extends GameState {
         } else
             output.accept(board.toString() + "\n");
         return new PlayerSetUpState(this);
+    }
+
+    private BoardParameters getBoardParametersAgain() {
+        int[] boardDimensions;
+        BoardParameters parameters;
+        output.accept(Language.get("BOARD_SIZE_FORMAT"));
+        boardDimensions = InputParser.parseBoardSize(input.get());
+        output.accept(Language.get("UNDERSTOOD") + " " + Arrays.toString(boardDimensions));
+        parameters = new BoardParameters(boardDimensions[0], boardDimensions[1], boardDimensions[2]);
+        board = new Board(parameters);
+        output.accept(board.toString() + "\n");
+        return parameters;
+    }
+
+    private void promptAcceptance() {
+        output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+    }
+
+    private boolean isNotYesOrNo(String resp) {
+        return !(Language.get("YES").equalsIgnoreCase(resp) || Language.get("NO").equalsIgnoreCase(resp));
     }
 
 }

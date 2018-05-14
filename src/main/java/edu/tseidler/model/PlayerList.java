@@ -35,10 +35,13 @@ public class PlayerList {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(Language.get("PLAYERS"))
-                .append("\n" + Language.get("PLAYER") + " 1:\n")
+        StringBuilder sb = new StringBuilder("\n" + Language.get("PLAYERS") + ":\n")
+                .append(Language.build("_FIRST_ _PLAYER_ :"))
+                .append("\n")
                 .append(getNext().toString())
-                .append("\n" + Language.get("PLAYER") + " 2:\n")
+                .append("\n")
+                .append(Language.build("_SECOND_ _PLAYER_ :"))
+                .append("\n")
                 .append(getNext().toString());
         return sb.toString();
     }

@@ -6,14 +6,15 @@ YES yes
 NO no
 CHOOSE_LANGUAGE choose language: ([en]/pl)
 BOARD_SETUP chose board size:
-BOARD adjusted board settings
+BOARD board settings (adjusted)
 MAX_ROWS rows number
 MAX_COLS columns number
 WINNING_NUMBER number of winning fields
 PLAYERS players
 PLAYER player
 FIRST beginning
-SIGN sign
+SECOND second
+SIGN sign O / X
 BOARD_SIZE size of board
 GAME_OVER game finished
 BOARD_SIZE_FORMAT provide board size in format: "m n w" where m - number of rows (minimum 3), n - number of columns (minimum 3) and w is the "winning number" (minimum 3 and not larger than min(m,n))
