@@ -6,7 +6,7 @@ YES tak
 NO nie
 CHOOSE_LANGUAGE wybierz język: ([pl]/en)
 BOARD_SETUP rozmiar planszy
-BOARD ustawienia planszy
+BOARD dopasowane ustawienia planszy
 MAX_ROWS liczba wierszy
 MAX_COLS liczba kolumn
 WINNING_NUMBER liczba wygrywających w linii
@@ -16,7 +16,7 @@ FIRST zaczyna
 SIGN znak
 BOARD_SIZE rozmiar planszy
 GAME_OVER koniec gry
-BOARD_SIZE_FORMAT podaj rozmiar w formacie: "m n o" m - liczba wierszy, n - liczba kolumn, o - liczba wygrywających
+BOARD_SIZE_FORMAT podaj rozmiar w formacie: "m n o" m - liczba wierszy (minimum 3), n - liczba kolumn (miniumum 3), o - liczba wygrywających (minimum 3 oraz nie większa niż min(m,n))
 PLAYER_SETUP podaj nazwę pierwszego gracza
 NAME nazwa
 MARK znak
@@ -44,3 +44,5 @@ QUIT wyjdź
 ENTER wprowadzić
 TRY spróbuj
 AGAIN ponownie
+BOARD_PARAMETERS_CHANGED parametry planszy zostały dopasowane do wymagań
+ACCEPT w porządku?

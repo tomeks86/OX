@@ -23,7 +23,7 @@ public class OXGame {
 
 
     private static final Logger logger = Logger.getLogger(Main.class);
-    private final Properties properties;
+    private static Properties properties;
     private final Supplier<String> inputSupplier;
     private final Consumer<String> output;
     private final Board board;
@@ -35,7 +35,7 @@ public class OXGame {
         properties = readProperties(settings_file);
         inputSupplier = getStringSupplier();
         output = getStringConsumer();
-        lang = loadLanguage();
+        lang = loadLanguage("");
         board = getBoard();
         playerList = getPlayerList();
 
@@ -74,16 +74,19 @@ public class OXGame {
         return playerList;
     }
 
-    private Language loadLanguage() {
-        String langShort = (String) properties.getOrDefault("language", "en");
-        Set<String> available = new HashSet<String>() {{
-            add("en");
-            add("pl");
-        }};
+    static Language loadLanguage(String langShort) {
         if (!available.contains(langShort))
-            langShort = defaultProperties.get("language");
+            if (!available.contains(properties.get("language")))
+                langShort = defaultProperties.get("language");
+            else
+                langShort = (String) properties.get("language");
         return new Language(langShort);
     }
+
+    private static Set<String> available = new HashSet<String>() {{
+        add("en");
+        add("pl");
+    }};
 
     private static Map<String, String> defaultProperties = new HashMap<String, String>() {{
         put("input", "stdin");

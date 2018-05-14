@@ -6,7 +6,7 @@ YES yes
 NO no
 CHOOSE_LANGUAGE choose language: ([en]/pl)
 BOARD_SETUP chose board size:
-BOARD board settings
+BOARD adjusted board settings
 MAX_ROWS rows number
 MAX_COLS columns number
 WINNING_NUMBER number of winning fields
@@ -16,7 +16,7 @@ FIRST beginning
 SIGN sign
 BOARD_SIZE size of board
 GAME_OVER game finished
-BOARD_SIZE_FORMAT provide board size in format: "m n w" (where m - number of rows, n - number of columns and w is the "winning number")
+BOARD_SIZE_FORMAT provide board size in format: "m n w" where m - number of rows (minimum 3), n - number of columns (minimum 3) and w is the "winning number" (minimum 3 and not larger than min(m,n))
 PLAYER_SETUP enter name of the first player
 NAME name
 MARK mark
@@ -44,3 +44,5 @@ QUIT quit
 ENTER enter
 TRY try
 AGAIN again
+BOARD_PARAMETERS_CHANGED board parameters were adjusted
+ACCEPT is it OK?

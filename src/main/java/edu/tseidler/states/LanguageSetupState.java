@@ -10,13 +10,9 @@ public class LanguageSetupState extends GameState {
     @Override
     public GameState getNextState() {
         output.accept(Language.get("CHOOSE_LANGUAGE"));
-        switchLang(input.get());
+        lang = OXGame.loadLanguage(input.get());
         output.accept(lang.toString() + " (" + Language.get("SELECTED") +")\n");
         return new BoardSetUpState(this);
     }
 
-    private void switchLang(String languageAbbrev) {
-        if (!languageAbbrev.isEmpty() && ("pl".equalsIgnoreCase(languageAbbrev) || "en".equalsIgnoreCase(languageAbbrev)))
-            lang = new Language(languageAbbrev);
-    }
 }
