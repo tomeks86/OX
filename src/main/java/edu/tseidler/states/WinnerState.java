@@ -3,10 +3,10 @@ package edu.tseidler.states;
 import edu.tseidler.model.Language;
 import edu.tseidler.model.Player;
 
-public class WinnerState extends GameState {
+class WinnerState extends GameState {
     private final Player winnerPlayer;
 
-    public WinnerState(GameState gameState, Player currentPlayer) {
+    WinnerState(GameState gameState, Player currentPlayer) {
         super(gameState);
         winnerPlayer = currentPlayer;
         currentPlayer.win();

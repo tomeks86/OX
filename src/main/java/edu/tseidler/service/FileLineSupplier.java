@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileLineSupplier implements Supplier<String> {
-    private List<String> lines = new LinkedList<>();
+    private List<String> lines;
     private Scanner scanner;
-    private boolean finished = false;
+    private boolean finished;
     private static final Logger logger = Logger.getLogger(Main.class);
 
     public FileLineSupplier(InputStream input_file) {
+        finished = false;
         lines = new BufferedReader(new InputStreamReader(input_file)).lines().collect(Collectors.toList());
     }
 

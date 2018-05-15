@@ -11,7 +11,7 @@ public class LanguageSetupState extends GameState {
     public GameState getNextState() {
         output.accept(Language.get("CHOOSE_LANGUAGE"));
         String choice = input.get();
-        while (!OXGame.available.contains(choice)) {
+        while (!OXGame.availableLangShorts.contains(choice)) {
             if (choice.isEmpty()) break;
             output.accept(Language.get("CHOOSE_LANGUAGE"));
             choice = input.get();

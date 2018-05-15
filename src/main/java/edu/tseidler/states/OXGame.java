@@ -23,6 +23,7 @@ public class OXGame {
 
 
     private static final Logger logger = Logger.getLogger(Main.class);
+    private static final int MAXIMUM_NUMBER_OF_ROUNDS = 3;
     private static Properties properties;
     private final Supplier<String> inputSupplier;
     private final Consumer<String> output;
@@ -31,8 +32,8 @@ public class OXGame {
     private final PlayerList playerList;
     private GameState currentState;
 
-    public OXGame(String settings_file) {
-        properties = readProperties(settings_file);
+    public OXGame(String settingsFileName) {
+        properties = readProperties(settingsFileName);
         inputSupplier = getStringSupplier();
         output = getStringConsumer();
         lang = loadLanguage("");
@@ -43,7 +44,7 @@ public class OXGame {
     }
 
     public void start() {
-        while (GameState.gamesPlayed < 4) {
+        while (GameState.gamesPlayed <= MAXIMUM_NUMBER_OF_ROUNDS) {
             doOneCycle();
         }
     }
@@ -56,34 +57,50 @@ public class OXGame {
         PlayerList playerList = new PlayerList();
         String player1Name = (String) properties.getOrDefault("player1_name",
                 defaultProperties.get("player1_name"));
+        String player2Name = (String) properties.getOrDefault("player2_name",
+                defaultProperties.get("player2_name"));
+        BoardField player1Mark = playerMarkSetup();
+        BoardField player2Mark = player1Mark.other();
+        boolean isPlayer1First = isStartingPlayerSetup();
+        boolean isPlayer2First = !isPlayer1First;
+        playerList.add(new Player(player1Name, player1Mark, isPlayer1First));
+        playerList.add(new Player(player2Name, player2Mark, isPlayer2First));
+        return playerList;
+    }
+
+    private BoardField playerMarkSetup() {
         BoardField player1Mark = BoardField.X;
         try {
             player1Mark = BoardField.valueOf((String) properties.getOrDefault("player1_mark",
                     defaultProperties.get("player1_mark")));
+            if (player1Mark == BoardField.EMPTY) throw new IllegalArgumentException("cannot use EMPTY!");
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARN, "wrong player1 mark, should be X or O");
+            logger.log(Level.WARN, "wrong player1 mark, should be X or O, leaving default: " + defaultProperties.get("player1_mark"));
         }
-        boolean player1First = Boolean.valueOf((String) properties.getOrDefault("player1_first",
-                defaultProperties.get("player1_first")));
-        String player2Name = (String) properties.getOrDefault("player2_name",
-                defaultProperties.get("player2_name"));
-        BoardField player2Mark = player1Mark.other();
-        boolean player2First = !player1First;
-        playerList.add(new Player(player1Name, player1Mark, player1First));
-        playerList.add(new Player(player2Name, player2Mark, player2First));
-        return playerList;
+        return player1Mark;
+    }
+
+    private Boolean isStartingPlayerSetup() {
+        String valueRead = (String) properties.getOrDefault("player1_first",
+                defaultProperties.get("player1_first"));
+        if (!(valueRead.equalsIgnoreCase("true") || valueRead.equalsIgnoreCase("false"))) {
+            String isFirst = defaultProperties.get("player1_first");
+            logger.log(Level.WARN, "player1_first should be true or false, leaving default: " + isFirst);
+            valueRead = isFirst;
+        }
+        return Boolean.valueOf(valueRead);
     }
 
     static Language loadLanguage(String langShort) {
-        if (!available.contains(langShort))
-            if (!available.contains(properties.get("language")))
+        if (!availableLangShorts.contains(langShort))
+            if (!availableLangShorts.contains(properties.get("language")))
                 langShort = defaultProperties.get("language");
             else
                 langShort = (String) properties.get("language");
         return new Language(langShort);
     }
 
-    static Set<String> available = new HashSet<String>() {{
+    static Set<String> availableLangShorts = new HashSet<String>() {{
         add("en");
         add("pl");
     }};
@@ -128,7 +145,6 @@ public class OXGame {
                 put("file", DEFAULT_STRING_CONSUMER);
             }
         }};
-
         return consumerMap.get(properties.get("output"));
     }
 
@@ -148,20 +164,28 @@ public class OXGame {
     private Properties readProperties(String settings_file) {
         Properties properties = new Properties();
         if (settings_file.isEmpty()) {
-            try (InputStream inputStream = Main.class.getResourceAsStream("settings.properties")) {
-                properties.load(inputStream);
-            } catch (IOException e) {
-                logger.log(Level.ERROR, e.getMessage());
-                e.printStackTrace();
-            }
+            readPropertiesFromResources(properties);
         } else {
-            try (InputStream inputStream = Files.newInputStream(Paths.get(settings_file))) {
-                properties.load(inputStream);
-            } catch (IOException e) {
-                logger.log(Level.ERROR, e.getMessage());
-                e.printStackTrace();
-            }
+            readPropertiesFromFile(settings_file, properties);
         }
         return properties;
+    }
+
+    private void readPropertiesFromFile(String settings_file, Properties properties) {
+        try (InputStream inputStream = Files.newInputStream(Paths.get(settings_file))) {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void readPropertiesFromResources(Properties properties) {
+        try (InputStream inputStream = Main.class.getResourceAsStream("settings.properties")) {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
