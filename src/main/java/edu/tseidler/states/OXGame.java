@@ -93,10 +93,9 @@ public class OXGame {
 
     static Language loadLanguage(String langShort) {
         if (!availableLangShorts.contains(langShort))
-            if (!availableLangShorts.contains(properties.get("language")))
-                langShort = defaultProperties.get("language");
-            else
-                langShort = (String) properties.get("language");
+            langShort = !availableLangShorts.contains(properties.get("language")) ?
+                    defaultProperties.get("language") :
+                    (String) properties.get("language");
         return new Language(langShort);
     }
 
