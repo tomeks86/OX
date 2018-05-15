@@ -15,15 +15,15 @@ public class SetupState extends GameState {
     @Override
     public GameState getNextState() {
         output.accept(Language.get("WELCOME"));
-        output.accept(Language.get("SETUP"));
-        String choice = input.get();
-        while (isNotYesOrNo(choice)) {
+        String choice;
+        choice = promptAndGetResponse();
+        String defaultChoice = Language.get("NO");
+        while (isChoiceDIfferentThanYesOrNo(choice)) {
             if (choice.isEmpty()) {
-                choice = Language.get("NO");
-                continue;
+                choice = defaultChoice;
+                break;
             }
-            output.accept(Language.build("_ACCEPT_ _YESORNO_"));
-            choice = input.get();
+            choice = promptAndGetResponse();
         }
         if (choice.equalsIgnoreCase(Language.get("YES")))
             return new LanguageSetupState(this);
@@ -31,7 +31,14 @@ public class SetupState extends GameState {
             return new PlayerSetUpState(this);
     }
 
-    private boolean isNotYesOrNo(String resp) {
+    private String promptAndGetResponse() {
+        String choice;
+        output.accept(Language.build("_SETUP_ _YESORNNO_"));
+        choice = input.get();
+        return choice;
+    }
+
+    private boolean isChoiceDIfferentThanYesOrNo(String resp) {
         return !(Language.get("YES").equalsIgnoreCase(resp) || Language.get("NO").equalsIgnoreCase(resp));
     }
 

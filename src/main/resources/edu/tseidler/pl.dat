@@ -1,7 +1,9 @@
 UNDEFINED [nie znaleziono w pliku języka]
 WELCOME witaj w grze OXGame, wejdź w ustawienia lub skorzystaj z domyślnych
-SETUP ustawienia? tak/[nie]
+SETUP ustawienia?
 YESORNO tak/nie
+YYESORNO [tak]/nie
+YESORNNO tak/[nie]
 YES tak
 NO nie
 CHOOSE_LANGUAGE wybierz język: ([pl]/en)

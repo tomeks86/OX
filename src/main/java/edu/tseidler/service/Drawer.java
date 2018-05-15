@@ -8,7 +8,7 @@ import edu.tseidler.model.Fields;
 import java.util.Collections;
 
 public class Drawer {
-    public static final int MINIUMUM_FIELD_WIDTH = 3;
+    private static final int MINIUMUM_FIELD_WIDTH = 3;
     private final int maxRow;
     private final int maxCol;
     private final int maxWidth;

@@ -1,7 +1,9 @@
 UNDEFINED [not defined in the language file]
 WELCOME hello to the OXGame, enter setup or leave defaults
-SETUP enter setup? yes/[no]
+SETUP enter setup?
 YESORNO yes/no
+YYESORNO [yes]/no
+YESORNNO yes/[no]
 YES yes
 NO no
 CHOOSE_LANGUAGE choose language: ([en]/pl)
