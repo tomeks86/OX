@@ -19,7 +19,10 @@ SECOND drugi
 SIGN znak O / X
 BOARD_SIZE rozmiar planszy
 GAME_OVER koniec gry
-BOARD_SIZE_FORMAT podaj rozmiar w formacie: "m n o" m - liczba wierszy (minimum 3), n - liczba kolumn (miniumum 3), o - liczba wygrywających (minimum 3 oraz nie większa niż min(m,n))
+BOARD_SIZE_FORMAT1 podaj rozmiar w formacie: "W K Y", gdzie R - liczba wierszy (minimum 3, maximum 200),
+BOARD_SIZE_FORMAT2 K - liczba kolumn (miniumum 3, maximum 200), Y - liczba wygrywających w linii (minimum 3 oraz nie większa niż min(W,K))
+BOARD_SIZE_DEFAULT (W, K, Y) = (3, 3, 3)
+BOARD_PARAMETERS_CHANGED parametry planszy zostały dopasowane do wymagań
 PLAYER_SETUP podaj nazwę pierwszego gracza
 NAME nazwa
 MARK znak
@@ -47,5 +50,4 @@ QUIT wyjdź
 ENTER wprowadzić
 TRY spróbuj
 AGAIN ponownie
-BOARD_PARAMETERS_CHANGED parametry planszy zostały dopasowane do wymagań
 ACCEPT w porządku?

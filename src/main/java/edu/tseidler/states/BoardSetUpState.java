@@ -15,39 +15,34 @@ public class BoardSetUpState extends GameState {
     @Override
     public GameState getNextState() {
         output.accept(Language.get("BOARD_SETUP"));
-        output.accept(Language.get("BOARD_SIZE_FORMAT"));
-        int[] boardDimensions = InputParser.parseBoardSize(input.get());
-        output.accept(Language.get("UNDERSTOOD") + " " + Arrays.toString(boardDimensions));
-        BoardParameters parameters = new BoardParameters(boardDimensions[0], boardDimensions[1], boardDimensions[2]);
-        this.board = new Board(parameters);
-        if (parameters.isChanged()) {
+        BoardParameters parameters;
+        parameters = getBoardParameters();
+        if (parameters.areChanged()) {
             output.accept(Language.get("BOARD_PARAMETERS_CHANGED"));
-            output.accept(board.toString()+ "\n");
             boolean accepted = false;
             while (!accepted) {
-                promptAcceptance();
+                output.accept(Language.build("_ACCEPT_ _YESORNO_"));
                 String resp = input.get();
-                while (isNotYesOrNo(resp)) {
-                    promptAcceptance();
+                while (isResponseOtherThanYesOrNo(resp)) {
+                    output.accept(Language.build("_ACCEPT_ _YESORNO_"));
                     resp = input.get();
                 }
                 if (resp.equalsIgnoreCase(Language.get("YES"))) {
                     accepted = true;
                 } else if (resp.equalsIgnoreCase(Language.get("NO"))) {
-                    parameters = getBoardParametersAgain();
-                    if (!parameters.isChanged())
+                    parameters = getBoardParameters();
+                    if (!parameters.areChanged())
                         accepted = true;
                 }
             }
-        } else
-            output.accept(board.toString() + "\n");
+        }
         return new PlayerSetUpState(this);
     }
 
-    private BoardParameters getBoardParametersAgain() {
+    private BoardParameters getBoardParameters() {
         int[] boardDimensions;
         BoardParameters parameters;
-        output.accept(Language.get("BOARD_SIZE_FORMAT"));
+        promptBoardSetup();
         boardDimensions = InputParser.parseBoardSize(input.get());
         output.accept(Language.get("UNDERSTOOD") + " " + Arrays.toString(boardDimensions));
         parameters = new BoardParameters(boardDimensions[0], boardDimensions[1], boardDimensions[2]);
@@ -56,11 +51,13 @@ public class BoardSetUpState extends GameState {
         return parameters;
     }
 
-    private void promptAcceptance() {
-        output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+    private void promptBoardSetup() {
+        output.accept(Language.get("BOARD_SIZE_FORMAT1"));
+        output.accept(Language.get("BOARD_SIZE_FORMAT2"));
+        output.accept(Language.get("BOARD_SIZE_DEFAULT"));
     }
 
-    private boolean isNotYesOrNo(String resp) {
+    private boolean isResponseOtherThanYesOrNo(String resp) {
         return !(Language.get("YES").equalsIgnoreCase(resp) || Language.get("NO").equalsIgnoreCase(resp));
     }
 

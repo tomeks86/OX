@@ -19,7 +19,10 @@ SECOND second
 SIGN sign O / X
 BOARD_SIZE size of board
 GAME_OVER game finished
-BOARD_SIZE_FORMAT provide board size in format: "m n w" where m - number of rows (minimum 3), n - number of columns (minimum 3) and w is the "winning number" (minimum 3 and not larger than min(m,n))
+BOARD_SIZE_FORMAT1 provide board size in format: "R C W" where R - number of rows (minimum 3, maximum 200),
+BOARD_SIZE_FORMAT2 C - number of columns (minimum 3, maximum 200) and W is the winning sequence length (minimum 3 and not larger than min(R,C))
+BOARD_SIZE_DEFAULT default: (R, C, W) = (3, 3, 3)
+BOARD_PARAMETERS_CHANGED board parameters were adjusted
 PLAYER_SETUP enter name of the first player
 NAME name
 MARK mark
@@ -47,5 +50,4 @@ QUIT quit
 ENTER enter
 TRY try
 AGAIN again
-BOARD_PARAMETERS_CHANGED board parameters were adjusted
 ACCEPT is it OK?
