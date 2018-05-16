@@ -21,10 +21,10 @@ public class BoardSetUpState extends GameState {
             output.accept(Language.get("BOARD_PARAMETERS_CHANGED"));
             boolean accepted = false;
             while (!accepted) {
-                output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+                output.accept(Language.build("_ACCEPT_BOARD_ _YESORNO_"));
                 String resp = input.get();
                 while (isResponseOtherThanYesOrNo(resp)) {
-                    output.accept(Language.build("_ACCEPT_ _YESORNO_"));
+                    output.accept(Language.build("_ACCEPT_BOARD_ _YESORNO_"));
                     resp = input.get();
                 }
                 if (resp.equalsIgnoreCase(Language.get("YES"))) {
