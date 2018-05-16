@@ -13,7 +13,7 @@ public class SetupSummaryState extends GameState {
         output.accept(lang.toString());
         output.accept(board.toString());
         output.accept(players.toString() + "\n");
-        output.accept(Language.build("( _TO_ _QUIT_ _ENTER_ : _QUIT_ )"));
+        output.accept(Language.build("_TO_ _QUIT_ _ENTER_ : _QUIT_"));
         output.accept("\n");
         return new Running(this);
     }

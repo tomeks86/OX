@@ -5,12 +5,12 @@ import static edu.tseidler.service.Color.*;
 public enum BoardField {
     EMPTY {
         @Override
-        BoardField other() {
+        public BoardField other() {
             return EMPTY;
         }
     }, O {
         @Override
-        BoardField other() {
+        public BoardField other() {
             return X;
         }
 
@@ -20,7 +20,7 @@ public enum BoardField {
         }
     }, X {
         @Override
-        BoardField other() {
+        public BoardField other() {
             return O;
         }
 
@@ -30,5 +30,5 @@ public enum BoardField {
         }
     };
 
-    abstract BoardField other();
+    public abstract BoardField other();
 }

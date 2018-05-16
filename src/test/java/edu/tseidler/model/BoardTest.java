@@ -159,9 +159,9 @@ public class BoardTest {
         board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(board.getMaxRow(), maxRow);
-        sa.assertEquals(board.getMaxCol(), maxCol);
-        sa.assertEquals(board.getWinningNumber(), winningNumber);
+        sa.assertEquals(board.getMaxRow(), Math.min(20, maxRow));
+        sa.assertEquals(board.getMaxCol(), Math.min(20, maxCol));
+        sa.assertEquals(board.getWinningNumber(), Math.min(20, winningNumber));
         sa.assertAll();
     }
 }

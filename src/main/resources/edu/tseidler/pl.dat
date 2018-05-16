@@ -1,23 +1,32 @@
 UNDEFINED [nie znaleziono w pliku języka]
 WELCOME witaj w grze OXGame, wejdź w ustawienia lub skorzystaj z domyślnych
-SETUP ustawienia? tak/[nie]
+SETUP ustawienia?
 YESORNO tak/nie
+YYESORNO [tak]/nie
+YESORNNO tak/[nie]
 YES tak
 NO nie
 CHOOSE_LANGUAGE wybierz język: ([pl]/en)
 BOARD_SETUP rozmiar planszy
-BOARD ustawienia planszy
+BOARD ustawienia planszy (dopasowane)
 MAX_ROWS liczba wierszy
 MAX_COLS liczba kolumn
 WINNING_NUMBER liczba wygrywających w linii
 PLAYERS gracze
 PLAYER gracz
-FIRST zaczyna
-SIGN znak
+PLAYER_SETUP podaj nazwę pierwszego gracza
+EMPTY_NOT_ALLOWED (białe znaki oraz _ są ignorowane -> prowadzą do nazwy domyślnej)
+SELECTED_NAME wybrana nazwa:
+FIRST zaczynający
+SECOND drugi
+SIGN znak O / X
+SELECTED_MARK wybrany znak:
 BOARD_SIZE rozmiar planszy
 GAME_OVER koniec gry
-BOARD_SIZE_FORMAT podaj rozmiar w formacie: "[n, m] o" n - wiersze, m - kolumny, o - liczba wygrywających
-PLAYER_SETUP podaj nazwę pierwszego gracza
+BOARD_SIZE_FORMAT1 podaj rozmiar w formacie: "W K Y", gdzie R - liczba wierszy (minimum 3, maximum 200),
+BOARD_SIZE_FORMAT2 K - liczba kolumn (miniumum 3, maximum 20), Y - liczba wygrywających w linii (minimum 3 oraz nie większa niż min(W,K))
+BOARD_SIZE_DEFAULT (W, K, Y) = (3, 3, 3)
+BOARD_PARAMETERS_CHANGED parametry planszy zostały dopasowane do wymagań
 NAME nazwa
 MARK znak
 SUMMARY podsumowanie ustawień:
@@ -29,18 +38,24 @@ ON na
 NEXT_MOVE następny ruch
 FIELD pole
 WON wygrał
-GAME grę
+ROUND rundę
 DRAW remis
+DRAWEM remisem
 MATCH rozgrywka
 WINNER zwycięzca
 LOOSER przegrany
 SCORE wynik
 SCORES wyniki
 FINAL ostateczne
-SELECTED wybrany
+SELECTED wybrano:
 UNDERSTOOD zrozumiano
 TO aby
 QUIT wyjdź
 ENTER wprowadzić
 TRY spróbuj
 AGAIN ponownie
+ACCEPT w porządku?
+SELECT_NUMBER_OF_FREE_FIELD wybierz pole spośród dostępnych
+ENDED zakończona
+WINNING wygrywa
+CHOSE wybierz

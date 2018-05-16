@@ -67,10 +67,6 @@ public class Player {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(Language.build("_PLAYER_ _NAME_"))
-                .append(": " + name +"\n")
-                .append(Language.build("_PLAYER_ _MARK_"))
-                .append(": " + mark);
-        return sb.toString();
+        return Language.build(name + ", _MARK_ " + mark);
     }
 }

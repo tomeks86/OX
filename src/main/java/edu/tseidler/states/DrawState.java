@@ -9,11 +9,12 @@ public class DrawState extends GameState {
 
     @Override
     GameState getNextState() {
+        output.accept(board.draw());
         output.accept(Language.build("_DRAW_") + "\n");
         board.clear();
         players.getNext().draw();
         players.getNext().draw();
-        players.switchStarting();
+        players.switchStartingPlayer();
         GameState.gamesPlayed++;
         return new Running(this);
     }

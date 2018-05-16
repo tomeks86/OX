@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Language {
-    final String name;
-    static Map<String, String> wordMap;
+    private final String name;
+    private static Map<String, String> wordMap;
 
     public Language(String name) {
         this.name = name;
@@ -43,6 +43,6 @@ public class Language {
 
     @Override
     public String toString() {
-        return get("LANGUAGE") + ": " + name;
+        return get("LANGUAGE") + " " + name + "\n";
     }
 }

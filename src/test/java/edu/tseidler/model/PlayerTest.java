@@ -1,5 +1,6 @@
 package edu.tseidler.model;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -47,11 +48,15 @@ public class PlayerTest {
         playerList.add(player1);
         playerList.add(player2);
 
-        playerList.switchStarting();
+        playerList.switchStartingPlayer();
+        Player newPlayer1 = playerList.getNext();
+        Player newPlayer2 = playerList.getNext();
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(playerList.getNext(), player2);
-        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertEquals(newPlayer1, player2);
+        sa.assertEquals(newPlayer1.isFirst(), true);
+        sa.assertEquals(newPlayer2, player1);
+        sa.assertEquals(newPlayer2.isFirst(), false);
         sa.assertAll();
     }
 
@@ -60,11 +65,63 @@ public class PlayerTest {
         playerList.add(player2);
         playerList.add(player1);
 
-        playerList.switchStarting();
+        playerList.switchStartingPlayer();
+        Player newPlayer1 = playerList.getNext();
+        Player newPlayer2 = playerList.getNext();
 
         SoftAssert sa = new SoftAssert();
-        sa.assertEquals(playerList.getNext(), player2);
-        sa.assertEquals(playerList.getNext(), player1);
+        sa.assertEquals(newPlayer1, player2);
+        sa.assertEquals(newPlayer1.isFirst(), true);
+        sa.assertEquals(newPlayer2, player1);
+        sa.assertEquals(newPlayer2.isFirst(), false);
         sa.assertAll();
+    }
+
+    public void shouldNotSwitchBeginingPlayerAfterUsingSwitchTwice() {
+        playerList = new PlayerList();
+        playerList.add(player1);
+        playerList.add(player2);
+
+        playerList.switchStartingPlayer();
+        playerList.switchStartingPlayer();
+        Player newPlayer1 = playerList.getNext();
+        Player newPlayer2 = playerList.getNext();
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(newPlayer1, player1);
+        sa.assertEquals(newPlayer1.isFirst(), true);
+        sa.assertEquals(newPlayer2, player2);
+        sa.assertEquals(newPlayer2.isFirst(), false);
+        sa.assertAll();
+    }
+
+    public void shouldSwitchFirstAfterUsingSwitchWithNotFirstFirstSequence() {
+        playerList = new PlayerList();
+        playerList.add(player1);
+        playerList.add(player2);
+        playerList.getNext();
+
+        playerList.switchStartingPlayer();
+
+        SoftAssert sa = new SoftAssert();
+        sa.assertEquals(player2.isFirst(), true);
+        sa.assertEquals(player1.isFirst(), false);
+        sa.assertAll();
+    }
+
+    public void shouldChangeScoreWhenWin() {
+        int startScore = player1.getScore();
+
+        player1.win();
+
+        Assert.assertEquals(player1.getScore() - startScore, 3);
+    }
+
+    public void shouldChangeScoreWhenDraw() {
+        int startScore = player1.getScore();
+
+        player1.draw();
+
+        Assert.assertEquals(player1.getScore() - startScore, 1);
     }
 }
