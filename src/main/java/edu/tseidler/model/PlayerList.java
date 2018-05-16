@@ -51,14 +51,21 @@ public class PlayerList {
         Player player2 = getNext();
 
         if (player1.isFirst()) {
-            player1.unsetFirst();
-            player2.setFirst();
-            playersList.clear();
-            playersList.add(player2);
-            playersList.add(player1);
+            switchStarting(player1, player2);
+            inversePlayerListOrdering(player1, player2);
         } else {
-            player1.setFirst();
-            player2.unsetFirst();
+            switchStarting(player2, player1);
         }
+    }
+
+    private void inversePlayerListOrdering(Player player1, Player player2) {
+        playersList.clear();
+        playersList.add(player2);
+        playersList.add(player1);
+    }
+
+    private void switchStarting(Player player1, Player player2) {
+        player1.unsetFirst();
+        player2.setFirst();
     }
 }
