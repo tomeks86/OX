@@ -26,8 +26,8 @@ public class BoardTest {
     }
 
     @Test(dataProvider = "goodInitializationParameters")
-    public void shouldInitializeBoard(int maxRow, int maxCol, int winningNumber) {
-        board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
+    public void shouldInitializeBoard(int maxRow, int maxCol, int winningSequenceLength) {
+        board = new Board(new BoardParameters(maxRow, maxCol, winningSequenceLength));
 
         assertThat(board.get(new Coordinates(1,1))).isEqualTo(BoardField.EMPTY);
     }
@@ -43,13 +43,13 @@ public class BoardTest {
     }
 
     @Test(dataProvider = "poorInitializationParameters")
-    public void shouldInitializeWithCorrectedParameters(int maxRow, int maxCol, int winningNumber, int maxRowExptd, int maxColExptd, int winningNumberExptd) {
-        board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
+    public void shouldInitializeWithCorrectedParameters(int maxRow, int maxCol, int winningSequenceLength, int maxRowExptd, int maxColExptd, int winningSequenceLengthExptd) {
+        board = new Board(new BoardParameters(maxRow, maxCol, winningSequenceLength));
 
         SoftAssert sa = new SoftAssert();
         sa.assertEquals(board.getMaxRow(), maxRowExptd, "wrong maxRows");
         sa.assertEquals(board.getMaxCol(), maxColExptd, "wrong maxCols");
-        sa.assertEquals(board.getWinningNumber(), winningNumberExptd, "wrong winningNumber");
+        sa.assertEquals(board.getWinningNumber(), winningSequenceLengthExptd, "wrong winningSequenceLength");
         sa.assertAll();
     }
 
@@ -119,7 +119,7 @@ public class BoardTest {
     public void shouldFillAllTheBoardWithX() {
         board = new Board(new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
         for (int i = 0; i < 10; i++) {
-            board.put(i, BoardField.X);
+            board.put(new Choice(i), BoardField.X);
         }
 
         assertThat(board.ifFull()).isTrue();
@@ -139,7 +139,7 @@ public class BoardTest {
     public void shouldFindMarkAfterPuttingWithSingleCoordinate(int simpleCoord, int[] complexCoord) {
         board = new Board(new BoardParameters(4, 5, 3));
 
-        board.put(simpleCoord, BoardField.O);
+        board.put(new Choice(simpleCoord), BoardField.O);
 
         assertThat(board.get(new Coordinates(complexCoord[0], complexCoord[1]))).isEqualTo(BoardField.O);
     }
@@ -155,13 +155,13 @@ public class BoardTest {
     }
 
     @Test(dataProvider = "parametersForBoardInitializationWithNumberOfWinningFields")
-    public void setBoardWinningNumber(int maxRow, int maxCol, int winningNumber) {
-        board = new Board(new BoardParameters(maxRow, maxCol, winningNumber));
+    public void setBoardWinningNumber(int maxRow, int maxCol, int winningSequenceLength) {
+        board = new Board(new BoardParameters(maxRow, maxCol, winningSequenceLength));
 
         SoftAssert sa = new SoftAssert();
         sa.assertEquals(board.getMaxRow(), Math.min(20, maxRow));
         sa.assertEquals(board.getMaxCol(), Math.min(20, maxCol));
-        sa.assertEquals(board.getWinningNumber(), Math.min(20, winningNumber));
+        sa.assertEquals(board.getWinningNumber(), Math.min(20, winningSequenceLength));
         sa.assertAll();
     }
 }

@@ -22,7 +22,7 @@ public class Board {
     }
 
     int getWinningNumber() {
-        return boardParameters.getWinningNumber();
+        return boardParameters.getWinninngSequenceLength();
     }
 
     public BoardField get(Coordinates coordinates) {
@@ -35,17 +35,15 @@ public class Board {
         return false;
     }
 
-    public int put(int coord, BoardField sign) {
-        coord -= 1;
+    public Choice put(Choice choice, BoardField sign) {
+        int coord = choice.getSelection() - 1;
         if (coord >= 0 && coord < getMaxRow() * getMaxCol()) {
             int row = coord / getMaxCol();
             int col = coord % getMaxCol();
             if (put(new Coordinates(row, col), sign))
-                return coord + 1;
-            else
-                return -1;
+                choice.setValid();
         }
-        return -1;
+        return choice;
     }
 
     private boolean areCoordsValid(Coordinates coords) {

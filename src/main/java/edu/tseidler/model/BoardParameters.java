@@ -3,23 +3,23 @@ package edu.tseidler.model;
 public class BoardParameters {
     private final int maxRow;
     private final int maxCol;
-    private final int winningNumber;
+    private final int winninngSequenceLength;
     private static final int MINIMUM_SIZE_AND_WINNING_NUMBER = 3;
     private static final int MAXIMUM_SIZE_AND_WINNING_NUMBER = 20;
     private boolean changed;
 
-    public BoardParameters(int maxRow, int maxCol, int winningNumber) {
+    public BoardParameters(int maxRow, int maxCol, int winninngSequenceLength) {
         int maxRowValidated = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, maxRow);
         maxRowValidated = Math.min(MAXIMUM_SIZE_AND_WINNING_NUMBER, maxRowValidated);
         int maxColValidated = Math.max(MINIMUM_SIZE_AND_WINNING_NUMBER, maxCol);
         maxColValidated = Math.min(MAXIMUM_SIZE_AND_WINNING_NUMBER, maxColValidated);
-        int winningNumberValidated = Math.max(
+        int winningSequenceLengthValidated = Math.max(
                 MINIMUM_SIZE_AND_WINNING_NUMBER,
-                getPossibleWinningNumber(maxRowValidated, maxColValidated, winningNumber));
+                getPossibleWinningNumber(maxRowValidated, maxColValidated, winninngSequenceLength));
         this.maxRow = maxRowValidated;
         this.maxCol = maxColValidated;
-        this.winningNumber = winningNumberValidated;
-        changed = maxRowValidated != maxRow || maxColValidated != maxCol || winningNumberValidated != winningNumber;
+        this.winninngSequenceLength = winningSequenceLengthValidated;
+        changed = maxRowValidated != maxRow || maxColValidated != maxCol || winningSequenceLengthValidated != winninngSequenceLength;
     }
 
     private int getPossibleWinningNumber(int maxRow, int maxCol, int proposedWinningNumber) {
@@ -36,8 +36,8 @@ public class BoardParameters {
         return maxCol;
     }
 
-    int getWinningNumber() {
-        return winningNumber;
+    int getWinninngSequenceLength() {
+        return winninngSequenceLength;
     }
 
     public boolean areChanged() {

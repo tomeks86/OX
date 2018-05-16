@@ -18,14 +18,14 @@ class Running extends GameState {
             return new GameOverState(this);
         output.accept(board.draw());
         Player currentPlayer = players.getNext();
-        int choice = -1;
+        Choice choice = new Choice();
         try {
-            while (choice == -1) {
+            while (!choice.isValid()) {
                 choice = getSelectionFromUser(currentPlayer, Language.build("_PLAYER_ " + currentPlayer.getName() + " _NEXT_MOVE_ " + currentPlayer.getMark()));
                 if (board.doWeHaveAWinner())
                     return new WinnerState(this);
             }
-            output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice + "\n");
+            output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice.getSelection() + "\n");
         } catch (GameQuitException e) {
             GameState.gamesPlayed = MAXIMUM_ROUNDS_PLAYED;
             return new GameOverState(this);
@@ -37,10 +37,10 @@ class Running extends GameState {
 
     }
 
-    private int getSelectionFromUser(Player currentPlayer, String message) {
+    private Choice getSelectionFromUser(Player currentPlayer, String message) {
         output.accept(message);
-        int choice = board.put(InputParser.parsePlayerMarkInput(input.get()), currentPlayer.getMark());
-        while (choice == -1) {
+        Choice choice = board.put(new Choice(InputParser.parsePlayerMarkInput(input.get())), currentPlayer.getMark());
+        while (!choice.isValid()) {
             choice = getSelectionFromUser(currentPlayer, Language.build("_TRY_ _AGAIN_ _SELECT_NUMBER_OF_FREE_FIELD_"));
         }
         return choice;

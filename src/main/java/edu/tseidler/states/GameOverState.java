@@ -21,7 +21,8 @@ public class GameOverState extends GameState {
         Player first = players.getNext();
         Player second = players.getNext();
         if (first.getScore() == second.getScore()) {
-            return Language.build("_MATCH_ _ENDED_ _DRAWEM_ _FINAL_ _SCORES_") + " : \n" +
+            return Language.build("_MATCH_ _ENDED_ _DRAWEM_") +"" +
+                    "\n" + Language.build(" _FINAL_ _SCORES_") + " : \n" +
                     Language.build(first.toString() + " _SCORE_") + " " + first.getScore() + "\n" +
                     Language.build(second.toString() + " _SCORE_") + " " + second.getScore();
         } else

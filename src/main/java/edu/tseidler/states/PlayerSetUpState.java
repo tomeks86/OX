@@ -32,9 +32,9 @@ public class PlayerSetUpState extends GameState {
         return new SetupSummaryState(this);
     }
 
-    private String getPlayerName(String number) {
+    private String getPlayerName(String playerNumber) {
         String pl_default = players.getNext().getName();
-        output.accept(Language.build("_PLAYER_ " + number + " _DEFAULT_ : " + pl_default + " _EMPTY_NOT_ALLOWED_"));
+        output.accept(Language.build("_PLAYER_ " + playerNumber + " _DEFAULT_ : " + pl_default + " _EMPTY_NOT_ALLOWED_"));
         String playerName = sanitize(input.get());
         return playerName.isEmpty() ? pl_default : playerName;
     }
@@ -67,7 +67,7 @@ public class PlayerSetUpState extends GameState {
         output.accept(Language.build("_START?_ _YESORNO_"));
         output.accept(Language.build("_DEFAULT_ _YES_"));
         String choice = input.get();
-        while (isNotYesOrNo(choice)) {
+        while (isResponseOtherThanYesOrNo(choice)) {
             if (choice.isEmpty())
                 return defaultStart;
             output.accept(Language.build("_AGAIN_ : _YYESORNO_"));
@@ -79,7 +79,7 @@ public class PlayerSetUpState extends GameState {
         return start;
     }
 
-    private boolean isNotYesOrNo(String resp) {
+    private boolean isResponseOtherThanYesOrNo(String resp) {
         return !(Language.get("YES").equalsIgnoreCase(resp) || Language.get("NO").equalsIgnoreCase(resp));
     }
 }
