@@ -5,11 +5,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 
 public class InputParserTest {
 
-    private static final int[] DEFAULT_DIMENSIONS = {3, 3, 3};
+    private static final String[] DEFAULT_DIMENSIONS = {"3", "3", "3"};
     private static final int DEFAULT_FAILSAFE_PLAYER_MARK_CHOICE = -1;
     private Language lang = new Language("en");
 
@@ -17,44 +16,44 @@ public class InputParserTest {
     private static final Object[][] dimensionsOnlyToParse() {
         return new Object[][]{
                 {"[ 3, 3]", DEFAULT_DIMENSIONS},
-                {"[2,4  ]", new int[]{2, 4, 3}},
-                {"[  10,1]", new int[]{10, 1, 3}},
-                {"  [100,50]", new int[]{100, 50, 3}},
-                {"[100 ,   500 ] ", new int[]{100, 500, 3}},
-                {"[ 1, 1]", new int[] {1, 1, 3}},
-                {"[ 1, 1, 1]", new int[] {0, 0, 0}},
-                {"[ 1, 2]", new int[] {1, 2, 3}},
-                {"[ 2, 2]", new int[] {2, 2, 3}},
-                {"[-2,-4  ]", new int[] {-2, -4, 3}},
-                {"[  10,-1]", new int[] {10, -1, 3}},
-                {"  [-100,50]", new int[] {-100, 50, 3}},
-                {"[-1 ,   1 ] ", new int[] {-1, 1, 3}},
-                {"ala ma kota", new int[] {0, 0, 0}},
-                {"3, 4 5", new int[] {3, 4, 5}},
-                {"3, 4, 5", new int[] {3, 4, 5}},
-                {"3  4  5", new int[] {3, 4, 5}},
+                {"[2,4  ]", new String[]{"2", "4", "3"}},
+                {"[  10,1]", new String[]{"10", "1", "3"}},
+                {"  [100,50]", new String[]{"100", "50", "3"}},
+                {"[100 ,   500 ] ", new String[]{"100", "500", "3"}},
+                {"[ 1, 1]", new String[] {"1", "1", "3"}},
+                {"[ 1, 1, 1]", new String[] {"0", "0", "0"}},
+                {"[ 1, 2]", new String[] {"1", "2", "3"}},
+                {"[ 2, 2]", new String[] {"2", "2", "3"}},
+                {"[-2,-4  ]", new String[] {"-2", "-4", "3"}},
+                {"[  10,-1]", new String[] {"10", "-1", "3"}},
+                {"  [-100,50]", new String[] {"-100", "50", "3"}},
+                {"[-1 ,   1 ] ", new String[] {"-1", "1", "3"}},
+                {"ala ma kota", new String[] {"0", "0", "0"}},
+                {"3, 4 5", new String[] {"3", "4", "5"}},
+                {"3, 4, 5", new String[] {"3", "4", "5"}},
+                {"3  4  5", new String[] {"3", "4", "5"}},
         };
     }
 
     @Test(dataProvider = "dimensionsOnlyToParse")
-    public void shouldParseBoardSize(String input, int[] expectedDimensions) {
+    public void shouldParseBoardSize(String input, String[] expectedDimensions) {
         assertThat(expectedDimensions).isEqualTo(InputParser.parseBoardSize(input));
     }
 
     @DataProvider
     private static final Object[][] dimensionsAndWinningNumberToParse() {
         return new Object[][]{
-                {"[ 3, 3] 5", new int[]{3, 3, 5}},
-                {"[2,4  ] 10", new int[]{2, 4, 10}},
-                {"[  10,1]   15 ", new int[]{10, 1, 15}},
-                {"  [100,50] 4", new int[]{100, 50, 4}},
-                {"[100 ,   500 ] 8", new int[]{100, 500, 8}},
-                {"[100 ,   500 ] -5", new int[] {100, 500, -5}},
+                {"[ 3, 3] 5", new String[]{"3", "3", "5"}},
+                {"[2,4  ] 10", new String[]{"2", "4", "10"}},
+                {"[  10,1]   15 ", new String[]{"10", "1", "15"}},
+                {"  [100,50] 4", new String[]{"100", "50", "4"}},
+                {"[100 ,   500 ] 8", new String[]{"100", "500", "8"}},
+                {"[100 ,   500 ] -5", new String[] {"100", "500", "-5"}},
         };
     }
 
     @Test(dataProvider = "dimensionsAndWinningNumberToParse")
-    public void shouldParseBoardSizeWithWinningNumber(String input, int[] expectedDimensions) {
+    public void shouldParseBoardSizeWithWinningNumber(String input, String[] expectedDimensions) {
         assertThat(expectedDimensions).isEqualTo(InputParser.parseBoardSize(input));
     }
 

@@ -22,7 +22,7 @@ public class Board {
     }
 
     int getWinningNumber() {
-        return boardParameters.getWinningNumber();
+        return boardParameters.getWinninngSequenceLength();
     }
 
     public BoardField get(Coordinates coordinates) {

@@ -23,9 +23,9 @@ public class FileLineSupplier implements Supplier<String> {
     private boolean finished;
     private static final Logger logger = Logger.getLogger(Main.class);
 
-    public FileLineSupplier(InputStream input_file) {
-        finished = false;
-        lines = new BufferedReader(new InputStreamReader(input_file)).lines().collect(Collectors.toList());
+    public FileLineSupplier(InputStream inputStream) {
+        this.finished = false;
+        this.lines = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.toList());
     }
 
     @Override
