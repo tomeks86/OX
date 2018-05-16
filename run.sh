@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROJECT=OX
-VERSION=1.2.0-SNAPSHOT
+VERSION=1.2.0
 
 if [ ! -e target/${PROJECT}-${VERSION}-jar-with-dependencies.jar ]; then
 	mvn clean install
