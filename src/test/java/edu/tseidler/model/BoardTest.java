@@ -119,7 +119,7 @@ public class BoardTest {
     public void shouldFillAllTheBoardWithX() {
         board = new Board(new BoardParameters(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_WINNING_NUMBER));
         for (int i = 0; i < 10; i++) {
-            board.put(i, BoardField.X);
+            board.put(new Choice(i), BoardField.X);
         }
 
         assertThat(board.ifFull()).isTrue();
@@ -139,7 +139,7 @@ public class BoardTest {
     public void shouldFindMarkAfterPuttingWithSingleCoordinate(int simpleCoord, int[] complexCoord) {
         board = new Board(new BoardParameters(4, 5, 3));
 
-        board.put(simpleCoord, BoardField.O);
+        board.put(new Choice(simpleCoord), BoardField.O);
 
         assertThat(board.get(new Coordinates(complexCoord[0], complexCoord[1]))).isEqualTo(BoardField.O);
     }
