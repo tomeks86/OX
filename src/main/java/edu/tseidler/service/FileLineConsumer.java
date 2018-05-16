@@ -30,7 +30,6 @@ public class FileLineConsumer implements Consumer<String> {
             out.write(escapeColors(output));
         } catch (IOException e) {
             logger.log(Level.ERROR, "unable to write to file: " + path + "; message: " + output);
-            e.printStackTrace();
         }
     }
 

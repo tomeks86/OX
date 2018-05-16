@@ -40,6 +40,7 @@ FIELD pole
 WON wygrał
 ROUND rundę
 DRAW remis
+DRAWEM remisem
 MATCH rozgrywka
 WINNER zwycięzca
 LOOSER przegrany
@@ -55,3 +56,5 @@ TRY spróbuj
 AGAIN ponownie
 ACCEPT w porządku?
 SELECT_NUMBER_OF_FREE_FIELD wybierz pole spośród dostępnych
+ENDED zakończona
+WINNING wygrywa

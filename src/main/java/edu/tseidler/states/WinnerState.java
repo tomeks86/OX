@@ -5,11 +5,13 @@ import edu.tseidler.model.Player;
 
 class WinnerState extends GameState {
     private final Player winnerPlayer;
+    private final Player looserPlayer;
 
-    WinnerState(GameState gameState, Player currentPlayer) {
+    WinnerState(GameState gameState) {
         super(gameState);
-        winnerPlayer = currentPlayer;
-        currentPlayer.win();
+        winnerPlayer = gameState.players.getNext();
+        looserPlayer = gameState.players.getNext();
+        winnerPlayer.win();
     }
 
     @Override
@@ -23,6 +25,7 @@ class WinnerState extends GameState {
     }
 
     private String gameWinnerStatement(Player winnerPlayer) {
-        return Language.build("_PLAYER_ " + winnerPlayer.getName() + " _WON_ _ROUND_");
+        return Language.get("WINNING") + " " + winnerPlayer.getMark() + ". " + winnerPlayer.getMark() + ": " + winnerPlayer.getScore() +
+        " " + looserPlayer.getMark() + ": " + looserPlayer.getScore();
     }
 }

@@ -6,9 +6,9 @@ import edu.tseidler.service.InputParser;
 
 class Running extends GameState {
 
-    public static final int MAXIMUM_ROUNDS_PLAYED = 3;
+    private static final int MAXIMUM_ROUNDS_PLAYED = 3;
 
-    public Running(GameState previousState) {
+    Running(GameState previousState) {
         super(previousState);
     }
 
@@ -31,7 +31,7 @@ class Running extends GameState {
                     marked = board.put(choice, currentPlayer.getMark());
                 }
                 if (marked && board.doWeHaveAWinner())
-                    return new WinnerState(this, currentPlayer);
+                    return new WinnerState(this);
             }
             output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice);
             output.accept("\n");

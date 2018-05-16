@@ -40,6 +40,7 @@ FIELD field
 WON won
 ROUND the round
 DRAW draw!
+DRAWEM draw
 MATCH match ended in
 WINNER winner
 LOOSER loser
@@ -55,3 +56,5 @@ TRY try
 AGAIN again
 ACCEPT is it OK?
 SELECT_NUMBER_OF_FREE_FIELD select amongst available fields
+ENDED ended with
+WINNING winning
