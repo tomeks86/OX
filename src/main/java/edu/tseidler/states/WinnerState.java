@@ -23,6 +23,6 @@ class WinnerState extends GameState {
     }
 
     private String gameWinnerStatement(Player winnerPlayer) {
-        return Language.build("_PLAYER_ " + winnerPlayer.getName() + " _WON_ _GAME_");
+        return Language.build("_PLAYER_ " + winnerPlayer.getName() + " _WON_ _ROUND_");
     }
 }

@@ -30,9 +30,7 @@ public class BoardSetUpState extends GameState {
                 if (resp.equalsIgnoreCase(Language.get("YES"))) {
                     accepted = true;
                 } else if (resp.equalsIgnoreCase(Language.get("NO"))) {
-                    parameters = getBoardParameters();
-                    if (!parameters.areChanged())
-                        accepted = true;
+                    return new BoardSetUpState(this);
                 }
             }
         }

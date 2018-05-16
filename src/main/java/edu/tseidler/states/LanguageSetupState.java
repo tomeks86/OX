@@ -9,14 +9,13 @@ public class LanguageSetupState extends GameState {
 
     @Override
     public GameState getNextState() {
-        String choice;
-        choice = getLanguageChoice();
+        String choice = getLanguageChoice();
         while (!OXGame.availableLangShorts.contains(choice)) {
             if (choice.isEmpty()) break;
-            choice = getLanguageChoice();
+            return new LanguageSetupState(this);
         }
         lang = OXGame.loadLanguage(choice);
-        output.accept(lang.toString() + " (" + Language.get("SELECTED") +")\n");
+        output.accept(Language.build("_SELECTED_ " + lang.toString()) + "\n");
         return new BoardSetUpState(this);
     }
 

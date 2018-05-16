@@ -73,7 +73,10 @@ public class OXGame {
         try {
             player1Mark = BoardField.valueOf((String) properties.getOrDefault("player1_mark",
                     defaultProperties.get("player1_mark")));
-            if (player1Mark == BoardField.EMPTY) throw new IllegalArgumentException("cannot use EMPTY!");
+            if (player1Mark == BoardField.EMPTY) {
+                player1Mark = BoardField.valueOf(defaultProperties.get("player1_mark"));
+                logger.log(Level.WARN, "cannot use EMPTY for player mark!");
+            }
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARN, "wrong player1 mark, should be X or O, leaving default: " + defaultProperties.get("player1_mark"));
         }
@@ -118,15 +121,18 @@ public class OXGame {
     }};
 
     private Board getBoard() {
-        int board_rows = Integer.valueOf(defaultProperties.get("board_rows"));
-        int board_cols = Integer.valueOf(defaultProperties.get("board_cols"));
-        int board_winn = Integer.valueOf(defaultProperties.get("board_winn"));
+        int board_rows;
+        int board_cols;
+        int board_winn;
         try {
             board_rows = Integer.valueOf((String) properties.get("board_rows"));
             board_cols = Integer.valueOf((String) properties.get("board_cols"));
             board_winn = Integer.valueOf((String) properties.get("board_winn"));
         } catch (Exception e) {
             logger.log(Level.ERROR, "error parsing board parameters from settings file");
+            board_rows = Integer.valueOf(defaultProperties.get("board_rows"));
+            board_cols = Integer.valueOf(defaultProperties.get("board_cols"));
+            board_winn = Integer.valueOf(defaultProperties.get("board_winn"));
         }
         BoardParameters parameters = new BoardParameters(board_rows, board_cols, board_winn);
         return new Board(parameters);

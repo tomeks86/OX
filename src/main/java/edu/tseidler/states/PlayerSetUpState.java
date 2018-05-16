@@ -11,28 +11,36 @@ public class PlayerSetUpState extends GameState {
 
     @Override
     public GameState getNextState() {
-        String player1_name = getPlayerName("1");
+        String player1Name = getPlayerName("1");
+        output.accept(Language.build("_SELECTED_NAME_ " + player1Name));
 
         BoardField default_mark = BoardField.X;
-        BoardField player1_mark = getPlayerMark(default_mark);
+        BoardField player1Mark = getPlayerMark(default_mark);
+        output.accept(Language.build("_SELECTED_MARK_ " + player1Mark));
 
         boolean default_start = true;
         boolean start = getPlayer1Start(default_start);
+        output.accept(Language.get("SELECTED") + " " + (start ? Language.get("FIRST") : Language.get("SECOND")));
 
-        String player2_name = getPlayerName("2");
+        String player2Name = getPlayerName("2");
+        output.accept(Language.build("_SELECTED_NAME_ " + player2Name));
 
-        Player player1 = new Player(player1_name, player1_mark, start);
-        Player player2 = Player.second(player1, player2_name);
+        Player player1 = new Player(player1Name, player1Mark, start);
+        Player player2 = Player.second(player1, player2Name);
         players.add(player1);
         players.add(player2);
         return new SetupSummaryState(this);
     }
 
-    private String getPlayerName(String n) {
+    private String getPlayerName(String number) {
         String pl_default = players.getNext().getName();
-        output.accept(Language.build("_PLAYER_ " + n + " _DEFAULT_ : " + pl_default));
-        String player_name = input.get();
-        return player_name.isEmpty() ? pl_default : player_name;
+        output.accept(Language.build("_PLAYER_ " + number + " _DEFAULT_ : " + pl_default + " _EMPTY_NOT_ALLOWED_"));
+        String playerName = sanitize(input.get());
+        return playerName.isEmpty() ? pl_default : playerName;
+    }
+
+    private String sanitize(String input) {
+        return input.replaceAll("_", "").trim();
     }
 
     private BoardField getPlayerMark(BoardField default_mark) {
@@ -43,7 +51,8 @@ public class PlayerSetUpState extends GameState {
         boolean provided = false;
         while (!provided) {
             try {
-                BoardField.valueOf(choice);
+                player1_mark = BoardField.valueOf(choice);
+                if (player1_mark == BoardField.EMPTY) throw new IllegalArgumentException();
                 provided = true;
             } catch (IllegalArgumentException e) {
                 output.accept("X / O");

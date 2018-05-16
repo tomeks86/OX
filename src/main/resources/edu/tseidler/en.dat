@@ -14,16 +14,19 @@ MAX_COLS columns number
 WINNING_NUMBER number of winning fields
 PLAYERS players
 PLAYER player
+PLAYER_SETUP enter name of the first player
+EMPTY_NOT_ALLOWED (white spaces and _ are ignored -> lead to default name)
+SELECTED_NAME selected name:
 FIRST beginning
 SECOND second
 SIGN sign O / X
+SELECTED_MARK selected mark:
 BOARD_SIZE size of board
 GAME_OVER game finished
 BOARD_SIZE_FORMAT1 provide board size in format: "R C W" where R - number of rows (minimum 3, maximum 200),
-BOARD_SIZE_FORMAT2 C - number of columns (minimum 3, maximum 200) and W is the winning sequence length (minimum 3 and not larger than min(R,C))
+BOARD_SIZE_FORMAT2 C - number of columns (minimum 3, maximum 20) and W is the winning sequence length (minimum 3 and not larger than min(R,C))
 BOARD_SIZE_DEFAULT default: (R, C, W) = (3, 3, 3)
 BOARD_PARAMETERS_CHANGED board parameters were adjusted
-PLAYER_SETUP enter name of the first player
 NAME name
 MARK mark
 SUMMARY overview of the settings:
@@ -35,7 +38,7 @@ ON on
 NEXT_MOVE next move
 FIELD field
 WON won
-GAME the game
+ROUND the round
 DRAW draw!
 MATCH match ended in
 WINNER winner
@@ -43,7 +46,7 @@ LOOSER loser
 SCORE score
 SCORES scores
 FINAL final
-SELECTED selected
+SELECTED selected:
 UNDERSTOOD understood
 TO to
 QUIT quit
@@ -51,3 +54,4 @@ ENTER enter
 TRY try
 AGAIN again
 ACCEPT is it OK?
+SELECT_NUMBER_OF_FREE_FIELD select amongst available fields

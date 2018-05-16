@@ -26,7 +26,7 @@ class Running extends GameState {
                 choice = InputParser.parsePlayerMarkInput(input.get());
                 marked = board.put(choice, currentPlayer.getMark());
                 while (!marked) {
-                    output.accept(Language.build("( _TRY_ _AGAIN_ )"));
+                    output.accept(Language.build("_TRY_ _AGAIN_ _SELECT_NUMBER_OF_FREE_FIELD_"));
                     choice = InputParser.parsePlayerMarkInput(input.get());
                     marked = board.put(choice, currentPlayer.getMark());
                 }

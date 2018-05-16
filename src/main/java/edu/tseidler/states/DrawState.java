@@ -9,6 +9,7 @@ public class DrawState extends GameState {
 
     @Override
     GameState getNextState() {
+        output.accept(board.draw());
         output.accept(Language.build("_DRAW_") + "\n");
         board.clear();
         players.getNext().draw();
