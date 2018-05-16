@@ -35,14 +35,17 @@ public class Board {
         return false;
     }
 
-    public boolean put(int coord, BoardField sign) {
+    public int put(int coord, BoardField sign) {
         coord -= 1;
         if (coord >= 0 && coord < getMaxRow() * getMaxCol()) {
             int row = coord / getMaxCol();
             int col = coord % getMaxCol();
-            return put(new Coordinates(row, col), sign);
+            if (put(new Coordinates(row, col), sign))
+                return coord + 1;
+            else
+                return -1;
         }
-        return false;
+        return -1;
     }
 
     private boolean areCoordsValid(Coordinates coords) {

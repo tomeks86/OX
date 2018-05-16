@@ -9,8 +9,8 @@ class WinnerState extends GameState {
 
     WinnerState(GameState gameState) {
         super(gameState);
-        winnerPlayer = gameState.players.getNext();
         looserPlayer = gameState.players.getNext();
+        winnerPlayer = gameState.players.getNext();
         winnerPlayer.win();
     }
 
@@ -19,7 +19,7 @@ class WinnerState extends GameState {
         output.accept(board.draw());
         output.accept(gameWinnerStatement(winnerPlayer) + "\n");
         board.clear();
-        players.switchStarting();
+        players.switchStartingPlayer();
         GameState.gamesPlayed++;
         return new Running(this);
     }

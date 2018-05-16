@@ -18,8 +18,8 @@ public class PlayerSetUpState extends GameState {
         BoardField player1Mark = getPlayerMark(default_mark);
         output.accept(Language.build("_SELECTED_MARK_ " + player1Mark));
 
-        boolean default_start = true;
-        boolean start = getPlayer1Start(default_start);
+        boolean defaultStart = true;
+        boolean start = getPlayer1Start(defaultStart);
         output.accept(Language.get("SELECTED") + " " + (start ? Language.get("FIRST") : Language.get("SECOND")));
 
         String player2Name = getPlayerName("2");
@@ -55,22 +55,22 @@ public class PlayerSetUpState extends GameState {
                 if (player1_mark == BoardField.EMPTY) throw new IllegalArgumentException();
                 provided = true;
             } catch (IllegalArgumentException e) {
-                output.accept("X / O");
+                output.accept(Language.build("_CHOSE_ X / O"));
                 choice = input.get().toUpperCase();
             }
         }
         return player1_mark;
     }
 
-    private boolean getPlayer1Start(boolean default_start) {
-        boolean start = default_start;
+    private boolean getPlayer1Start(boolean defaultStart) {
+        boolean start = defaultStart;
         output.accept(Language.build("_START?_ _YESORNO_"));
         output.accept(Language.build("_DEFAULT_ _YES_"));
         String choice = input.get();
         while (isNotYesOrNo(choice)) {
             if (choice.isEmpty())
-                return default_start;
-            output.accept(Language.build("_AGAIN_ _YESORNO_"));
+                return defaultStart;
+            output.accept(Language.build("_AGAIN_ : _YYESORNO_"));
             choice = input.get();
         }
         if (choice.equalsIgnoreCase(lang.get("NO"))) {

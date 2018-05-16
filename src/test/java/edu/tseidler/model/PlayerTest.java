@@ -48,7 +48,7 @@ public class PlayerTest {
         playerList.add(player1);
         playerList.add(player2);
 
-        playerList.switchStarting();
+        playerList.switchStartingPlayer();
         Player newPlayer1 = playerList.getNext();
         Player newPlayer2 = playerList.getNext();
 
@@ -65,7 +65,7 @@ public class PlayerTest {
         playerList.add(player2);
         playerList.add(player1);
 
-        playerList.switchStarting();
+        playerList.switchStartingPlayer();
         Player newPlayer1 = playerList.getNext();
         Player newPlayer2 = playerList.getNext();
 
@@ -82,8 +82,8 @@ public class PlayerTest {
         playerList.add(player1);
         playerList.add(player2);
 
-        playerList.switchStarting();
-        playerList.switchStarting();
+        playerList.switchStartingPlayer();
+        playerList.switchStartingPlayer();
         Player newPlayer1 = playerList.getNext();
         Player newPlayer2 = playerList.getNext();
 
@@ -101,7 +101,7 @@ public class PlayerTest {
         playerList.add(player2);
         playerList.getNext();
 
-        playerList.switchStarting();
+        playerList.switchStartingPlayer();
 
         SoftAssert sa = new SoftAssert();
         sa.assertEquals(player2.isFirst(), true);

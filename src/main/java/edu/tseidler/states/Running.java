@@ -18,23 +18,14 @@ class Running extends GameState {
             return new GameOverState(this);
         output.accept(board.draw());
         Player currentPlayer = players.getNext();
-        boolean marked = false;
         int choice = -1;
         try {
-            while (!marked && !board.ifFull()) {
-                output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _NEXT_MOVE_ " + currentPlayer.getMark()));
-                choice = InputParser.parsePlayerMarkInput(input.get());
-                marked = board.put(choice, currentPlayer.getMark());
-                while (!marked) {
-                    output.accept(Language.build("_TRY_ _AGAIN_ _SELECT_NUMBER_OF_FREE_FIELD_"));
-                    choice = InputParser.parsePlayerMarkInput(input.get());
-                    marked = board.put(choice, currentPlayer.getMark());
-                }
-                if (marked && board.doWeHaveAWinner())
+            while (choice == -1) {
+                choice = getSelectionFromUser(currentPlayer, Language.build("_PLAYER_ " + currentPlayer.getName() + " _NEXT_MOVE_ " + currentPlayer.getMark()));
+                if (board.doWeHaveAWinner())
                     return new WinnerState(this);
             }
-            output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice);
-            output.accept("\n");
+            output.accept(Language.build("_PLAYER_ " + currentPlayer.getName() + " _PUT_ " + currentPlayer.getMark() + " _ON_ _FIELD_") + " : " + choice + "\n");
         } catch (GameQuitException e) {
             GameState.gamesPlayed = MAXIMUM_ROUNDS_PLAYED;
             return new GameOverState(this);
@@ -44,5 +35,14 @@ class Running extends GameState {
         else
             return new DrawState(this);
 
+    }
+
+    private int getSelectionFromUser(Player currentPlayer, String message) {
+        output.accept(message);
+        int choice = board.put(InputParser.parsePlayerMarkInput(input.get()), currentPlayer.getMark());
+        while (choice == -1) {
+            choice = getSelectionFromUser(currentPlayer, Language.build("_TRY_ _AGAIN_ _SELECT_NUMBER_OF_FREE_FIELD_"));
+        }
+        return choice;
     }
 }

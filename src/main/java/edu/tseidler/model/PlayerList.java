@@ -46,15 +46,15 @@ public class PlayerList {
         return sb.toString();
     }
 
-    public void switchStarting() {
+    public void switchStartingPlayer() {
         Player player1 = getNext();
         Player player2 = getNext();
 
         if (player1.isFirst()) {
-            switchStarting(player1, player2);
+            switchStartingPlayer(player1, player2);
             inversePlayerListOrdering(player1, player2);
         } else {
-            switchStarting(player2, player1);
+            switchStartingPlayer(player2, player1);
         }
     }
 
@@ -64,7 +64,7 @@ public class PlayerList {
         playersList.add(player1);
     }
 
-    private void switchStarting(Player player1, Player player2) {
+    private void switchStartingPlayer(Player player1, Player player2) {
         player1.unsetFirst();
         player2.setFirst();
     }
